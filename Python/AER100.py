@@ -47,6 +47,19 @@ def kaprekar(number, count):
         return kaprekar(str(mayor - minor), count + 1)
 
 
+def exec_numbers(numbers):
+    """
+    Executes the Kaprekar constant algorithm for a list of numbers.
+    :param numbers: A list of strings with the numbers to check.
+    """
+    for number in numbers:
+        try:
+            print(kaprekar(number, 0))
+        except Exception as error:
+            print(f"ERROR: Invalid input {number}")
+            print(f"({error.__class__.__name__}) {error}")
+
+
 def load_numbers(path):
     """
     Loads a list of numbers from a file.
@@ -68,35 +81,62 @@ def load_numbers(path):
     return numbers
 
 
-def exec_numbers(numbers):
+def input_numbers():
     """
-    Executes the Kaprekar constant algorithm for a list of numbers.
-    :param numbers: A list of strings with the numbers to check.
+    Loads a list of numbers from the console input.
+    :return: A list of strings with the numbers; otherwise an empty list.
     """
-    for number in numbers:
-        try:
-            print(kaprekar(number, 0))
-        except Exception as error:
-            print(f"ERROR: Invalid input {number} ({error.__class__.__name__})")
-            print(error)
+
+    # Initialize a list of numbers:
+    numbers = []
+
+    # Obtain the list of numbers:
+    try:
+        size = int(input())
+        numbers = [input() for _ in range(size)]
+    except Exception as error:
+        print(f"ERROR: Invalid console input")
+        print(f"({error.__class__.__name__}) {error}")
+
+    # Exit with the list of numbers:
+    return numbers
+
+
+def exec_files(paths):
+    """
+    Executes the Kaprekar constant algorithm for a list of files.
+    :param paths: A list of strings with the files to check.
+    """
+    for path in paths:
+        if numbers := load_numbers(path):
+            exec_numbers(numbers)
+        else:
+            print(f"ERROR: Invalid file {path}")
+
+
+def exec_input():
+    """
+    Executes the Kaprekar constant algorithm for a list of inputs.
+    """
+    if numbers := input_numbers():
+        exec_numbers(numbers)
 
 
 def main():
     """
     Main entry for the Kaprekar constant problem.
     """
-    if len(sys.argv) > 1:
-        if sys.argv[1] == "-n":
-            exec_numbers(sys.argv[2:])
-        else:
-            for path in sys.argv[1:]:
-                if numbers := load_numbers(path):
-                    exec_numbers(numbers)
-                else:
-                    print(f"ERROR: Invalid file {path}")
-
+    argc = len(sys.argv)
+    if argc < 2:
+        exec_input()
+    elif sys.argv[1] == "-i":
+        exec_input()
+    elif sys.argv[1] == "-n":
+        exec_numbers(sys.argv[2:])
+    elif sys.argv[1] == "-f":
+        exec_files(sys.argv[2:])
     else:
-        print("ERROR: Input files needed")
+        exec_files(sys.argv[1:])
 
 
 ######################################################################
