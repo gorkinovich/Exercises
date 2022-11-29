@@ -109,14 +109,12 @@ def main(problem, on_lines, input_mode=InputMode.SIZE_FIRST):
     :param input_mode: The input mode to load the data.
     """
     argc = len(sys.argv)
-    if argc < 2:
-        exec_input(problem, on_lines, input_mode)
-    elif sys.argv[1] == "-h":
-        exec_help()
-    elif sys.argv[1] == "-i":
+    if argc < 2 or sys.argv[1] == "-i":
         exec_input(problem, on_lines, input_mode)
     elif sys.argv[1] == "-f":
         exec_files(problem, on_lines, sys.argv[2:])
+    elif sys.argv[1] == "-h":
+        exec_help()
     elif sys.argv[1] == "-d":
         problem(sys.argv[2:])
     else:
