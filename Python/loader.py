@@ -1,3 +1,6 @@
+"""
+Generic data loader for problems.
+"""
 import sys
 import enum
 
@@ -7,6 +10,9 @@ import enum
 ######################################################################
 
 class InputMode(enum.Enum):
+    """
+    Input modes to load the data from the console.
+    """
     SIZE_FIRST = enum.auto()
     ZERO_ENDING = enum.auto()
 
