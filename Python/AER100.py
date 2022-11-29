@@ -2,7 +2,6 @@
 AER 100: Kaprekar constant
 URL: https://www.aceptaelreto.com/problem/statement.php?id=100
 """
-import sys
 import loader
 
 
