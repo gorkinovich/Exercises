@@ -61,11 +61,25 @@ def exec_numbers(numbers):
             print(f"({type(error).__name__}) {error}")
 
 
+def on_lines(lines):
+    """
+    The on lines loaded event for the problem.
+    :param lines: The loaded lines.
+    :return: The final lines for the problem.
+    """
+    if len(lines) > 1:
+        size = int(lines[0])
+        return lines[1:size + 1]
+    else:
+        return lines
+
+
 def main():
     """
     Main entry for the Kaprekar constant problem.
     """
-    loader.main(exec_numbers)
+    loader.main(exec_numbers, on_lines,
+                loader.InputMode.SIZE_FIRST)
 
 
 ######################################################################
