@@ -38,20 +38,20 @@ def get_factors(victim):
     """
     divisor = 2
     factors = []
-    # Checks if the numbers is negative or positive.
+    # Checks if the numbers is negative or positive:
     if victim < 0:
         victim = abs(victim)
         factors.append(-1)
     else:
         factors.append(1)
-    # Get all the factors of the number.
+    # Get all the factors of the number:
     while divisor <= victim:
         next = reduce_division(victim, divisor)
         if next < victim:
             victim = next
             factors.append(divisor)
         divisor += 1
-    # Exit with the list of factors.
+    # Exit with the list of factors:
     return factors
 
 
