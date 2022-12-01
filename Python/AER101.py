@@ -362,9 +362,9 @@ def on_lines(lines):
 
 def main():
     """
-    Main entry for the Kaprekar constant problem.
+    Main entry for the diabolical squares problem.
     """
-    loader.main(execute, on_lines, loader.InputMode.SIZE_FIRST)
+    loader.main(execute, on_lines, loader.InputMode.ZERO_ENDING)
 
 
 ######################################################################
