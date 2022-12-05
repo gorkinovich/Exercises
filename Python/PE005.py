@@ -29,7 +29,7 @@ def find_number(first, last):
     Find the smallest natural divisible by a range of numbers.
     :param first: The first value of the divisors range.
     :param last: The last value of the divisors range.
-    :return: A smallest natural number.
+    :return: The smallest natural number.
     """
     # First, get all the combinations of the divisors:
     divisors = range(first, last + 1)
@@ -73,7 +73,7 @@ def find_number_slow(first, last):
     Find the smallest natural divisible by a range of numbers.
     :param first: The first value of the divisors range.
     :param last: The last value of the divisors range.
-    :return: A smallest natural number.
+    :return: The smallest natural number.
     """
     result = 1
     while True:
