@@ -46,9 +46,9 @@ def get_factors(victim):
         factors.append(1)
     # Get all the factors of the number:
     while divisor <= victim:
-        next = reduce_division(victim, divisor)
-        if next < victim:
-            victim = next
+        next_victim = reduce_division(victim, divisor)
+        if next_victim < victim:
+            victim = next_victim
             factors.append(divisor)
         divisor += 1
     # Exit with the list of factors:
