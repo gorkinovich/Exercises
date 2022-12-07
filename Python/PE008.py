@@ -75,7 +75,8 @@ def find_product(numbers, size):
     """
     result = 0
     for i in range(len(numbers) - size):
-        current = math.prod(int(digit) for digit in numbers[i:i + size])
+        fragment = numbers[i:i + size]
+        current = math.prod(int(digit) for digit in fragment)
         if result < current:
             result = current
     return result
