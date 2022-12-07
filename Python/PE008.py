@@ -65,7 +65,6 @@ CANDIDATE = ''.join("""
 # Functions
 ######################################################################
 
-
 def find_product(numbers, size):
     """
     Finds the greatest product inside a sequence of numbers.
