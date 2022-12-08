@@ -29,8 +29,7 @@ def is_multiple_35(victim):
     :param victim: The number to check.
     :return: True when the number is multiple of 3 or 5.
     """
-    return is_multiple(victim, 3) or\
-           is_multiple(victim, 5)
+    return is_multiple(victim, 3) or is_multiple(victim, 5)
 
 
 def main():
