@@ -8,6 +8,7 @@ URL: https://projecteuler.net/problem=7
     What is the 10,001st prime number?
 """
 import math
+from PE001 import is_multiple
 
 
 ######################################################################
@@ -20,16 +21,6 @@ CANDIDATE = 10_001
 ######################################################################
 # Functions
 ######################################################################
-
-def is_multiple(left, right):
-    """
-    Checks if the LHS is a multiple of the RHS.
-    :param left: The left-hand side.
-    :param right: The right-hand side.
-    :return: True when the LHS is a multiple of the RHS.
-    """
-    return left % right == 0
-
 
 def gen_primes():
     """

@@ -6,7 +6,7 @@ URL: https://projecteuler.net/problem=10
 
     Find the sum of all the primes below two million.
 """
-import PE007
+from PE007 import gen_primes
 
 
 ######################################################################
@@ -27,7 +27,7 @@ def sum_primes(limit):
     :return: The sum of all the primes.
     """
     result = 0
-    primes = PE007.gen_primes()
+    primes = gen_primes()
     current = next(primes)
     while current < limit:
         result += current
