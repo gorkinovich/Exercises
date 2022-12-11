@@ -186,13 +186,13 @@ if __name__ == "__main__":
 def test(limit=10_000, show_info=False):
     for number in range(1, limit):
         divisors = get_divisors(number)
-        factors = get_factors(number)
-        num_divs = calc_number_of_divisors(factors)
+        num_divs = calc_number_of_divisors(number)
         len_divs = len(divisors)
         if num_divs != len_divs:
             print(f"{number} -> {num_divs == len_divs} ({num_divs}, {len_divs})")
             if show_info:
                 print(f">>> {len_divs} => {divisors}")
+                factors = get_factors(number)
                 print(f">>> {len(factors)} => {factors}")
                 groups = group_items_lineal(factors)
                 print(f">>> {len(groups)} => {groups}")
