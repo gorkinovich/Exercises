@@ -44,7 +44,7 @@ class SquareType(enum.Enum):
 
 class Square:
     """
-    This type represents an square matrix of numbers.
+    This type represents a square matrix of numbers.
     """
 
     def __init__(self, size, values):
@@ -362,7 +362,7 @@ def on_lines(lines):
 
 def main():
     """
-    Main entry for the diabolical squares problem.
+    Main entry for the diabolical squares' problem.
     """
     loader.main(execute, on_lines, loader.InputMode.ZERO_ENDING)
 

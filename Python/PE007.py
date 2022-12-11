@@ -8,7 +8,7 @@ URL: https://projecteuler.net/problem=7
     What is the 10,001st prime number?
 """
 import math
-from PE001 import is_multiple
+from shared import is_multiple
 
 
 ######################################################################
@@ -22,7 +22,7 @@ CANDIDATE = 10_001
 # Functions
 ######################################################################
 
-def gen_primes():
+def primes_generator():
     """
     This generator returns a sequence of prime numbers.
     :return: The prime numbers generator.
@@ -56,7 +56,7 @@ def find_prime(index):
     :return: The prime number at the given index.
     """
     result = 0
-    primes = gen_primes()
+    primes = primes_generator()
     for _ in range(index):
         result = next(primes)
     return result

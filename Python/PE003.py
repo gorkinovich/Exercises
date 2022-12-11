@@ -30,9 +30,9 @@ def reduce_division(victim, divisor):
     return victim
 
 
-def get_factors(victim):
+def get_prime_factors(victim):
     """
-    Gets the factors of a number.
+    Gets the prime factors of a number.
     :param victim: The number to check.
     :return: A list with the factors.
     """
@@ -59,7 +59,7 @@ def main():
     """
     Main entry for the problem solver.
     """
-    factors = get_factors(CANDIDATE)
+    factors = get_prime_factors(CANDIDATE)
     result = factors[-1]
 
     # Show the final result of the problem:
