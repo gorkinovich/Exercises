@@ -99,13 +99,20 @@ def group_items_lineal(victims):
     return result
 
 
-def calc_number_of_divisors(factors):
+def calc_number_of_divisors(number):
     """
-    Gets the number of divisors for a sequence of factors.
-    :param factors: The sequence of factors.
+    Gets the number of divisors for a natural number. The trick of
+    this algorithm is to calculate first the factors of the number,
+    then we'll group the factors in a list of lists, to know the
+    number of times a factor exists inside the list of factors.
+    With this data structure, the formula to obtain the number of
+    divisors is f(n) = f(n-1) * len(G(n)) + f(n-1), where G is
+    the list with the groups of factors and f(0) = 1.
+    :param number: The number to check.
     :return: The number of divisors.
     """
     result = 1
+    factors = get_factors(number)
     groups = group_items_lineal(factors[1:])
     for size in [len(group) for group in groups]:
         result += result * size
@@ -119,8 +126,7 @@ def find_triangle_number(goal):
     :return: The first number to surpass the goal.
     """
     for number in triangle_numbers_generator():
-        factors = get_factors(number)
-        if calc_number_of_divisors(factors) > goal:
+        if calc_number_of_divisors(number) > goal:
             return number
 
 
