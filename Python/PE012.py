@@ -183,7 +183,7 @@ if __name__ == "__main__":
 # Test Functions
 ######################################################################
 
-def test(limit=10_000, showInfo=False):
+def test(limit=10_000, show_info=False):
     for number in range(1, limit):
         divisors = get_divisors(number)
         factors = get_factors(number)
@@ -191,7 +191,7 @@ def test(limit=10_000, showInfo=False):
         len_divs = len(divisors)
         if num_divs != len_divs:
             print(f"{number} -> {num_divs == len_divs} ({num_divs}, {len_divs})")
-            if showInfo:
+            if show_info:
                 print(f">>> {len_divs} => {divisors}")
                 print(f">>> {len(factors)} => {factors}")
                 groups = group_items_lineal(factors)
