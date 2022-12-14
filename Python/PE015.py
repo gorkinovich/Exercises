@@ -31,7 +31,7 @@ SIZE = 20
 
 class PascalTriangle():
     """
-     This type represents the `pascal triangle
+    This type represents the `pascal triangle
     <https://en.wikipedia.org/wiki/Pascal's_triangle>`_.
     """
 
