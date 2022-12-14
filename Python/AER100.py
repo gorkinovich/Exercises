@@ -1,6 +1,10 @@
 """
 AER 100: Kaprekar constant
 URL: https://www.aceptaelreto.com/problem/statement.php?id=100
+
+Example commands.:
+python AER100.py -d 3524 1111 1121 6174 1893
+python AER100.py -f data/kaprekar.txt
 """
 import loader
 

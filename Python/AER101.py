@@ -1,6 +1,9 @@
 """
 AER 101: Diabolical and esoteric squares
 URL: https://www.aceptaelreto.com/problem/statement.php?id=101
+
+Example commands.:
+python AER101.py -f data/evilsqr.txt
 """
 import loader
 import locale
