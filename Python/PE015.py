@@ -15,6 +15,7 @@ URL: https://projecteuler.net/problem=15
 
     How many routes are there through a 20×20 grid?
 """
+import enum
 
 
 ######################################################################
@@ -107,27 +108,66 @@ if __name__ == "__main__":
 # Test Functions
 ######################################################################
 
-def print_routes(step, limit, moves, accumulated):
+class TestFlag(enum.Flag):
+    LENGTHS = enum.auto()
+    SHOW_ROUTES = enum.auto()
+    SHOW_PASCAL = enum.auto()
+
+
+def check_routes(step, limit, moves, accumulated, on_route):
     if step < limit:
         for move in moves:
             if move['count'] < move['limit']:
                 move['count'] += 1
                 next_accumulated = accumulated + [move['name']]
-                print_routes(step + 1, limit, moves, next_accumulated)
+                check_routes(step + 1, limit, moves, next_accumulated, on_route)
                 move['count'] -= 1
     elif accumulated:
+        on_route(accumulated)
+
+
+def test_routes(size):
+    def on_route(accumulated):
         print(accumulated)
 
+    moves = [{'name': 'L', 'count': 0, 'limit': size},
+             {'name': 'R', 'count': 0, 'limit': size}]
+    check_routes(0, size * 2, moves, [], on_route)
 
-def test(size, show_routes=False, show_pascal=True):
-    if show_routes:
-        moves = [{'name': 'L', 'count': 0, 'limit': size},
-                 {'name': 'R', 'count': 0, 'limit': size}]
-        print_routes(0, size * 2, moves, [])
 
-    if show_pascal:
-        pascal = PascalTriangle()
-        for n in range(size + 1):
-            for k in range(n + 1):
-                print(pascal.calc(n, k), end=" ")
-            print()
+def test_pascal(size):
+    pascal = PascalTriangle()
+    for n in range(size * 2 + 1):
+        for k in range(n + 1):
+            print(pascal.calc(n, k), end=" ")
+        print()
+
+
+def test_lengths(size):
+    def on_route(accumulated):
+        nonlocal count
+        count += 1
+
+    pascal = PascalTriangle()
+    for value in range(1, size + 1):
+        count = 0
+        moves = [{'name': 'L', 'count': 0, 'limit': value},
+                 {'name': 'R', 'count': 0, 'limit': value}]
+        check_routes(0, value * 2, moves, [], on_route)
+        count2 = pascal.calc(value * 2, value)
+        print(f"Case: {value} -> check: {count}, pascal: {count2}.")
+        if count != count2:
+            raise Exception(f"test_lengths failed!", f"size = {value}",
+                            f"check = {count}", f"pascal = {count2}")
+    print("Ok")
+
+
+def test(size, flag=TestFlag.LENGTHS):
+    if flag & TestFlag.SHOW_ROUTES:
+        test_routes(size)
+
+    if flag & TestFlag.SHOW_PASCAL:
+        test_pascal(size)
+
+    if flag & TestFlag.LENGTHS:
+        test_lengths(size)
