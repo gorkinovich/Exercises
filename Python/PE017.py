@@ -60,7 +60,7 @@ class Transform:
                   "sixty", "seventy", "eighty", "ninety"]
 
     @classmethod
-    def __num_to_word(cls, number, divisor, left_to_word, middle_words=[]):
+    def __num_to_word(cls, number, divisor, left_to_word, middle_words=()):
         """
         Converts a number from digits to words.
         :param number: The number to convert.
