@@ -23,7 +23,7 @@
 %% @returns 'true' when the LHS is a multiple of the RHS.
 %% @end
 %%-----------------------------------------------------------------------
-isMultipleOf(LHS, RHS) ->
+is_multiple(LHS, RHS) ->
     (LHS rem RHS) == 0.
 
 %%-----------------------------------------------------------------------
@@ -34,7 +34,7 @@ isMultipleOf(LHS, RHS) ->
 main() ->
     Result = lists:sum([
         Number || Number <- lists:seq(1, ?CANDIDATE - 1),
-        isMultipleOf(Number, 3) orelse isMultipleOf(Number, 5)
+        is_multiple(Number, 3) orelse is_multiple(Number, 5)
     ]),
     io:format("The sum of all the multiples of 3 or 5 below"
               "1000 is ~p.~n", [Result]).
