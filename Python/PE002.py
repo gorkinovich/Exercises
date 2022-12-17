@@ -37,9 +37,9 @@ def main():
 
     # Main loop to get Fibonacci's numbers bellow four million:
     while current < 4_000_000:
-        current = next(fibgen)
         if current % 2 == 0:
             result += current
+        current = next(fibgen)
 
     # Show the final result of the problem:
     print(f"The sum of the even-valued terms below four million is {result}.")
