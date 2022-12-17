@@ -17,6 +17,17 @@
 
 -define(LIMIT, 4000000).
 
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Sums all the even valued numbers in the Fibonacci's sequence under
+%% a given limit number.
+%% @param Iterator The Fibonacci's number iterator handler.
+%% @param Limit The limit number to stop the iteration.
+%% @param Accumulated The accumulated value of the sum.
+%% @returns The final accumulated value of the sum.
+%% @end
+%%-----------------------------------------------------------------------
 sum_fibonacci_numbers(Iterator, Limit, Accumulated) ->
     {Current, NextIterator} = fibonacci_server:next(Iterator),
     case Current < Limit of
