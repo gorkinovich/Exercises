@@ -5,7 +5,6 @@ from PE001 import is_multiple
 from PE002 import fibonacci_generator
 from PE007 import primes_generator
 
-
 ######################################################################
 # Aliases
 ######################################################################

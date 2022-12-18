@@ -10,7 +10,6 @@ URL: https://projecteuler.net/problem=7
 import math
 from shared import is_multiple
 
-
 ######################################################################
 # Constants
 ######################################################################

@@ -26,7 +26,6 @@ URL: https://projecteuler.net/problem=12
 """
 from shared import is_multiple, PrimesGenerator
 
-
 ######################################################################
 # Constants
 ######################################################################
