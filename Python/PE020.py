@@ -27,7 +27,7 @@ def main():
     """
     Main entry for the problem solver.
     """
-    result = sum([int(c) for c in str(math.factorial(GOAL))])
+    result = sum(int(c) for c in str(math.factorial(GOAL)))
 
     # Show the final result of the problem:
     print(f"The sum of the digits in the number {GOAL}! is {result}.")

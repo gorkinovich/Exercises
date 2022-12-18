@@ -23,7 +23,7 @@ def main():
     """
     Main entry for the problem solver.
     """
-    result = sum([int(c) for c in str(2 ** GOAL)])
+    result = sum(int(c) for c in str(2 ** GOAL))
 
     # Show the final result of the problem:
     print(f"The sum of the digits of the number 2^{GOAL} is {result}.")

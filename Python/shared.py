@@ -1,6 +1,8 @@
 """
 Generic shared functions.
 """
+import sys
+
 from PE001 import is_multiple
 from PE002 import fibonacci_generator
 from PE007 import primes_generator
@@ -12,6 +14,19 @@ from PE007 import primes_generator
 is_multiple = is_multiple
 fibonacci_generator = fibonacci_generator
 primes_generator = primes_generator
+
+
+######################################################################
+# Functions
+######################################################################
+
+def check_argv(option):
+    """
+    Checks if an option exists in the command's arguments.
+    :param option: The option to check.
+    :return: True if the option exists, otherwise False.
+    """
+    return (len(sys.argv) > 1) and (option in sys.argv)
 
 
 ######################################################################

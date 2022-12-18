@@ -19,7 +19,7 @@ URL: https://projecteuler.net/problem=19
     twentieth century (1 Jan 1901 to 31 Dec 2000)?
 """
 import datetime
-import sys
+from shared import check_argv
 
 ######################################################################
 # Constants
@@ -77,9 +77,12 @@ def main():
     dates = get_weekdays(DATE_BEGIN, DATE_END, SUNDAY)
     result = len(dates)
 
-    if (len(sys.argv) > 1) and ("show_dates" in sys.argv):
+    # Show the final dates of the problem:
+    if check_argv("show_dates"):
+        print("List of obtained dates:")
         for date in dates:
             print(date)
+        print()
 
     # Show the final result of the problem:
     print(f"The number of Sundays that fell on the month's 1st during the 20th century is {result}.")

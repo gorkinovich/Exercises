@@ -122,7 +122,7 @@ def main():
     """
     Main entry for the problem solver.
     """
-    number = sum([int(item) for item in CANDIDATE.split()])
+    number = sum(int(item) for item in CANDIDATE.split())
     result = str(number)[:10]
 
     # Show the final result of the problem:
