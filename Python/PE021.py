@@ -81,7 +81,7 @@ def check_amicable_condition(number):
 
 def get_amicable_numbers(limit):
     """
-    Gets all the amicable numbers under a limite number.
+    Gets all the amicable numbers under a limit number.
     :param limit: The limit number.
     :return: A set with all the amicable numbers.
     """
