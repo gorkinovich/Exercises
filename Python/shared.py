@@ -6,6 +6,7 @@ import sys
 from PE001 import is_multiple
 from PE002 import fibonacci_generator
 from PE007 import primes_generator
+from PE021 import get_divisors
 
 ######################################################################
 # Aliases
@@ -14,6 +15,7 @@ from PE007 import primes_generator
 is_multiple = is_multiple
 fibonacci_generator = fibonacci_generator
 primes_generator = primes_generator
+get_divisors = get_divisors
 
 
 ######################################################################

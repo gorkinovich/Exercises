@@ -43,7 +43,9 @@ def get_divisors(number):
                 break
             if is_multiple(number, divisor):
                 result.append(divisor)
-                tail.append(number // divisor)
+                mirrored = number // divisor
+                if mirrored != divisor:
+                    tail.append(number // divisor)
         # Add the mirrored divisors to the result:
         tail.reverse()
         result += tail
