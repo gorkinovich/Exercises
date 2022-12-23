@@ -26,7 +26,6 @@ URL: https://projecteuler.net/problem=27
     quadratic expression that produces the maximum number of
     primes for consecutive values of n, starting with n = 0.
 """
-import math
 from shared import PrimesGenerator, check_argv
 
 ######################################################################
@@ -79,12 +78,15 @@ def find_max_chain(first_limit, second_limit):
     coefficients = [(a, b) for a in range(first_limit)
                     for b in range(second_limit + 1)]
     for a, b in coefficients:
+        # Get the current chain for the coefficients and check
+        # if the length is greater than the current result:
         primes = get_primes_chain(a, b)
-        if check_argv("debug") and len(primes) > 0:
-            print(f"{len(primes)} ({a}, {b}) -> {primes}")
         if max_chain < len(primes):
             max_chain = len(primes)
             result = (a, b)
+        # Show the debug info if the args contains the option:
+        if check_argv("debug") and len(primes) > 0:
+            print(f"{len(primes)} ({a}, {b}) -> {primes}")
     return result
 
 
