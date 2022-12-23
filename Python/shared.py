@@ -2,6 +2,8 @@
 Generic shared functions.
 """
 import sys
+import math
+import bisect
 
 from PE001 import is_multiple
 from PE002 import fibonacci_generator
@@ -31,6 +33,20 @@ def check_argv(option):
     return (len(sys.argv) > 1) and (option in sys.argv)
 
 
+def binary_search(container, victim):
+    """
+    Search a value inside a container.
+    :param container: The container to check.
+    :param victim: The value to search.
+    :return: The index of the value if found, otherwise None.
+    """
+    index = bisect.bisect_left(container, victim)
+    if index < len(container) and container[index] == victim:
+        return index
+    else:
+        return None
+
+
 ######################################################################
 # Classes
 ######################################################################
@@ -41,15 +57,57 @@ class PrimesGenerator:
     """
 
     __primes = [1]
-    __generator = primes_generator()
 
-    @staticmethod
-    def reset():
+    @classmethod
+    def next_prime(cls):
+        """
+        Gets the next prime to calculate.
+        :return: The next prime number.
+        """
+        # Sets the initial value to check:
+        victim = cls.__primes[-1] + 1
+        while True:
+            # Check if the current candidate is a prime number:
+            is_prime = True
+            limit = math.trunc(math.sqrt(victim)) + 1
+            for prime in cls.__primes[1:]:
+                if prime > limit:
+                    break
+                if is_multiple(victim, prime):
+                    is_prime = False
+                    break
+            # If the candidate is a prime number send it back:
+            if is_prime:
+                cls.__primes.append(victim)
+                return victim
+            # Select the next candidate to check:
+            victim += 1
+
+    @classmethod
+    def is_prime(cls, candidate):
+        """
+        Checks if a number is a prime number or not.
+        :param candidate: The number to check.
+        :return: True if the number is prime.
+        """
+        while cls.__primes[-1] < candidate:
+            cls.next_prime()
+        return binary_search(cls.__primes, candidate) is not None
+
+    @classmethod
+    def to_string(cls):
+        """
+        Converts the content of the class into a string.
+        :return: A string with the content.
+        """
+        return str(cls.__primes)
+
+    @classmethod
+    def reset(cls):
         """
         Resets the current static data of the generator.
         """
-        PrimesGenerator.__primes = [1]
-        PrimesGenerator.__generator = primes_generator()
+        cls.__primes = [1]
 
     def __init__(self):
         """
@@ -69,7 +127,7 @@ class PrimesGenerator:
         Gets the next prime number in the sequence.
         """
         while self.index >= len(PrimesGenerator.__primes):
-            PrimesGenerator.__primes.append(next(PrimesGenerator.__generator))
+            PrimesGenerator.next_prime()
         number = PrimesGenerator.__primes[self.index]
         self.index += 1
         return number
