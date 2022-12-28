@@ -47,6 +47,15 @@ def get_candidates(digits):
 
 
 def find_triplets(digits, candidates):
+    """
+    Finds all the triplets with the products whose multiplicand,
+    multiplier, and product identity can be written as a set of
+    given digits.
+    :param digits: The given digits to check.
+    :param candidates: The candidate numbers to check.
+    :return: A list of triplets with the multiplicand, the
+    multiplier, and the product.
+    """
     result = []
     initial_digits = set(digits)
     # Check all the candidate numbers, getting the number, the set
