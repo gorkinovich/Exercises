@@ -33,14 +33,15 @@ def check_argv(option):
     return (len(sys.argv) > 1) and (option in sys.argv)
 
 
-def binary_search(container, victim):
+def binary_search(container, victim, key=None):
     """
     Search a value inside a container.
     :param container: The container to check.
     :param victim: The value to search.
+    :param key: The key of the value.
     :return: The index of the value if found, otherwise None.
     """
-    index = bisect.bisect_left(container, victim)
+    index = bisect.bisect_left(container, victim, key=key)
     if index < len(container) and container[index] == victim:
         return index
     else:
