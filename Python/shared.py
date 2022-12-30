@@ -48,6 +48,18 @@ def binary_search(container, victim, key=None):
         return None
 
 
+def factorial(number):
+    """
+    Gets the factorial for a number.
+    :param number: The number to check.
+    :return: The factorial of the number.
+    """
+    if number <= 1:
+        return 1
+    else:
+        return math.prod(range(2, number + 1))
+
+
 ######################################################################
 # Classes
 ######################################################################
