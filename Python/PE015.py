@@ -1,6 +1,7 @@
 """
-Problem 15: Lattice paths
-URL: https://projecteuler.net/problem=15
+| **Problem 15:** Lattice paths
+| URL: https://projecteuler.net/problem=15
+::
 
     Starting in the top left corner of a 2×2 grid, there are 6
     routes (without backtracking) to the bottom right corner.
@@ -14,6 +15,9 @@ URL: https://projecteuler.net/problem=15
         . . 5    . 4 5    3 4 5
 
     How many routes are there through a 20×20 grid?
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 import enum
 

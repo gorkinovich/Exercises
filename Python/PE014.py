@@ -1,6 +1,7 @@
 """
-Problem 14: Longest Collatz sequence
-URL: https://projecteuler.net/problem=14
+| **Problem 14:** Longest Collatz sequence
+| URL: https://projecteuler.net/problem=14
+::
 
     The following iterative sequence is defined for the set of
     positive integers:
@@ -23,6 +24,9 @@ URL: https://projecteuler.net/problem=14
 
     NOTE: Once the chain starts the terms are allowed to go
     above one million.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 
 ######################################################################

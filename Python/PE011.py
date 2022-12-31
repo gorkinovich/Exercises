@@ -1,6 +1,7 @@
 """
-Problem 11: Largest product in a grid
-URL: https://projecteuler.net/problem=11
+| **Problem 11:** Largest product in a grid
+| URL: https://projecteuler.net/problem=11
+::
 
     In the 20×20 grid below, four numbers along a diagonal line
     have been marked in red.
@@ -52,6 +53,9 @@ URL: https://projecteuler.net/problem=11
     What is the greatest product of four adjacent numbers in any
     direction (up, down, left, right, or diagonally) in the 20×20
     grid?
+|
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 
 ######################################################################

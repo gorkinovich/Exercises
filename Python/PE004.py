@@ -1,6 +1,7 @@
 """
-Problem 4: Largest palindrome product
-URL: https://projecteuler.net/problem=4
+| **Problem 4:** Largest palindrome product
+| URL: https://projecteuler.net/problem=4
+::
 
     A palindromic number reads the same both ways. The largest
     palindrome made from the product of two 2-digit numbers is
@@ -8,6 +9,9 @@ URL: https://projecteuler.net/problem=4
 
     Find the largest palindrome made from the product of two
     3-digit numbers.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 import time
 

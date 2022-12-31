@@ -1,6 +1,7 @@
 """
-Problem 19: Counting Sundays
-URL: https://projecteuler.net/problem=19
+| **Problem 19:** Counting Sundays
+| URL: https://projecteuler.net/problem=19
+::
 
     You are given the following information, but you may prefer
     to do some research for yourself.
@@ -17,6 +18,9 @@ URL: https://projecteuler.net/problem=19
 
     How many Sundays fell on the first of the month during the
     twentieth century (1 Jan 1901 to 31 Dec 2000)?
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 import datetime
 from shared import check_argv

@@ -1,10 +1,14 @@
 """
-Problem 10: Summation of primes
-URL: https://projecteuler.net/problem=10
+| **Problem 10:** Summation of primes
+| URL: https://projecteuler.net/problem=10
+::
 
     The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
 
     Find the sum of all the primes below two million.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 from shared import primes_generator
 

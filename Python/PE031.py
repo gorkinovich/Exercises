@@ -1,6 +1,7 @@
 """
-Problem 31: Coin sums
-URL: https://projecteuler.net/problem=31
+| **Problem 31:** Coin sums
+| URL: https://projecteuler.net/problem=31
+::
 
     In England the currency is made up of pound, £, and pence, p,
     and there are eight coins in general circulation:
@@ -13,6 +14,9 @@ URL: https://projecteuler.net/problem=31
 
     How many different ways can £2 be made using any number of
     coins?
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 import enum
 from shared import check_argv

@@ -7,6 +7,8 @@ URL: https://projecteuler.net/problem=1
 
     Find the sum of all the multiples of 3 or 5 below 1000.
 -}
+-- Author: Gorka Suárez García
+-- Copyright: (c) 2022, Gorka Suárez García
 -- Command: runhaskell PE001.hs
 module PE001(main) where
 

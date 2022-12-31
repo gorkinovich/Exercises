@@ -1,6 +1,7 @@
 """
-Problem 6: Sum square difference
-URL: https://projecteuler.net/problem=6
+| **Problem 6:** Sum square difference
+| URL: https://projecteuler.net/problem=6
+::
 
     The sum of the squares of the first ten natural numbers is,
     1^2 + 2^2 + ... + 10^2 = 385
@@ -14,6 +15,9 @@ URL: https://projecteuler.net/problem=6
 
     Find the difference between the sum of the squares of the
     first one hundred natural numbers and the square of the sum.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 
 ######################################################################

@@ -1,6 +1,7 @@
 """
-Problem 8: Largest product in a series
-URL: https://projecteuler.net/problem=8
+| **Problem 8:** Largest product in a series
+| URL: https://projecteuler.net/problem=8
+::
 
     The four adjacent digits in the 1000-digit number that have
     the greatest product are 9 × 9 × 8 × 9 = 5832.
@@ -28,6 +29,9 @@ URL: https://projecteuler.net/problem=8
 
     Find the thirteen adjacent digits in the 1000-digit number that
     have the greatest product. What is the value of this product?
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 import math
 

@@ -1,5 +1,8 @@
 """
 Generic shared functions.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 import sys
 import math

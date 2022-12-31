@@ -1,6 +1,7 @@
 """
-Problem 28: Number spiral diagonals
-URL: https://projecteuler.net/problem=28
+| **Problem 28:** Number spiral diagonals
+| URL: https://projecteuler.net/problem=28
+::
 
     Starting with the number 1 and moving to the right in a
     clockwise direction a 5 by 5 spiral is formed as follows:
@@ -16,6 +17,9 @@ URL: https://projecteuler.net/problem=28
 
     What is the sum of the numbers on the diagonals in a
     1001 by 1001 spiral formed in the same way?
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 
 ######################################################################

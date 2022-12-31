@@ -1,6 +1,7 @@
 """
-Problem 33: Digit cancelling fractions
-URL: https://projecteuler.net/problem=33
+| **Problem 33:** Digit cancelling fractions
+| URL: https://projecteuler.net/problem=33
+::
 
     The fraction 49/98 is a curious fraction, as an inexperienced
     mathematician in attempting to simplify it may incorrectly
@@ -16,6 +17,9 @@ URL: https://projecteuler.net/problem=33
 
     If the product of these four fractions is given in its lowest
     common terms, find the value of the denominator.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 import math
 from shared import check_argv

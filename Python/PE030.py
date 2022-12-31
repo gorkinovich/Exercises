@@ -1,6 +1,7 @@
 """
-Problem 30: Digit fifth powers
-URL: https://projecteuler.net/problem=30
+| **Problem 30:** Digit fifth powers
+| URL: https://projecteuler.net/problem=30
+::
 
     Surprisingly there are only three numbers that can be written
     as the sum of fourth powers of their digits:
@@ -15,6 +16,9 @@ URL: https://projecteuler.net/problem=30
 
     Find the sum of all the numbers that can be written as the
     sum of fifth powers of their digits.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 
 ######################################################################

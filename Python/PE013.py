@@ -1,9 +1,13 @@
 """
-Problem 13: Large sum
-URL: https://projecteuler.net/problem=13
+| **Problem 13:** Large sum
+| URL: https://projecteuler.net/problem=13
+::
 
     Work out the first ten digits of the sum of the following
     one-hundred 50-digit numbers.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 
 ######################################################################

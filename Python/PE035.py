@@ -1,6 +1,7 @@
 """
-Problem 35: Circular primes
-URL: https://projecteuler.net/problem=35
+| **Problem 35:** Circular primes
+| URL: https://projecteuler.net/problem=35
+::
 
     The number, 197, is called a circular prime because all
     rotations of the digits: 197, 971, and 719, are themselves
@@ -10,6 +11,9 @@ URL: https://projecteuler.net/problem=35
     13, 17, 31, 37, 71, 73, 79, and 97.
 
     How many circular primes are there below one million?
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 from shared import primes_generator
 

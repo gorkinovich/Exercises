@@ -1,6 +1,7 @@
 """
-Problem 27: Quadratic primes
-URL: https://projecteuler.net/problem=27
+| **Problem 27:** Quadratic primes
+| URL: https://projecteuler.net/problem=27
+::
 
     Euler published the remarkable quadratic formula: n^2 + n + 41
 
@@ -11,20 +12,23 @@ URL: https://projecteuler.net/problem=27
     by 41.
 
     Using computers, the incredible formula  n^2 - 79n + 1601 was
-    discovered, which produces 80 primes for the consecutive values
-    n = 0 to 79. The product of the coefficients, -79 and 1601, is
-    -126479.
+    discovered, which produces 80 primes for the consecutive
+    values n = 0 to 79. The product of the coefficients, -79 and
+    1601, is -126479.
 
     Considering quadratics of the form:
 
-        n^2 + an + b, where |a| < 1000 and |b| <= 1000
+        n^2 + an + b, where |a| < 1000 and |b| < 1000
 
         where |n| is the modulus/absolute value of n
         e.g. |11| = 11 and |-4| = 4
 
     Find the product of the coefficients, a and b, for the
-    quadratic expression that produces the maximum number of
-    primes for consecutive values of n, starting with n = 0.
+    quadratic expression that produces the maximum number
+    of primes for consecutive values of n, starting with n = 0.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 from shared import PrimesGenerator, check_argv
 

@@ -1,6 +1,7 @@
 """
-Problem 32: Pandigital products
-URL: https://projecteuler.net/problem=32
+| **Problem 32:** Pandigital products
+| URL: https://projecteuler.net/problem=32
+::
 
     We shall say that an n-digit number is pandigital if it makes
     use of all the digits 1 to n exactly once; for example, the
@@ -15,6 +16,9 @@ URL: https://projecteuler.net/problem=32
 
     HINT: Some products can be obtained in more than one way so
     be sure to only include it once in your sum.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 import itertools
 from shared import check_argv

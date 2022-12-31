@@ -1,6 +1,7 @@
 """
-Problem 22: Names scores
-URL: https://projecteuler.net/problem=22
+| **Problem 22:** Names scores
+| URL: https://projecteuler.net/problem=22
+::
 
     Using names.txt (right click and 'Save Link/Target As...'),
     a 46K text file containing over five-thousand first names,
@@ -14,6 +15,9 @@ URL: https://projecteuler.net/problem=22
     938 × 53 = 49714.
 
     What is the total of all the name scores in the file?
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 import urllib.request
 

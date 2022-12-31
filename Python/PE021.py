@@ -1,6 +1,7 @@
 """
-Problem 21: Amicable numbers
-URL: https://projecteuler.net/problem=21
+| **Problem 21:** Amicable numbers
+| URL: https://projecteuler.net/problem=21
+::
 
     Let d(n) be defined as the sum of proper divisors of n
     (numbers less than n which divide evenly into n).
@@ -13,6 +14,9 @@ URL: https://projecteuler.net/problem=21
     divisors of 284 are 1, 2, 4, 71 and 142; so d(284) = 220.
 
     Evaluate the sum of all the amicable numbers under 10000.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 from shared import is_multiple
 

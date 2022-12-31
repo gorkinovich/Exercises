@@ -1,6 +1,7 @@
 """
-Problem 25: 1000-digit Fibonacci number
-URL: https://projecteuler.net/problem=25
+| **Problem 25:** 1000-digit Fibonacci number
+| URL: https://projecteuler.net/problem=25
+::
 
     The Fibonacci sequence is defined by the recurrence relation:
 
@@ -26,6 +27,9 @@ URL: https://projecteuler.net/problem=25
 
     What is the first term in the Fibonacci sequence to contain
     1000 digits?
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 from shared import fibonacci_generator
 

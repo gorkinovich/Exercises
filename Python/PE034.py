@@ -1,6 +1,7 @@
 """
-Problem 34: Digit factorials
-URL: https://projecteuler.net/problem=34
+| **Problem 34:** Digit factorials
+| URL: https://projecteuler.net/problem=34
+::
 
     145 is a curious number, as 1! + 4! + 5! = 1 + 24 + 120 = 145.
 
@@ -8,6 +9,9 @@ URL: https://projecteuler.net/problem=34
     factorial of their digits.
 
     Note: as 1! = 1 and 2! = 2 are not sums they are not included.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 from shared import factorial, check_argv
 

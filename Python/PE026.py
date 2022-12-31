@@ -1,6 +1,7 @@
 """
-Problem 26: Reciprocal cycles
-URL: https://projecteuler.net/problem=26
+| **Problem 26:** Reciprocal cycles
+| URL: https://projecteuler.net/problem=26
+::
 
     A unit fraction contains 1 in the numerator. The decimal
     representation of the unit fractions with denominators
@@ -21,6 +22,9 @@ URL: https://projecteuler.net/problem=26
 
     Find the value of d < 1000 for which 1/d contains the
     longest recurring cycle in its decimal fraction part.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 
 ######################################################################

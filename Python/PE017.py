@@ -1,6 +1,7 @@
 """
-Problem 17: Number letter counts
-URL: https://projecteuler.net/problem=17
+| **Problem 17:** Number letter counts
+| URL: https://projecteuler.net/problem=17
+::
 
     If the numbers 1 to 5 are written out in words: one, two,
     three, four, five, then there are 3 + 3 + 5 + 4 + 4 = 19
@@ -13,6 +14,9 @@ URL: https://projecteuler.net/problem=17
     hundred and forty-two) contains 23 letters and 115 (one
     hundred and fifteen) contains 20 letters. The use of "and"
     when writing out numbers is in compliance with British usage.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 import enum
 

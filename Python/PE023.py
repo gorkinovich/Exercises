@@ -1,6 +1,7 @@
 """
-Problem 23: Non-abundant sums
-URL: https://projecteuler.net/problem=23
+| **Problem 23:** Non-abundant sums
+| URL: https://projecteuler.net/problem=23
+::
 
     A perfect number is a number for which the sum of its proper
     divisors is exactly equal to the number. For example, the sum
@@ -22,6 +23,9 @@ URL: https://projecteuler.net/problem=23
 
     Find the sum of all the positive integers which cannot be
     written as the sum of two abundant numbers.
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 import enum
 from shared import get_divisors

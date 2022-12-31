@@ -1,6 +1,7 @@
 """
-Problem 18: Maximum path sum I
-URL: https://projecteuler.net/problem=18
+| **Problem 18:** Maximum path sum I
+| URL: https://projecteuler.net/problem=18
+::
 
     By starting at the top of the triangle below and moving to
     adjacent numbers on the row below, the maximum total from top
@@ -37,6 +38,9 @@ URL: https://projecteuler.net/problem=18
     the same challenge with a triangle containing one-hundred
     rows; it cannot be solved by brute force, and requires a
     clever method! ;o)
+
+:author: Gorka Suárez García
+:copyright: (c) 2022, Gorka Suárez García
 """
 
 
