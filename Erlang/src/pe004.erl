@@ -24,8 +24,8 @@
 %%-----------------------------------------------------------------------
 main() ->
     {R, N, M} = find_palindrome(?START, ?LIMIT),
-    io:format("The largest palindrome made from the product of two"),
-    io:format(" 3-digit numbers is ~p * ~p = ~p.~n", [N, M, R]).
+    io:format("The largest palindrome made from the product of two"
+              " 3-digit numbers is ~p * ~p = ~p.~n", [N, M, R]).
 
 %%-----------------------------------------------------------------------
 %% @private

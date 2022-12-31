@@ -24,8 +24,7 @@ main() ->
         Number || Number <- lists:seq(1, ?CANDIDATE - 1),
         is_multiple(Number, 3) orelse is_multiple(Number, 5)
     ]),
-    io:format("The sum of all the multiples of 3 or 5 below"
-              "1000 is ~p.~n", [Result]).
+    io:format("The sum of all the multiples of 3 or 5 below 1000 is ~p.~n", [Result]).
 
 %%-----------------------------------------------------------------------
 %% @private
