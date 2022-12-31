@@ -1,0 +1,14 @@
+[
+    {
+        "key": "f5",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run Elixir Script",
+        "when": "!debuggersAvailable && resourceExtname == .exs"
+    },
+    {
+        "key": "f5",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run Elixir Main",
+        "when": "!debuggersAvailable && resourceExtname == .ex"
+    }
+]

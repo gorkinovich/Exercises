@@ -8,7 +8,7 @@ defmodule PE001 do
     @moduledoc """
     Problem 1: Multiples of 3 or 5
     """
-    
+
     @candidate 1000
 
     @doc """
