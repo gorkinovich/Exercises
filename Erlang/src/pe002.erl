@@ -18,6 +18,17 @@
 -define(LIMIT, 4000000).
 
 %%-----------------------------------------------------------------------
+%% @doc
+%% Main entry for the problem solver.
+%% @end
+%%-----------------------------------------------------------------------
+main() ->
+    fibonacci_server:start_link(),
+    Iterator = fibonacci_server:iterator(),
+    Result = sum_fibonacci_numbers(Iterator, ?LIMIT, 0),
+    io:format("The sum of the even-valued terms below four million is ~p.~n", [Result]).
+
+%%-----------------------------------------------------------------------
 %% @private
 %% @doc
 %% Sums all the even valued numbers in the Fibonacci's sequence under
@@ -38,14 +49,3 @@ sum_fibonacci_numbers(Iterator, Limit, Accumulated) ->
         false ->
             Accumulated
     end.
-
-%%-----------------------------------------------------------------------
-%% @doc
-%% Main entry for the problem solver.
-%% @end
-%%-----------------------------------------------------------------------
-main() ->
-    fibonacci_server:start_link(),
-    Iterator = fibonacci_server:iterator(),
-    Result = sum_fibonacci_numbers(Iterator, ?LIMIT, 0),
-    io:format("The sum of the even-valued terms below four million is ~p.~n", [Result]).

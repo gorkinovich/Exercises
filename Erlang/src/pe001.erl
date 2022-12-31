@@ -15,18 +15,6 @@
 -define(CANDIDATE, 1000).
 
 %%-----------------------------------------------------------------------
-%% @private
-%% @doc
-%% Checks if the LHS is a multiple of the RHS.
-%% @param LHS The left-hand side.
-%% @param RHS The right-hand side.
-%% @returns 'true' when the LHS is a multiple of the RHS.
-%% @end
-%%-----------------------------------------------------------------------
-is_multiple(LHS, RHS) ->
-    (LHS rem RHS) == 0.
-
-%%-----------------------------------------------------------------------
 %% @doc
 %% Main entry for the problem solver.
 %% @end
@@ -38,3 +26,15 @@ main() ->
     ]),
     io:format("The sum of all the multiples of 3 or 5 below"
               "1000 is ~p.~n", [Result]).
+
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Checks if the LHS is a multiple of the RHS.
+%% @param LHS The left-hand side.
+%% @param RHS The right-hand side.
+%% @returns 'true' when the LHS is a multiple of the RHS.
+%% @end
+%%-----------------------------------------------------------------------
+is_multiple(LHS, RHS) ->
+    (LHS rem RHS) == 0.
