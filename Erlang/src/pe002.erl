@@ -23,8 +23,8 @@
 %% @end
 %%-----------------------------------------------------------------------
 main() ->
-    fibonacci_server:start_link(),
-    Iterator = fibonacci_server:iterator(),
+    fibonacci:start_link(),
+    Iterator = fibonacci:iterator(),
     Result = sum_fibonacci_numbers(Iterator, ?LIMIT, 0),
     io:format("The sum of the even-valued terms below four million is ~p.~n", [Result]).
 
@@ -40,7 +40,7 @@ main() ->
 %% @end
 %%-----------------------------------------------------------------------
 sum_fibonacci_numbers(Iterator, Limit, Accumulated) ->
-    {Current, NextIterator} = fibonacci_server:next(Iterator),
+    {Current, NextIterator} = fibonacci:next(Iterator),
     case Current < Limit of
         true when (Current rem 2) == 0 ->
             sum_fibonacci_numbers(NextIterator, Limit, Accumulated + Current);

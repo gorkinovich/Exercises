@@ -2,19 +2,19 @@
 %%% @author Gorka Suárez García
 %%% @copyright (C) 2022, Gorka Suárez García
 %%% @doc
-%%% This server calculates the Fibonacci's numbers sequence.
+%%% This server handles data as a singleton pattern.
 %%% @end
 %%%======================================================================
--module(fibonacci_server).
+-module(singleton).
 -author("Gorka Suárez García").
 -behaviour(gen_server).
 -export([
     % Public functions:
-    start_link/0, iterator/0, next/1, reset/0,
+    start_link/0, get/1, get/2, set/2, apply/2,
 
     % gen_server callbacks:
-    init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2,
-    code_change/3
+    init/1, handle_call/3, handle_cast/2, handle_info/2,
+    terminate/2, code_change/3
 ]).
 
 %%%======================================================================
@@ -22,7 +22,8 @@
 %%%======================================================================
 
 -define(SERVER, ?MODULE).
--record(state, { table = #{0 => 0, 1 => 1} }).
+-define(UNDEFINED, undefined).
+-record(state, { table = #{} }).
 
 %%%======================================================================
 %%% Public functions
@@ -34,61 +35,61 @@
 %% @end
 %%-----------------------------------------------------------------------
 start_link() ->
-    gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
+    case whereis(?SERVER) of
+        undefined ->
+            gen_server:start_link({local, ?SERVER}, ?MODULE, [], []);
+        PID ->
+            {ok, PID}
+    end.
 
 %%-----------------------------------------------------------------------
 %% @doc
-%% Makes a new Fibonacci's number sequence iterator.
-%% @returns The new sequence iterator.
+%% Gets a variable in the singleton.
+%% @param Name The name of the variable.
+%% @returns The value of the variable.
 %% @end
 %%-----------------------------------------------------------------------
-iterator() ->
-    {?SERVER, 0}.
+get(Name) ->
+    gen_server:call(?SERVER, {get, Name, ?UNDEFINED}).
 
 %%-----------------------------------------------------------------------
 %% @doc
-%% Gets the next number in the Fibonacci's number sequence.
-%% @param Iterator The iterator handler.
-%% @returns A tuple with the current number and the updated iterator.
+%% Gets a variable in the singleton.
+%% @param Name The name of the variable.
+%% @param Default The default value if the variable doesn't exist.
+%% @returns The value of the variable or the default value.
 %% @end
 %%-----------------------------------------------------------------------
-next({?SERVER, Index}) ->
-    {Number, NextIndex} = gen_server:call(?SERVER, {get_number, Index}),
-    {Number, {?SERVER, NextIndex}}.
+get(Name, Default) ->
+    gen_server:call(?SERVER, {get, Name, Default}).
 
 %%-----------------------------------------------------------------------
 %% @doc
-%% Resets the internal data of the server.
+%% Sets a variable in the singleton.
+%% @param Name The name of the variable.
+%% @param Value The value for the variable.
 %% @end
 %%-----------------------------------------------------------------------
-reset() ->
-    gen_server:cast(?SERVER, reset).
+set(Name, Value) ->
+    gen_server:cast(?SERVER, {set, Name, Value}).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Applies a function to a variable in the singleton.
+%% @param Name The name of the variable.
+%% @param Function The function to apply.
+%% @end
+%%-----------------------------------------------------------------------
+apply(Name, Function) ->
+    gen_server:cast(?SERVER, {apply, Name, Function}).
 
 %%%======================================================================
 %%% Internal functions
 %%%======================================================================
 
-%%-----------------------------------------------------------------------
-%% @private
-%% @doc
-%% Gets the next number in the Fibonacci's number sequence.
-%% @param Table The table with the previous Fibonacci's numbers.
-%% @param Index The index value to query inside the sequence.
-%% @returns A tuple with the current number and the updated table.
-%% @end
-%%-----------------------------------------------------------------------
-get_number(Table, Index) when Index >= 0 ->
-    case maps:get(Index, Table, none) of
-        none ->
-            {N1, T1} = get_number(Table, Index - 1),
-            {N2, T2} = get_number(T1, Index - 2),
-            NextTable = T2#{ Index => N1 + N2 },
-            {N1 + N2, NextTable};
-        Number ->
-            {Number, Table}
-    end;
-get_number(Table, _) ->
-    {0, Table}.
+update_table(State, Name, Value) ->
+    Table = State#state.table,
+    Table#{ Name => Value }.
 
 %%%======================================================================
 %%% gen_server callbacks
@@ -97,7 +98,7 @@ get_number(Table, _) ->
 %%-----------------------------------------------------------------------
 %% @private
 %% @doc
-%% Initializes the server.
+%% Generic server event init.
 %% @end
 %%-----------------------------------------------------------------------
 init([]) ->
@@ -106,32 +107,38 @@ init([]) ->
 %%-----------------------------------------------------------------------
 %% @private
 %% @doc
-%% Handling call messages.
+%% Generic server event handle call messages.
 %% @end
 %%-----------------------------------------------------------------------
-handle_call({get_number, Index}, _From, State) when Index =< 0 ->
-    {reply, {0, 1}, State};
-handle_call({get_number, Index}, _From, State = #state{table = Table}) ->
-    {Number, NextTable} = get_number(Table, Index),
-    {reply, {Number, Index + 1}, State#state{table = NextTable}};
+handle_call({get, Name, Default}, _From, State) ->
+    {reply, maps:get(Name, State#state.table, Default), State};
 handle_call(_Request, _From, State) ->
     {reply, ok, State}.
 
 %%-----------------------------------------------------------------------
 %% @private
 %% @doc
-%% Handling cast messages.
+%% Generic server event handle cast messages.
 %% @end
 %%-----------------------------------------------------------------------
-handle_cast(reset, _State) ->
-    {noreply, #state{}};
+handle_cast({set, Name, Value}, State) ->
+    NextTable = update_table(State, Name, Value),
+    {noreply, State#state{ table = NextTable }};
+handle_cast({apply, Name, Function}, State) ->
+    case State#state.table of
+        #{ Name := Value } ->
+            NextTable = update_table(State, Name, Function(Value)),
+            {noreply, State#state{ table = NextTable }};
+        _ ->
+            {noreply, State}
+    end;
 handle_cast(_Request, State) ->
     {noreply, State}.
 
 %%-----------------------------------------------------------------------
 %% @private
 %% @doc
-%% Handling all non call/cast messages.
+%% Generic server event handle non call/cast messages.
 %% @end
 %%-----------------------------------------------------------------------
 handle_info(_Info, State) ->
@@ -140,10 +147,7 @@ handle_info(_Info, State) ->
 %%-----------------------------------------------------------------------
 %% @private
 %% @doc
-%% This function is called by a gen_server when it is about to
-%% terminate. It should be the opposite of Module:init/1 and do
-%% any necessary cleaning up. When it returns, the gen_server
-%% terminates with Reason. The return value is ignored.
+%% Generic server event terminate.
 %% @end
 %%-----------------------------------------------------------------------
 terminate(_Reason, _State) ->
@@ -152,7 +156,7 @@ terminate(_Reason, _State) ->
 %%-----------------------------------------------------------------------
 %% @private
 %% @doc
-%% Convert process state when code is changed.
+%% Generic server event code change.
 %% @end
 %%-----------------------------------------------------------------------
 code_change(_OldVsn, State, _Extra) ->
