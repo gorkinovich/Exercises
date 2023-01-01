@@ -5,7 +5,7 @@
 %%% This module contains utility functions.
 %%% @end
 %%%======================================================================
--module(mathutils).
+-module(utils).
 -author("Gorka Suárez García").
 -export([factorial/1, combinations/2, cartesian/2, cartesian/3]).
 
