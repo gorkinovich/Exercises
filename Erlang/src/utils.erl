@@ -7,7 +7,25 @@
 %%%======================================================================
 -module(utils).
 -author("Gorka Suárez García").
--export([factorial/1, combinations/2, cartesian/2, cartesian/3]).
+-export([
+    factorial/1, product/1, find/2, all/2, any/2, cartesian/2,
+    cartesian/3, combinations/2, combinations/3
+]).
+
+%%%======================================================================
+%%% Macros
+%%%======================================================================
+
+-record(loop, {
+    items = [],
+    step = 0,
+    size = 0,
+    current = []
+}).
+
+%%%======================================================================
+%%% Math functions
+%%%======================================================================
 
 %%-----------------------------------------------------------------------
 %% @doc
@@ -21,14 +39,138 @@ factorial(Number) -> factorial(Number, 1).
 %%-----------------------------------------------------------------------
 %% @private
 %% @doc
-%% Gets the factorial of a natural number.
-%% @param Number The number to check.
-%% @param Accum The accumulated value to return.
-%% @returns The factorial of the given number.
+%% Internal function for 'fun factorial/1'.
 %% @end
 %%-----------------------------------------------------------------------
-factorial(Number, Accum) when Number =< 1 -> Accum;
-factorial(Number, Accum) -> factorial(Number - 1, Accum * Number).
+factorial(Number, Current) when Number =< 1 -> Current;
+factorial(Number, Current) -> factorial(Number - 1, Current * Number).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Gets the product of the elements in a list.
+%% @param Numbers The list to check.
+%% @returns The product of the elements.
+%% @end
+%%-----------------------------------------------------------------------
+product([]) -> 0;
+product(Numbers) -> product(Numbers, 1).
+
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Internal function for 'fun product/1'.
+%% @end
+%%-----------------------------------------------------------------------
+product([], Current) -> Current;
+product([X|XS], Current) -> product(XS, X * Current).
+
+%%%======================================================================
+%%% Loop functions
+%%%======================================================================
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Finds a result inside a list after applying a function.This function
+%% is design to be lazy in its execution, it will stop its execution if
+%% the result is found.
+%% @param List The list with the elements to check.
+%% @param Function The function to apply.
+%% @returns {'ok', Result} if the result is found, otherwise 'nothing'.
+%% @end
+%%-----------------------------------------------------------------------
+find([], _) ->
+    nothing;
+find([Item | Items], Function) ->
+    case Function(Item) of
+        {ok, Result} -> {ok, Result};
+        _ -> find(Items, Function)
+    end.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Checks if every element in a list fulfills a predicate. This function
+%% is design to be lazy in its execution, it will stop its execution if
+%% any element gets 'false' with the predicate.
+%% @param List The list with the elements to check.
+%% @param Predicate The predicate to check.
+%% @returns 'true' if every element fulfills the predicate.
+%% @end
+%%-----------------------------------------------------------------------
+all([], _) ->
+    true;
+all([Item | Items], Predicate) ->
+    case Predicate(Item) of
+        false -> false;
+        _ -> all(Items, Predicate)
+    end.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Checks if any element in a list fulfills a predicate. This function
+%% is design to be lazy in its execution, it will stop its execution if
+%% any element gets 'true' with the predicate.
+%% @param List The list with the elements to check.
+%% @param Predicate The predicate to check.
+%% @returns 'true' if any element fulfills the predicate.
+%% @end
+%%-----------------------------------------------------------------------
+any([], _) ->
+    false;
+any([Item | Items], Predicate) ->
+    case Predicate(Item) of
+        true -> true;
+        _ -> any(Items, Predicate)
+    end.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Gets the cartesian product of a list of elements. (NOTE: Please
+%% be very careful using this function, avoid big lists and sizes.)
+%% @param List The list with the elements.
+%% @param Size The size of elements to combine.
+%% @returns A list of lists with the cartesian product.
+%% @end
+%%-----------------------------------------------------------------------
+cartesian(List, Size) ->
+    lists:reverse(cartesian_loop(List, [#loop{ items = List, size = Size}], [])).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Runs the cartesian product of a list of elements. (NOTE: Please
+%% be very careful using this function, avoid big lists and sizes.)
+%% @param List The list with the elements.
+%% @param Size The size of elements to combine.
+%% @param Function The operation for each element.
+%% @end
+%%-----------------------------------------------------------------------
+cartesian(List, Size, Function) ->
+    cartesian_loop(List, [#loop{ items = List, size = Size}], Function).
+
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Internal function for 'fun cartesian/2,3'.
+%% @end
+%%-----------------------------------------------------------------------
+cartesian_loop(_, [], Result) ->
+    Result;
+cartesian_loop(List, [State | Stack], Result) when State#loop.step >= State#loop.size ->
+    cartesian_loop(List, Stack, update_loop_result(lists:reverse(State#loop.current), Result));
+cartesian_loop(List, [State | Stack], Result) ->
+    case State#loop.items of
+        [] ->
+            cartesian_loop(List, Stack, Result);
+        _ ->
+            NextState =  State#loop{
+                items = tl(State#loop.items)
+            },
+            StepState = State#loop{
+                items = List,
+                current = [hd(State#loop.items) | State#loop.current],
+                step = State#loop.step + 1
+            },
+            cartesian_loop(List, [StepState, NextState | Stack], Result)
+    end.
 
 %%-----------------------------------------------------------------------
 %% @doc
@@ -39,76 +181,73 @@ factorial(Number, Accum) -> factorial(Number - 1, Accum * Number).
 %% @end
 %%-----------------------------------------------------------------------
 combinations(List, Size) ->
-    singleton:start_link(),
-    Variable = {?MODULE, combinations, make_ref()},
-    singleton:set(Variable, sets:new()),
-    cartesian(
-        List, Size,
-        fun(Current) ->
-            case Size =:= length(lists:uniq(Current)) of
-                false ->
-                    ok;
-                true ->
-                    singleton:apply(
-                        Variable,
-                        fun(Value) ->
-                            sets:add_element(lists:sort(Current), Value)
-                        end
-                    )
-            end
-        end
-    ),
-    lists:sort(sets:to_list(singleton:get(Variable))).
+    lists:reverse(combinations_loop([#loop{ items = List, size = Size}], [])).
 
 %%-----------------------------------------------------------------------
 %% @doc
-%% Gets the cartesian product of a list of elements.
+%% Runs the combinations of a list of elements.
 %% @param List The list with the elements.
 %% @param Size The size of elements to combine.
-%% @returns A list of lists with the cartesian product.
+%% @param Function The operation for each element.
 %% @end
 %%-----------------------------------------------------------------------
-cartesian(List, Size) ->
-    singleton:start_link(),
-    Variable = {?MODULE, cartesian, make_ref()},
-    singleton:set(Variable, []),
-    cartesian(
-        List, Size,
-        fun(Current) ->
-            singleton:apply(
-                Variable,
-                fun(Value) ->
-                    [Current | Value]
-                end
-            )
-        end
-    ),
-    lists:reverse(singleton:get(Variable)).
-
-%%-----------------------------------------------------------------------
-%% @doc
-%% Runs the cartesian product of a list of elements.
-%% @param List The list with the elements.
-%% @param Size The size of elements to combine.
-%% @param Function The operation for each element of the product.
-%% @end
-%%-----------------------------------------------------------------------
-cartesian(List, Size, Function) ->
-    cartesian_loop(List, Size, Function, 0, []).
+combinations(List, Size, Function) ->
+    combinations_loop([#loop{ items = List, size = Size}], Function).
 
 %%-----------------------------------------------------------------------
 %% @private
 %% @doc
-%% Utility function for 'fun cartesian/2'.
+%% Internal function for 'fun combinations/2,3'.
 %% @end
 %%-----------------------------------------------------------------------
-cartesian_loop(_, Size, Function, Step, Current) when Step >= Size ->
-    Function(lists:reverse(Current));
-cartesian_loop(List, Size, Function, Step, Current) ->
-    lists:foldl(
-        fun(Item, _) ->
-            cartesian_loop(List, Size, Function, Step + 1, [Item | Current])
-        end,
-        ok,
-        List
-    ).
+combinations_loop([], Result) ->
+    Result;
+combinations_loop([State | Stack], Result) when State#loop.step >= State#loop.size ->
+    combinations_loop(Stack, update_loop_result(lists:reverse(State#loop.current), Result));
+combinations_loop([State | Stack], Result) ->
+    ItemsLength = length(State#loop.items),
+    Hole = State#loop.size - State#loop.step,
+    FlagEqual = ItemsLength =:= Hole,
+    FlagLess = ItemsLength < Hole,
+    case {FlagEqual, FlagLess} of
+        {_, true} ->
+            combinations_loop(Stack, Result);
+        {true, _} ->
+            Current = lists:reverse(State#loop.current) ++ State#loop.items,
+            combinations_loop(Stack, update_loop_result(Current, Result));
+        _ ->
+            NextItems = tl(State#loop.items),
+            NextState = State#loop{
+                items = NextItems
+            },
+            StepState = State#loop{
+                items = NextItems,
+                current = [hd(State#loop.items) | State#loop.current],
+                step = State#loop.step + 1
+            },
+            combinations_loop([StepState, NextState | Stack], Result)
+    end.
+
+%%%======================================================================
+%%% Auxiliary functions
+%%%======================================================================
+
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Updates the result of a loop with a value.
+%% @param Value The value to use.
+%% @param Result The result to update.
+%% @returns The result updated.
+%% @end
+%%-----------------------------------------------------------------------
+update_loop_result(Value, Result) when is_list(Result) ->
+    [Value | Result];
+update_loop_result(Value, Result) when is_function(Result) ->
+    Result(Value),
+    Result;
+update_loop_result(Value, Result) ->
+    case sets:is_set(Result) of
+        true -> sets:add_element(Value, Result);
+        false -> Result
+    end.
