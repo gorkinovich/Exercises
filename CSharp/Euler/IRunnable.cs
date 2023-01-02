@@ -1,4 +1,8 @@
-﻿namespace Euler {
+﻿//======================================================================
+// Copyright (C) 2022, Gorka Suárez García
+//======================================================================
+
+namespace Euler {
     /// <summary>
     /// This interface represents a problem to execute in the main console.
     /// </summary>

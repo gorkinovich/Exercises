@@ -1,4 +1,8 @@
-﻿using System;
+﻿//======================================================================
+// Copyright (C) 2022, Gorka Suárez García
+//======================================================================
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;

@@ -1,4 +1,9 @@
-﻿/* Problem 1: Multiples of 3 or 5
+﻿//======================================================================
+// Copyright (C) 2022, Gorka Suárez García
+//======================================================================
+
+/* 
+ * Problem 1: Multiples of 3 or 5
  * URL: https://projecteuler.net/problem=1
  * 
  * If we list all the natural numbers below 10 that are multiples of
@@ -6,6 +11,7 @@
  * 
  * Find the sum of all the multiples of 3 or 5 below 1000.
  */
+
 using System;
 using System.Linq;
 
