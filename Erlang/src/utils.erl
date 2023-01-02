@@ -1,6 +1,6 @@
 %%%======================================================================
 %%% @author Gorka Suárez García
-%%% @copyright (C) 2022, Gorka Suárez García
+%%% @copyright (C) 2022-2023, Gorka Suárez García
 %%% @doc
 %%% This module contains utility functions.
 %%% @end
