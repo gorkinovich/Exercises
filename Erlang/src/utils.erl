@@ -8,8 +8,8 @@
 -module(utils).
 -author("Gorka Suárez García").
 -export([
-    factorial/1, product/1, find/2, all/2, any/2, cartesian/2,
-    cartesian/3, combinations/2, combinations/3
+    factorial/1, pow/2, product/1, find/2, all/2, any/2,
+    cartesian/2, cartesian/3, combinations/2, combinations/3
 ]).
 
 %%%======================================================================
@@ -44,6 +44,19 @@ factorial(Number) -> factorial(Number, 1).
 %%-----------------------------------------------------------------------
 factorial(Number, Current) when Number =< 1 -> Current;
 factorial(Number, Current) -> factorial(Number - 1, Current * Number).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Gets the operation Left to the power of Right.
+%% @param Left The left operand.
+%% @param Right The right operand.
+%% @returns The result of the operation.
+%% @end
+%%-----------------------------------------------------------------------
+pow(Left, Right) when is_integer(Left), is_integer(Right) ->
+    trunc(math:pow(Left, Right));
+pow(Left, Right) ->
+    math:pow(Left, Right).
 
 %%-----------------------------------------------------------------------
 %% @doc
