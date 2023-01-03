@@ -9,7 +9,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Euler {
@@ -21,9 +20,10 @@ namespace Euler {
         /// Main entry for the problem solver.
         /// </summary>
         public void Run () {
-            const int START = 100;
-            const int LIMIT = 1000;
+            const int START = 100, LIMIT = 1000;
+
             var (result, left, right) = FindPalindrome(START, LIMIT);
+
             Console.Write("The largest palindrome made from the product of two ");
             Console.WriteLine($"3-digit numbers is {left} * {right} = {result}.");
         }
@@ -39,7 +39,7 @@ namespace Euler {
         /// zeroes.</returns>
         public static (int, int, int) FindPalindrome (int start, int limit) {
             (int number, int, int) result = (0, 0, 0);
-            var candidates = Enumerable.Range(start, limit - start);
+            var candidates = Tools.Range(start, limit);
             foreach (var left in candidates) {
                 foreach (var right in candidates) {
                     var number = left * right;

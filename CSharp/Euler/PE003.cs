@@ -22,7 +22,9 @@ namespace Euler {
         /// </summary>
         public void Run () {
             const ulong CANDIDATE = 600_851_475_143;
+
             var result = GetFactors(CANDIDATE).Distinct().LastOrDefault();
+
             Console.WriteLine($"The largest prime factor of {CANDIDATE} is {result}.");
         }
 

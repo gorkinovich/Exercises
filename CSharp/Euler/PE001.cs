@@ -1,5 +1,5 @@
 ﻿//======================================================================
-// Copyright (C) 2022, Gorka Suárez García
+// Copyright (C) 2023, Gorka Suárez García
 //======================================================================
 
 /* 
@@ -25,9 +25,9 @@ namespace Euler {
         /// </summary>
         public void Run () {
             const int LIMIT = 1000;
-            var result = Enumerable.Range(1, LIMIT - 1)
-                                   .Where(x => (x % 3) == 0 || (x % 5) == 0)
-                                   .Sum();
+            var result = Tools.Range(1, LIMIT)
+                              .Where(x => (x % 3) == 0 || (x % 5) == 0)
+                              .Sum();
             Console.WriteLine($"The sum of all the multiples of 3 or 5 below 1000 is {result}.");
         }
     }
