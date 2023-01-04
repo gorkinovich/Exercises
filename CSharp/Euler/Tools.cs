@@ -45,7 +45,7 @@ namespace Euler {
         /// <param name="start">The start number of the sequence.</param>
         /// <param name="limit">The limit number of the secuence.</param>
         /// <returns>A enumerable with the sequence of numbers.</returns>
-        public static IEnumerable<int> Range (int start, int limit) {
+        public static IEnumerable<int> Sequence (int start, int limit) {
             return Enumerable.Range(start, limit - start);
         }
 

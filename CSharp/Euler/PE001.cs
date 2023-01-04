@@ -25,7 +25,7 @@ namespace Euler {
         /// </summary>
         public void Run () {
             const int LIMIT = 1000;
-            var result = Tools.Range(1, LIMIT)
+            var result = Tools.Sequence(1, LIMIT)
                               .Where(x => (x % 3) == 0 || (x % 5) == 0)
                               .Sum();
             Console.WriteLine($"The sum of all the multiples of 3 or 5 below 1000 is {result}.");

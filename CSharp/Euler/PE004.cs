@@ -39,7 +39,7 @@ namespace Euler {
         /// zeroes.</returns>
         public static (int, int, int) FindPalindrome (int start, int limit) {
             (int number, int, int) result = (0, 0, 0);
-            var candidates = Tools.Range(start, limit);
+            var candidates = Tools.Sequence(start, limit);
             foreach (var left in candidates) {
                 foreach (var right in candidates) {
                     var number = left * right;
