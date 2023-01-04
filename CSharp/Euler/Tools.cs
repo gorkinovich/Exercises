@@ -2,6 +2,7 @@
 // Copyright (C) 2023, Gorka Suárez García
 //======================================================================
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -37,6 +38,48 @@ namespace Euler {
                     stack.Push((current.index, current.step + 1));
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets a sequence of numbers using the C# range function.
+        /// </summary>
+        /// <typeparam name="T">The return type of the sequence.</typeparam>
+        /// <param name="start">The start number of the sequence.</param>
+        /// <param name="count">The count number of elements.</param>
+        /// <param name="transform">The transform function.</param>
+        /// <returns>A enumerable with the sequence of numbers.</returns>
+        public static IEnumerable<T> Range<T> (int start, int count, Func<int, T> transform) {
+            return Enumerable.Range(start, count).Select(transform);
+        }
+
+        /// <summary>
+        /// Gets a sequence of numbers using the C# range function.
+        /// </summary>
+        /// <param name="start">The start number of the sequence.</param>
+        /// <param name="count">The count number of elements.</param>
+        /// <returns>A enumerable with the sequence of numbers.</returns>
+        public static IEnumerable<uint> RangeUnsigned (int start, int count) {
+            return Range(start, count, x => (uint) x);
+        }
+
+        /// <summary>
+        /// Gets a sequence of numbers using the C# range function.
+        /// </summary>
+        /// <param name="start">The start number of the sequence.</param>
+        /// <param name="count">The count number of elements.</param>
+        /// <returns>A enumerable with the sequence of numbers.</returns>
+        public static IEnumerable<long> RangeLong (int start, int count) {
+            return Range(start, count, x => (long) x);
+        }
+
+        /// <summary>
+        /// Gets a sequence of numbers using the C# range function.
+        /// </summary>
+        /// <param name="start">The start number of the sequence.</param>
+        /// <param name="count">The count number of elements.</param>
+        /// <returns>A enumerable with the sequence of numbers.</returns>
+        public static IEnumerable<ulong> RangeUnsignedLong (int start, int count) {
+            return Range(start, count, x => (ulong) x);
         }
 
         /// <summary>
