@@ -41,6 +41,102 @@ namespace Euler {
         }
 
         /// <summary>
+        /// Returns a specified number raised to the specified power.
+        /// </summary>
+        /// <param name="left">The number to be raised to a power.</param>
+        /// <param name="right">The number that specifies the power</param>
+        /// <returns>The number left raised to the power right.</returns>
+        public static int Pow (int left, int right) {
+            return (int) Math.Pow(left, right);
+        }
+
+        /// <summary>
+        /// Returns a specified number raised to the specified power.
+        /// </summary>
+        /// <param name="left">The number to be raised to a power.</param>
+        /// <param name="right">The number that specifies the power</param>
+        /// <returns>The number left raised to the power right.</returns>
+        public static uint Pow (uint left, uint right) {
+            return (uint) Math.Pow(left, right);
+        }
+
+        /// <summary>
+        /// Returns a specified number raised to the specified power.
+        /// </summary>
+        /// <param name="left">The number to be raised to a power.</param>
+        /// <param name="right">The number that specifies the power</param>
+        /// <returns>The number left raised to the power right.</returns>
+        public static long Pow (long left, long right) {
+            return (long) Math.Pow(left, right);
+        }
+
+        /// <summary>
+        /// Returns a specified number raised to the specified power.
+        /// </summary>
+        /// <param name="left">The number to be raised to a power.</param>
+        /// <param name="right">The number that specifies the power</param>
+        /// <returns>The number left raised to the power right.</returns>
+        public static ulong Pow (ulong left, ulong right) {
+            return (ulong) Math.Pow(left, right);
+        }
+
+        /// <summary>
+        /// Returns a specified number raised to the specified power.
+        /// </summary>
+        /// <param name="left">The number to be raised to a power.</param>
+        /// <param name="right">The number that specifies the power</param>
+        /// <returns>The number left raised to the power right.</returns>
+        public static int IntPow (int left, int right) {
+            int result = 1;
+            while (0 < right--) {
+                result *= left;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a specified number raised to the specified power.
+        /// </summary>
+        /// <param name="left">The number to be raised to a power.</param>
+        /// <param name="right">The number that specifies the power</param>
+        /// <returns>The number left raised to the power right.</returns>
+        public static uint IntPow (uint left, uint right) {
+            uint result = 1;
+            while (0 < right--) {
+                result *= left;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a specified number raised to the specified power.
+        /// </summary>
+        /// <param name="left">The number to be raised to a power.</param>
+        /// <param name="right">The number that specifies the power</param>
+        /// <returns>The number left raised to the power right.</returns>
+        public static long IntPow (long left, long right) {
+            long result = 1;
+            while (0 < right--) {
+                result *= left;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a specified number raised to the specified power.
+        /// </summary>
+        /// <param name="left">The number to be raised to a power.</param>
+        /// <param name="right">The number that specifies the power</param>
+        /// <returns>The number left raised to the power right.</returns>
+        public static ulong IntPow (ulong left, ulong right) {
+            ulong result = 1;
+            while (0 < right--) {
+                result *= left;
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Gets a sequence of numbers using the C# range function.
         /// </summary>
         /// <typeparam name="T">The return type of the sequence.</typeparam>
@@ -101,7 +197,7 @@ namespace Euler {
         /// <param name="initial">The initial string.</param>
         /// <param name="ending">The ending string.</param>
         /// <returns></returns>
-        public static string ToString<T>(IEnumerable<T> values, string separator = "",
+        public static string ToString<T> (IEnumerable<T> values, string separator = "",
             string initial = "", string ending = "") {
             var body = values.Select(x => x.ToString())
                              .Aggregate((accum, item) => accum + separator + item);
