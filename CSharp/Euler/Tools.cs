@@ -43,41 +43,14 @@ namespace Euler {
         /// <summary>
         /// Returns a specified number raised to the specified power.
         /// </summary>
+        /// <typeparam name="T">The type of the operands.</typeparam>
         /// <param name="left">The number to be raised to a power.</param>
         /// <param name="right">The number that specifies the power</param>
         /// <returns>The number left raised to the power right.</returns>
-        public static int Pow (int left, int right) {
-            return (int) Math.Pow(left, right);
-        }
-
-        /// <summary>
-        /// Returns a specified number raised to the specified power.
-        /// </summary>
-        /// <param name="left">The number to be raised to a power.</param>
-        /// <param name="right">The number that specifies the power</param>
-        /// <returns>The number left raised to the power right.</returns>
-        public static uint Pow (uint left, uint right) {
-            return (uint) Math.Pow(left, right);
-        }
-
-        /// <summary>
-        /// Returns a specified number raised to the specified power.
-        /// </summary>
-        /// <param name="left">The number to be raised to a power.</param>
-        /// <param name="right">The number that specifies the power</param>
-        /// <returns>The number left raised to the power right.</returns>
-        public static long Pow (long left, long right) {
-            return (long) Math.Pow(left, right);
-        }
-
-        /// <summary>
-        /// Returns a specified number raised to the specified power.
-        /// </summary>
-        /// <param name="left">The number to be raised to a power.</param>
-        /// <param name="right">The number that specifies the power</param>
-        /// <returns>The number left raised to the power right.</returns>
-        public static ulong Pow (ulong left, ulong right) {
-            return (ulong) Math.Pow(left, right);
+        public static T Pow<T> (T left, T right) {
+            double x = (double) Convert.ChangeType(left, typeof(double));
+            double y = (double) Convert.ChangeType(right, typeof(double));
+            return (T) Convert.ChangeType(Math.Pow(x, y), typeof(T));
         }
 
         /// <summary>
@@ -142,40 +115,11 @@ namespace Euler {
         /// <typeparam name="T">The return type of the sequence.</typeparam>
         /// <param name="start">The start number of the sequence.</param>
         /// <param name="count">The count number of elements.</param>
-        /// <param name="transform">The transform function.</param>
         /// <returns>A enumerable with the sequence of numbers.</returns>
-        public static IEnumerable<T> Range<T> (int start, int count, Func<int, T> transform) {
-            return Enumerable.Range(start, count).Select(transform);
-        }
-
-        /// <summary>
-        /// Gets a sequence of numbers using the C# range function.
-        /// </summary>
-        /// <param name="start">The start number of the sequence.</param>
-        /// <param name="count">The count number of elements.</param>
-        /// <returns>A enumerable with the sequence of numbers.</returns>
-        public static IEnumerable<uint> RangeUnsigned (int start, int count) {
-            return Range(start, count, x => (uint) x);
-        }
-
-        /// <summary>
-        /// Gets a sequence of numbers using the C# range function.
-        /// </summary>
-        /// <param name="start">The start number of the sequence.</param>
-        /// <param name="count">The count number of elements.</param>
-        /// <returns>A enumerable with the sequence of numbers.</returns>
-        public static IEnumerable<long> RangeLong (int start, int count) {
-            return Range(start, count, x => (long) x);
-        }
-
-        /// <summary>
-        /// Gets a sequence of numbers using the C# range function.
-        /// </summary>
-        /// <param name="start">The start number of the sequence.</param>
-        /// <param name="count">The count number of elements.</param>
-        /// <returns>A enumerable with the sequence of numbers.</returns>
-        public static IEnumerable<ulong> RangeUnsignedLong (int start, int count) {
-            return Range(start, count, x => (ulong) x);
+        public static IEnumerable<T> Range<T> (int start, int count) {
+            foreach (int number in Enumerable.Range(start, count)) {
+                yield return (T) Convert.ChangeType(number, typeof(T));
+            }
         }
 
         /// <summary>

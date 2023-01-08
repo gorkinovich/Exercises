@@ -49,7 +49,7 @@ namespace Euler {
         /// <returns>The difference between the sums.</returns>
         public long CalcNumber (int first, int last) {
             Func<long, long> square = x => x * x;
-            var numbers = Tools.RangeLong(first, last);
+            var numbers = Tools.Range<long>(first, last);
             var sum_square = numbers.Select(square).Sum();
             var square_sum = square(numbers.Sum());
             return square_sum - sum_square;
