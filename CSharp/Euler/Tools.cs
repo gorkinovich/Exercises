@@ -143,9 +143,7 @@ namespace Euler {
         /// <returns></returns>
         public static string ToString<T> (IEnumerable<T> values, string separator = "",
             string initial = "", string ending = "") {
-            var body = values.Select(x => x.ToString())
-                             .Aggregate((accum, item) => accum + separator + item);
-            return initial + body + ending;
+            return initial + string.Join(separator, values) + ending;
         }
     }
 }

@@ -61,7 +61,7 @@ def get_factors(victim):
     :return: A list with the divisors.
     """
     result = []
-    for prime in PrimesGenerator():
+    for prime in PrimesGenerator(True):
         if victim < prime:
             return result
         elif prime == 1:

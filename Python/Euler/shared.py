@@ -2,7 +2,7 @@
 Generic shared functions.
 
 :author: Gorka Suárez García
-:copyright: (c) 2022, Gorka Suárez García
+:copyright: (c) 2022-2023, Gorka Suárez García
 """
 import sys
 import math
@@ -72,7 +72,7 @@ class PrimesGenerator:
     This type represents a generator of prime numbers with memory.
     """
 
-    __primes = [1]
+    __primes = []
 
     @classmethod
     def next_prime(cls):
@@ -80,13 +80,19 @@ class PrimesGenerator:
         Gets the next prime to calculate.
         :return: The next prime number.
         """
+        # Sets the first two primes of the sequence:
+        victim = cls.last()
+        if victim <= 2:
+            victim += 1
+            cls.__primes.append(victim)
+            return victim
         # Sets the initial value to check:
-        victim = cls.__primes[-1] + 1
+        victim = cls.last() + 2
         while True:
             # Check if the current candidate is a prime number:
             is_prime = True
             limit = math.trunc(math.sqrt(victim)) + 1
-            for prime in cls.__primes[1:]:
+            for prime in cls.__primes:
                 if prime > limit:
                     break
                 if is_multiple(victim, prime):
@@ -97,18 +103,35 @@ class PrimesGenerator:
                 cls.__primes.append(victim)
                 return victim
             # Select the next candidate to check:
-            victim += 1
+            victim += 2
 
     @classmethod
-    def is_prime(cls, candidate):
+    def is_prime(cls, candidate, include_one=False):
         """
         Checks if a number is a prime number or not.
         :param candidate: The number to check.
+        :param include_one: The flag to include number one.
         :return: True if the number is prime.
         """
-        while cls.__primes[-1] < candidate:
-            cls.next_prime()
-        return binary_search(cls.__primes, candidate) is not None
+        if candidate > 1:
+            while cls.last() < candidate:
+                cls.next_prime()
+            return binary_search(cls.__primes, candidate) is not None
+        elif candidate == 1:
+            return include_one
+        else:
+            return False
+
+    @classmethod
+    def last(cls):
+        """
+        Gets the last prime generated.
+        :return:
+        """
+        if cls.__primes:
+            return cls.__primes[-1]
+        else:
+            return 1
 
     @classmethod
     def to_string(cls):
@@ -123,27 +146,34 @@ class PrimesGenerator:
         """
         Resets the current static data of the generator.
         """
-        cls.__primes = [1]
+        cls.__primes = []
 
-    def __init__(self):
+    def __init__(self, include_one=False):
         """
         Initializes the object instance.
         """
-        self.index = 0
+        self.include_one = include_one
 
     def __iter__(self):
         """
         Gets an iterator over a sequence of prime numbers.
         """
-        self.index = 0
+        if self.include_one:
+            self.index = -1
+        else:
+            self.index = 0
         return self
 
     def __next__(self):
         """
         Gets the next prime number in the sequence.
         """
-        while self.index >= len(PrimesGenerator.__primes):
-            PrimesGenerator.next_prime()
-        number = PrimesGenerator.__primes[self.index]
-        self.index += 1
-        return number
+        if self.index >= 0:
+            while self.index >= len(PrimesGenerator.__primes):
+                PrimesGenerator.next_prime()
+            number = PrimesGenerator.__primes[self.index]
+            self.index += 1
+            return number
+        else:
+            self.index = 0
+            return 1
