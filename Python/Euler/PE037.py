@@ -1,5 +1,5 @@
 """
-| **Problem 37:**
+| **Problem 37:** Truncatable primes
 | URL: https://projecteuler.net/problem=37
 ::
 
@@ -37,8 +37,8 @@ def check_truncatable(victim):
     :param victim: The number to check.
     :return: True if the number is truncatable.
     """
-    def not_prime(victim):
-        return not PrimesGenerator.is_prime(int(victim))
+    def not_prime(value):
+        return not PrimesGenerator.is_prime(int(value))
     # Get the string value of the number and check it has several digits:
     text = str(victim)
     size = len(text)
