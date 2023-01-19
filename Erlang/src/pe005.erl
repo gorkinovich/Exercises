@@ -44,7 +44,7 @@ find_number(First, Last) ->
                 utils:combinations(Numbers, Size),
                 fun(Combination) ->
                     X = utils:product(Combination),
-                    case utils:all(Numbers, fun(Y) -> (X rem Y) == 0 end) of
+                    case lists:all(fun(Y) -> (X rem Y) == 0 end, Numbers) of
                         true -> {ok, X};
                         _ -> continue
                     end

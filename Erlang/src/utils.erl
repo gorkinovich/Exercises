@@ -8,8 +8,8 @@
 -module(utils).
 -author("Gorka Suárez García").
 -export([
-    factorial/1, pow/2, product/1, find/2, all/2, any/2,
-    cartesian/2, cartesian/3, combinations/2, combinations/3
+    factorial/1, pow/2, product/1, find/2, cartesian/2,
+    cartesian/3, combinations/2, combinations/3
 ]).
 
 %%%======================================================================
@@ -97,42 +97,6 @@ find([Item | Items], Function) ->
     case Function(Item) of
         {ok, Result} -> {ok, Result};
         _ -> find(Items, Function)
-    end.
-
-%%-----------------------------------------------------------------------
-%% @doc
-%% Checks if every element in a list fulfills a predicate. This function
-%% is design to be lazy in its execution, it will stop its execution if
-%% any element gets 'false' with the predicate.
-%% @param List The list with the elements to check.
-%% @param Predicate The predicate to check.
-%% @returns 'true' if every element fulfills the predicate.
-%% @end
-%%-----------------------------------------------------------------------
-all([], _) ->
-    true;
-all([Item | Items], Predicate) ->
-    case Predicate(Item) of
-        false -> false;
-        _ -> all(Items, Predicate)
-    end.
-
-%%-----------------------------------------------------------------------
-%% @doc
-%% Checks if any element in a list fulfills a predicate. This function
-%% is design to be lazy in its execution, it will stop its execution if
-%% any element gets 'true' with the predicate.
-%% @param List The list with the elements to check.
-%% @param Predicate The predicate to check.
-%% @returns 'true' if any element fulfills the predicate.
-%% @end
-%%-----------------------------------------------------------------------
-any([], _) ->
-    false;
-any([Item | Items], Predicate) ->
-    case Predicate(Item) of
-        true -> true;
-        _ -> any(Items, Predicate)
     end.
 
 %%-----------------------------------------------------------------------
