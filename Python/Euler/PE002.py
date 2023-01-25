@@ -15,6 +15,12 @@
 :copyright: (c) 2022, Gorka Suárez García
 """
 
+######################################################################
+# Constants
+######################################################################
+
+LIMIT = 4_000_000
+
 
 ######################################################################
 # Functions
@@ -40,13 +46,13 @@ def main():
     fibgen = fibonacci_generator()
 
     # Main loop to get Fibonacci's numbers bellow four million:
-    while current < 4_000_000:
+    while current < LIMIT:
         if current % 2 == 0:
             result += current
         current = next(fibgen)
 
     # Show the final result of the problem:
-    print(f"The sum of the even-valued terms below four million is {result}.")
+    print(f"The sum of the even-valued terms below {LIMIT} is {result}.")
 
 
 ######################################################################
