@@ -48,7 +48,7 @@ namespace Euler {
         private static void runProblems () {
             foreach (var type in problems) {
                 var problem = getInstance(type);
-                Console.WriteLine($"{SEPARATOR}\nRUN: {type.Name}\n");
+                Console.WriteLine($"{SEPARATOR}\n>>> RUN: {type.Name}\n");
                 problem?.Run();
                 Console.WriteLine();
 

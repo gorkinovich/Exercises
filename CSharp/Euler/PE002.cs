@@ -27,7 +27,7 @@ namespace Euler {
             const int LIMIT = 4_000_000;
             ulong result = 0;
 
-            foreach (var current in Fibonacci()) {
+            foreach (var current in Sequences.Fibonacci()) {
                 if (current >= LIMIT) {
                     break;
                 } else if (current % 2 == 0) {
@@ -36,20 +36,6 @@ namespace Euler {
             }
 
             Console.WriteLine($"The sum of the even-valued terms below {LIMIT} is {result}.");
-        }
-
-        /// <summary>
-        /// Makes a enumerable that returns Fibonacci's numbers.
-        /// </summary>
-        /// <returns>A enumerable to obtain the sequence's numbers.</returns>
-        public static IEnumerable<ulong> Fibonacci () {
-            ulong previous = 0, current = 1, next;
-            while (true) {
-                yield return current;
-                next = previous + current;
-                previous = current;
-                current = next;
-            }
         }
     }
 }
