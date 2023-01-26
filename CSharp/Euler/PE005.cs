@@ -36,7 +36,7 @@ namespace Euler {
         /// <param name="first">The first value of the divisors range.</param>
         /// <param name="last">The last value of the divisors range.</param>
         /// <returns>The smallest natural number.</returns>
-        public static long FindNumber (int first, int last) {
+        long FindNumber (int first, int last) {
             var divisors = Tools.Range<long>(first, last).ToArray();
             foreach (var size in Enumerable.Range(1, divisors.Length)) {
                 foreach (var combination in Tools.Combinations(divisors, size)) {

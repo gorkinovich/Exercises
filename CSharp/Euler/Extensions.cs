@@ -45,5 +45,16 @@ namespace Euler {
         public static ulong Product (this IEnumerable<ulong> values) {
             return values.Aggregate(1UL, (x, y) => x * y);
         }
+
+        /// <summary>
+        /// Splits a string using white spaces and returning the non-empty elements.
+        /// </summary>
+        /// <param name="value">The value to tranform.</param>
+        /// <returns>A sequence with the non-empty elements.</returns>
+        public static IEnumerable<string> SplitWithSpaces (this string value) {
+            return value.Split(' ', '\n', '\r', '\t')
+                        .Select(x => x.Trim())
+                        .Where(x => !string.IsNullOrEmpty(x));
+        }
     }
 }

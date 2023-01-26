@@ -37,7 +37,7 @@ namespace Euler {
         /// <returns>A triplet with the palindrome and the two numbers of the
         /// multiplication if there is a palindrome; otherwise a triplet with
         /// zeroes.</returns>
-        public static (int, int, int) FindPalindrome (int start, int limit) {
+        (int, int, int) FindPalindrome (int start, int limit) {
             (int number, int, int) result = (0, 0, 0);
             var candidates = Tools.Sequence(start, limit);
             foreach (var left in candidates) {
@@ -57,7 +57,7 @@ namespace Euler {
         /// <typeparam name="T">The type of the input value.</typeparam>
         /// <param name="victim">The value to check.</param>
         /// <returns>True if the value is a palindrome.</returns>
-        public static bool IsPalindrome<T> (T victim) {
+        bool IsPalindrome<T> (T victim) {
             var normal = victim.ToString();
             var reversed = new string(normal.Reverse().ToArray());
             return normal == reversed;

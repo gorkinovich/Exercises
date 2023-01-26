@@ -45,7 +45,7 @@ namespace Euler {
         /// </summary>
         /// <param name="candidate">The candidate number.</param>
         /// <returns>A triplet with the numbers or the default.</returns>
-        public static (int, int, int) FindTriplet (int candidate) {
+        (int, int, int) FindTriplet (int candidate) {
             var limit = (int) Math.Truncate(candidate / 3.0);
             var query = from c in Tools.Sequence(limit, candidate)
                         from b in Tools.Sequence(1, c)
@@ -62,7 +62,7 @@ namespace Euler {
         /// <param name="b">The second number of the triplet.</param>
         /// <param name="c">The third number of the triplet.</param>
         /// <returns>True if the triplet is pythagorean.</returns>
-        public static bool IsPythagorean (int a, int b, int c) {
+        bool IsPythagorean (int a, int b, int c) {
             return (0 < a) && (a < b) && (b < c) && (a * a + b * b == c * c);
         }
     }

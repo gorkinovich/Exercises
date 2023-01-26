@@ -133,6 +133,15 @@ namespace Euler {
         }
 
         /// <summary>
+        /// Gets a sequence of numbers like the range function in Python.
+        /// </summary>
+        /// <param name="limit">The limit number of the secuence.</param>
+        /// <returns>A enumerable with the sequence of numbers.</returns>
+        public static IEnumerable<int> Sequence (int limit) {
+            return Enumerable.Range(0, limit);
+        }
+
+        /// <summary>
         /// Gets a string from a collection of values.
         /// </summary>
         /// <typeparam name="T">The type of the values.</typeparam>

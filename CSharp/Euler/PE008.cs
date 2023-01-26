@@ -78,7 +78,7 @@ namespace Euler {
         /// <param name="digits">The candidate numbers.</param>
         /// <param name="size">The size of the product.</param>
         /// <returns>The greatest product inside the sequence.</returns>
-        public static ulong FindProduct (string digits, int size) {
+        ulong FindProduct (string digits, int size) {
             var query = from index in Enumerable.Range(0, digits.Length - size)
                         let numbers = (from digit in digits.Substring(index, size)
                                        select (ulong) (digit - '0'))

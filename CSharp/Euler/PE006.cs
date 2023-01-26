@@ -44,7 +44,7 @@ namespace Euler {
         /// <param name="first">The first value of the range.</param>
         /// <param name="last">The last value of the range.</param>
         /// <returns>The difference between the sums.</returns>
-        public static long CalcNumber (int first, int last) {
+        long CalcNumber (int first, int last) {
             Func<long, long> square = x => x * x;
             var numbers = Tools.Range<long>(first, last);
             var sum_square = numbers.Select(square).Sum();

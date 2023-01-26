@@ -33,7 +33,7 @@ namespace Euler {
         /// </summary>
         /// <param name="number">A enumerable to obtain the factors.</param>
         /// <returns></returns>
-        public static IEnumerable<ulong> GetFactors(ulong number) {
+        IEnumerable<ulong> GetFactors(ulong number) {
             ulong divisor = 2;
             while (number >= divisor) {
                 if (number % divisor == 0) {
