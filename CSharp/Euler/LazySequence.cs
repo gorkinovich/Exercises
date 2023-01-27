@@ -1,6 +1,6 @@
-﻿//======================================================================
+﻿//==============================================================================
 // Copyright (C) 2023, Gorka Suárez García
-//======================================================================
+//==============================================================================
 
 using System;
 using System.Collections;
@@ -12,7 +12,9 @@ namespace Euler {
     /// </summary>
     /// <typeparam name="T">The type of the elements.</typeparam>
     public class LazySequence<T> : IEnumerable<T> {
-        #region Fields
+        //----------------------------------------------------------------------
+        // Fields
+        //----------------------------------------------------------------------
 
         /// <summary>
         /// The inner buffer with the current values of the sequence.
@@ -34,9 +36,14 @@ namespace Euler {
         /// </summary>
         private Func<IList<T>, T> getNextValue;
 
-        #endregion
+        /// <summary>
+        /// The default function that makes the inner list value.
+        /// </summary>
+        private readonly Func<IList<T>> defaultMakeNewList = () => new List<T>();
 
-        #region Properties
+        //----------------------------------------------------------------------
+        // Properties
+        //----------------------------------------------------------------------
 
         /// <summary>
         /// Gets the current number of elements contained in the sequence.
@@ -52,9 +59,9 @@ namespace Euler {
             get => Get(index);
         }
 
-        #endregion
-
-        #region Methods
+        //----------------------------------------------------------------------
+        // Methods
+        //----------------------------------------------------------------------
 
         /// <summary>
         /// Makes a new lazy sequence object.
@@ -110,9 +117,9 @@ namespace Euler {
             return values.IndexOf(item);
         }
 
-        #endregion
-
-        #region IEnumerable<T>
+        //----------------------------------------------------------------------
+        // Interface Methods
+        //----------------------------------------------------------------------
 
         /// <summary>
         /// Returns an enumerator that iterates through the collection.
@@ -130,9 +137,9 @@ namespace Euler {
             return new Enumerator(this);
         }
 
-        #endregion
-
-        #region LazySequence.Enumerator
+        //----------------------------------------------------------------------
+        // Inner Types
+        //----------------------------------------------------------------------
 
         /// <summary>
         /// This class supports a simple iteration over the sequence.
@@ -193,16 +200,5 @@ namespace Euler {
                 index = -1;
             }
         }
-
-        #endregion
-
-        #region Static Fields
-
-        /// <summary>
-        /// The default function that makes the inner list value.
-        /// </summary>
-        private readonly Func<IList<T>> defaultMakeNewList = () => new List<T>();
-
-        #endregion
     }
 }

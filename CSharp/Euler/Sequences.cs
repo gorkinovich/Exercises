@@ -1,6 +1,6 @@
-﻿//======================================================================
+﻿//==============================================================================
 // Copyright (C) 2023, Gorka Suárez García
-//======================================================================
+//==============================================================================
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,9 @@ namespace Euler {
     /// This class represents a collection of number sequences.
     /// </summary>
     public static class Sequences {
-        #region IEnumerable
+        //----------------------------------------------------------------------
+        // IEnumerable
+        //----------------------------------------------------------------------
 
         /// <summary>
         /// Makes a enumerable that returns the factors of a number.
@@ -94,9 +96,9 @@ namespace Euler {
             }
         }
 
-        #endregion
-
-        #region LazySequence
+        //----------------------------------------------------------------------
+        // LazySequence
+        //----------------------------------------------------------------------
 
         /// <summary>
         /// Makes a lazy sequence that returns Fibonacci's numbers.
@@ -139,9 +141,9 @@ namespace Euler {
             );
         }
 
-        #endregion
-
-        #region Shared Members
+        //----------------------------------------------------------------------
+        // Shared Members
+        //----------------------------------------------------------------------
 
         /// <summary>
         /// Gets the next prime number.
@@ -171,7 +173,5 @@ namespace Euler {
                 victim += offset;
             }
         }
-
-        #endregion
     }
 }

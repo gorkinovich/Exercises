@@ -1,6 +1,6 @@
-﻿//======================================================================
+﻿//==============================================================================
 // Copyright (C) 2023, Gorka Suárez García
-//======================================================================
+//==============================================================================
 
 using System;
 using System.Collections.Generic;
@@ -11,34 +11,9 @@ namespace Euler {
     /// This class represents a collection of utility operations.
     /// </summary>
     public static class Tools {
-        /// <summary>
-        /// Gets the combinations of an array of elements.
-        /// </summary>
-        /// <typeparam name="T">The type of the elements.</typeparam>
-        /// <param name="elements">The array with the elements.</param>
-        /// <param name="size">The size of elements to combine.</param>
-        /// <returns>A enumerable of arrays with the combinations.</returns>
-        public static IEnumerable<T[]> Combinations<T> (T[] elements, int size) {
-            var result = new LinkedList<T>();
-            var stack = new Stack<(int index, int step)>();
-            stack.Push((0, 0));
-            while (stack.Count > 0) {
-                var current = stack.Pop();
-                if (current.step >= size) {
-                    yield return result.ToArray();
-                    result.RemoveLast();
-                } else if (current.index >= elements.Length) {
-                    if (result.Count > 0) {
-                        result.RemoveLast();
-                    }
-                } else {
-                    result.AddLast(elements[current.index]);
-                    current.index++;
-                    stack.Push(current);
-                    stack.Push((current.index, current.step + 1));
-                }
-            }
-        }
+        //----------------------------------------------------------------------
+        // Math Formulas
+        //----------------------------------------------------------------------
 
         /// <summary>
         /// Returns a specified number raised to the specified power.
@@ -110,6 +85,48 @@ namespace Euler {
         }
 
         /// <summary>
+        /// Gets a triangular number.
+        /// </summary>
+        /// <param name="index">The index of the number.</param>
+        /// <returns>The triangular number.</returns>
+        public static ulong Triangular (ulong index) {
+            return index * (index + 1) / 2;
+        }
+
+        //----------------------------------------------------------------------
+        // Sequences Tools
+        //----------------------------------------------------------------------
+
+        /// <summary>
+        /// Gets the combinations of an array of elements.
+        /// </summary>
+        /// <typeparam name="T">The type of the elements.</typeparam>
+        /// <param name="elements">The array with the elements.</param>
+        /// <param name="size">The size of elements to combine.</param>
+        /// <returns>A enumerable of arrays with the combinations.</returns>
+        public static IEnumerable<T[]> Combinations<T> (T[] elements, int size) {
+            var result = new LinkedList<T>();
+            var stack = new Stack<(int index, int step)>();
+            stack.Push((0, 0));
+            while (stack.Count > 0) {
+                var current = stack.Pop();
+                if (current.step >= size) {
+                    yield return result.ToArray();
+                    result.RemoveLast();
+                } else if (current.index >= elements.Length) {
+                    if (result.Count > 0) {
+                        result.RemoveLast();
+                    }
+                } else {
+                    result.AddLast(elements[current.index]);
+                    current.index++;
+                    stack.Push(current);
+                    stack.Push((current.index, current.step + 1));
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets a sequence of numbers using the C# range function.
         /// </summary>
         /// <typeparam name="T">The return type of the sequence.</typeparam>
@@ -141,6 +158,10 @@ namespace Euler {
             return Enumerable.Range(0, limit);
         }
 
+        //----------------------------------------------------------------------
+        // String Tools
+        //----------------------------------------------------------------------
+
         /// <summary>
         /// Gets a string from a collection of values.
         /// </summary>
@@ -153,15 +174,6 @@ namespace Euler {
         public static string ToString<T> (IEnumerable<T> values, string separator = "",
             string initial = "", string ending = "") {
             return initial + string.Join(separator, values) + ending;
-        }
-
-        /// <summary>
-        /// Gets a triangular number.
-        /// </summary>
-        /// <param name="index">The index of the number.</param>
-        /// <returns>The triangular number.</returns>
-        public static ulong Triangular (ulong index) {
-            return index * (index + 1) / 2;
         }
     }
 }
