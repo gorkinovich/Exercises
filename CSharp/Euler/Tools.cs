@@ -154,5 +154,14 @@ namespace Euler {
             string initial = "", string ending = "") {
             return initial + string.Join(separator, values) + ending;
         }
+
+        /// <summary>
+        /// Gets a triangular number.
+        /// </summary>
+        /// <param name="index">The index of the number.</param>
+        /// <returns>The triangular number.</returns>
+        public static ulong Triangular (ulong index) {
+            return index * (index + 1) / 2;
+        }
     }
 }
