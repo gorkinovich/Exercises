@@ -14,6 +14,29 @@ namespace Euler {
         #region IEnumerable
 
         /// <summary>
+        /// Makes a enumerable that returns the factors of a number.
+        /// </summary>
+        /// <param name="victim">The number to check.</param>
+        /// <returns>A enumerable to obtain the sequence's numbers.</returns>
+        public static IEnumerable<ulong> Factors (ulong victim, IEnumerable<ulong> primes = null) {
+            if (primes == null) {
+                primes = Primes(true);
+            }
+            foreach (var prime in primes) {
+                if (victim < prime) {
+                    yield break;
+                } else if (prime == 1) {
+                    yield return 1;
+                } else {
+                    while ((victim % prime) == 0) {
+                        yield return prime;
+                        victim /= prime;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Makes a enumerable that returns Fibonacci's numbers.
         /// </summary>
         /// <param name="includeZero">The include number zero flag.</param>
