@@ -1,6 +1,6 @@
 %%%======================================================================
 %%% @author Gorka Suárez García
-%%% @copyright (C) 2022, Gorka Suárez García
+%%% @copyright (C) 2022-2023, Gorka Suárez García
 %%% @doc
 %%% A palindromic number reads the same both ways. The largest
 %%% palindrome made from the product of two 2-digit numbers is

@@ -1,20 +1,19 @@
 %%%======================================================================
 %%% @author Gorka Suárez García
-%%% @copyright (C) 2022, Gorka Suárez García
+%%% @copyright (C) 2022-2023, Gorka Suárez García
 %%% @doc
 %%% This server calculates the sequence of prime numbers.
 %%% @end
 %%%======================================================================
 -module(primes).
 -author("Gorka Suárez García").
--behaviour(gen_server).
+-behaviour(singleton).
 -export([
     % Public functions:
     start_link/0, get/0, get/1, iterator/0, next/1, reset/0,
 
-    % gen_server callbacks:
-    init/1, handle_call/3, handle_cast/2, handle_info/2,
-    terminate/2, code_change/3
+    % singleton callbacks:
+    handle_call/3, handle_cast/2
 ]).
 
 %%%======================================================================
@@ -35,12 +34,7 @@
 %% @end
 %%-----------------------------------------------------------------------
 start_link() ->
-    case whereis(?SERVER) of
-        undefined ->
-            gen_server:start_link({local, ?SERVER}, ?MODULE, [], []);
-        PID ->
-            {ok, PID}
-    end.
+    singleton:start_link(?SERVER, #state{}).
 
 %%-----------------------------------------------------------------------
 %% @doc
@@ -49,7 +43,7 @@ start_link() ->
 %% @end
 %%-----------------------------------------------------------------------
 get() ->
-    gen_server:call(?SERVER, get_number).
+    singleton:call(?SERVER, get_number).
 
 %%-----------------------------------------------------------------------
 %% @doc
@@ -59,7 +53,7 @@ get() ->
 %% @end
 %%-----------------------------------------------------------------------
 get(Index) ->
-    gen_server:call(?SERVER, {get_number, Index}).
+    singleton:call(?SERVER, {get_number, Index}).
 
 %%-----------------------------------------------------------------------
 %% @doc
@@ -78,7 +72,7 @@ iterator() ->
 %% @end
 %%-----------------------------------------------------------------------
 next({?SERVER, Index}) ->
-    {Number, NextIndex} = gen_server:call(?SERVER, {get_next, Index}),
+    {Number, NextIndex} = singleton:call(?SERVER, {get_next, Index}),
     {Number, {?SERVER, NextIndex}}.
 
 %%-----------------------------------------------------------------------
@@ -87,7 +81,7 @@ next({?SERVER, Index}) ->
 %% @end
 %%-----------------------------------------------------------------------
 reset() ->
-    gen_server:cast(?SERVER, reset).
+    singleton:cast(?SERVER, reset).
 
 %%%======================================================================
 %%% Internal functions
@@ -166,17 +160,8 @@ next_primes(Amount, Primes, Last) ->
     next_primes(Amount - 1, NextPrimes, NextLast).
 
 %%%======================================================================
-%%% gen_server callbacks
+%%% singleton callbacks
 %%%======================================================================
-
-%%-----------------------------------------------------------------------
-%% @private
-%% @doc
-%% Generic server event init.
-%% @end
-%%-----------------------------------------------------------------------
-init([]) ->
-    {ok, #state{}}.
 
 %%-----------------------------------------------------------------------
 %% @private
@@ -211,30 +196,3 @@ handle_cast(reset, _State) ->
     {noreply, #state{}};
 handle_cast(_Request, State) ->
     {noreply, State}.
-
-%%-----------------------------------------------------------------------
-%% @private
-%% @doc
-%% Generic server event handle non call/cast messages.
-%% @end
-%%-----------------------------------------------------------------------
-handle_info(_Info, State) ->
-    {noreply, State}.
-
-%%-----------------------------------------------------------------------
-%% @private
-%% @doc
-%% Generic server event terminate.
-%% @end
-%%-----------------------------------------------------------------------
-terminate(_Reason, _State) ->
-    ok.
-
-%%-----------------------------------------------------------------------
-%% @private
-%% @doc
-%% Generic server event code change.
-%% @end
-%%-----------------------------------------------------------------------
-code_change(_OldVsn, State, _Extra) ->
-    {ok, State}.

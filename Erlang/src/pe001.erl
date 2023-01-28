@@ -1,6 +1,6 @@
 %%%======================================================================
 %%% @author Gorka Suárez García
-%%% @copyright (C) 2022, Gorka Suárez García
+%%% @copyright (C) 2022-2023, Gorka Suárez García
 %%% @doc
 %%% If we list all the natural numbers below 10 that are multiples of
 %%% 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.

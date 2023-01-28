@@ -1,6 +1,6 @@
 %%%======================================================================
 %%% @author Gorka Suárez García
-%%% @copyright (C) 2022, Gorka Suárez García
+%%% @copyright (C) 2022-2023, Gorka Suárez García
 %%% @doc
 %%% 2520 is the smallest number that can be divided by each of the
 %%% numbers from 1 to 10 without any remainder.

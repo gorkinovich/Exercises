@@ -1,6 +1,6 @@
 %%%======================================================================
 %%% @author Gorka Suárez García
-%%% @copyright (C) 2022, Gorka Suárez García
+%%% @copyright (C) 2022-2023, Gorka Suárez García
 %%% @doc
 %%% The prime factors of 13195 are 5, 7, 13 and 29.
 %%%

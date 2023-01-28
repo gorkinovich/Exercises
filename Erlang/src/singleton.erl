@@ -1,6 +1,6 @@
 %%%======================================================================
 %%% @author Gorka Suárez García
-%%% @copyright (C) 2022, Gorka Suárez García
+%%% @copyright (C) 2022-2023, Gorka Suárez García
 %%% @doc
 %%% This server handles data as a singleton pattern.
 %%% @end
@@ -10,7 +10,7 @@
 -behaviour(gen_server).
 -export([
     % Public functions:
-    start_link/0, get/1, get/2, set/2, apply/2,
+    start_link/2, call/2, cast/2,
 
     % gen_server callbacks:
     init/1, handle_call/3, handle_cast/2, handle_info/2,
@@ -18,12 +18,27 @@
 ]).
 
 %%%======================================================================
+%%% Callbacks
+%%%======================================================================
+
+-callback handle_call(Request :: term(), From :: term(), State :: term()) ->
+    {reply, Reply :: term(), NewState :: term()}
+    | {reply, Reply :: term(), NewState :: term(), Timeout :: term()}
+    | {noreply, NewState :: term()}
+    | {noreply, NewState :: term(), Timeout :: term()}
+    | {stop, Reason :: term(), Reply :: term(), NewState :: term()}
+    | {stop, Reason :: term(), NewState :: term()}.
+
+-callback handle_cast(Request :: term(), State :: term()) ->
+    {noreply, NewState :: term()}
+    | {noreply, NewState :: term(), Timeout :: term()}
+    | {stop, Reason :: term(), NewState :: term()}.
+
+%%%======================================================================
 %%% Macros
 %%%======================================================================
 
--define(SERVER, ?MODULE).
--define(UNDEFINED, undefined).
--record(state, { table = #{} }).
+-record(state, { module, data }).
 
 %%%======================================================================
 %%% Public functions
@@ -32,64 +47,40 @@
 %%-----------------------------------------------------------------------
 %% @doc
 %% Spawns the server and registers the unique local name.
+%% @param Module The name of the module spawning the server.
+%% @param State The initial state data for the server.
+%% @returns The tuple {ok, PID} if everything goes right, otherwise
+%% the atom ignore or the tuple {error, Reason} will be returned.
 %% @end
 %%-----------------------------------------------------------------------
-start_link() ->
-    case whereis(?SERVER) of
+start_link(Module, State) ->
+    case whereis(Module) of
         undefined ->
-            gen_server:start_link({local, ?SERVER}, ?MODULE, [], []);
+            gen_server:start_link({local, Module}, ?MODULE, [Module, State], []);
         PID ->
             {ok, PID}
     end.
 
 %%-----------------------------------------------------------------------
 %% @doc
-%% Gets a variable in the singleton.
-%% @param Name The name of the variable.
-%% @returns The value of the variable.
+%% Sends a call request to the.
+%% @param Module The name of the server.
+%% @param Request The request for the server.
+%% @returns The result of the request.
 %% @end
 %%-----------------------------------------------------------------------
-get(Name) ->
-    gen_server:call(?SERVER, {get, Name, ?UNDEFINED}).
+call(Module, Request) ->
+    gen_server:call(Module, Request).
 
 %%-----------------------------------------------------------------------
 %% @doc
-%% Gets a variable in the singleton.
-%% @param Name The name of the variable.
-%% @param Default The default value if the variable doesn't exist.
-%% @returns The value of the variable or the default value.
+%% Sends a cast request to the.
+%% @param Module The name of the server.
+%% @param Request The request for the server.
 %% @end
 %%-----------------------------------------------------------------------
-get(Name, Default) ->
-    gen_server:call(?SERVER, {get, Name, Default}).
-
-%%-----------------------------------------------------------------------
-%% @doc
-%% Sets a variable in the singleton.
-%% @param Name The name of the variable.
-%% @param Value The value for the variable.
-%% @end
-%%-----------------------------------------------------------------------
-set(Name, Value) ->
-    gen_server:cast(?SERVER, {set, Name, Value}).
-
-%%-----------------------------------------------------------------------
-%% @doc
-%% Applies a function to a variable in the singleton.
-%% @param Name The name of the variable.
-%% @param Function The function to apply.
-%% @end
-%%-----------------------------------------------------------------------
-apply(Name, Function) ->
-    gen_server:cast(?SERVER, {apply, Name, Function}).
-
-%%%======================================================================
-%%% Internal functions
-%%%======================================================================
-
-update_table(State, Name, Value) ->
-    Table = State#state.table,
-    Table#{ Name => Value }.
+cast(Module, Request) ->
+    gen_server:cast(Module, Request).
 
 %%%======================================================================
 %%% gen_server callbacks
@@ -101,8 +92,8 @@ update_table(State, Name, Value) ->
 %% Generic server event init.
 %% @end
 %%-----------------------------------------------------------------------
-init([]) ->
-    {ok, #state{}}.
+init([Module, State]) ->
+    {ok, #state{ module = Module, data = State }}.
 
 %%-----------------------------------------------------------------------
 %% @private
@@ -110,10 +101,21 @@ init([]) ->
 %% Generic server event handle call messages.
 %% @end
 %%-----------------------------------------------------------------------
-handle_call({get, Name, Default}, _From, State) ->
-    {reply, maps:get(Name, State#state.table, Default), State};
-handle_call(_Request, _From, State) ->
-    {reply, ok, State}.
+handle_call(Request, From, State) ->
+    case apply(State#state.module, handle_call, [Request, From, State#state.data]) of
+        {reply, Reply, NewState} ->
+            {reply, Reply, State#state{ data = NewState }};
+        {reply, Reply, NewState, Other} ->
+            {reply, Reply, State#state{ data = NewState }, Other};
+        {noreply, NewState} ->
+            {noreply, State#state{ data = NewState }};
+        {noreply, NewState, Other} ->
+            {noreply, State#state{ data = NewState }, Other};
+        {stop, Reason, Reply, NewState} ->
+            {stop, Reason, Reply, State#state{ data = NewState }};
+        {stop, Reason, NewState} ->
+            {stop, Reason, State#state{ data = NewState }}
+    end.
 
 %%-----------------------------------------------------------------------
 %% @private
@@ -121,19 +123,15 @@ handle_call(_Request, _From, State) ->
 %% Generic server event handle cast messages.
 %% @end
 %%-----------------------------------------------------------------------
-handle_cast({set, Name, Value}, State) ->
-    NextTable = update_table(State, Name, Value),
-    {noreply, State#state{ table = NextTable }};
-handle_cast({apply, Name, Function}, State) ->
-    case State#state.table of
-        #{ Name := Value } ->
-            NextTable = update_table(State, Name, Function(Value)),
-            {noreply, State#state{ table = NextTable }};
-        _ ->
-            {noreply, State}
-    end;
-handle_cast(_Request, State) ->
-    {noreply, State}.
+handle_cast(Request, State) ->
+    case apply(State#state.module, handle_cast, [Request, State#state.data]) of
+        {noreply, NewState} ->
+            {noreply, State#state{ data = NewState }};
+        {noreply, NewState, Other} ->
+            {noreply, State#state{ data = NewState }, Other};
+        {stop, Reason, NewState} ->
+            {stop, Reason, State#state{ data = NewState }}
+    end.
 
 %%-----------------------------------------------------------------------
 %% @private

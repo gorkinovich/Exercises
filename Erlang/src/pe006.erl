@@ -1,6 +1,6 @@
 %%%======================================================================
 %%% @author Gorka Suárez García
-%%% @copyright (C) 2023, Gorka Suárez García
+%%% @copyright (C) 2022-2023, Gorka Suárez García
 %%% @doc
 %%% The sum of the squares of the first ten natural numbers is,
 %%% 1^2 + 2^2 + ... + 10^2 = 385
