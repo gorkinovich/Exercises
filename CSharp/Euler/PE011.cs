@@ -39,7 +39,7 @@ using System.Linq;
 
 namespace Euler {
     /// <summary>
-    /// This class represents the problem 6.
+    /// This class represents the problem 11.
     /// </summary>
     public class PE011 : IRunnable {
         /// <summary>

@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace Euler {
     /// <summary>
-    /// This class represents the problem 6.
+    /// This class represents the problem 10.
     /// </summary>
     public class PE010 : IRunnable {
         /// <summary>

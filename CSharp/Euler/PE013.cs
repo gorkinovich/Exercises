@@ -13,7 +13,7 @@ using System.Numerics;
 
 namespace Euler {
     /// <summary>
-    /// This class represents the problem 6.
+    /// This class represents the problem 13.
     /// </summary>
     public class PE013 : IRunnable {
         /// <summary>

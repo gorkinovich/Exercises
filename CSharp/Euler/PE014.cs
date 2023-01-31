@@ -32,7 +32,7 @@ using System.Linq;
 
 namespace Euler {
     /// <summary>
-    /// This class represents the problem 6.
+    /// This class represents the problem 14.
     /// </summary>
     public class PE014 : IRunnable {
         /// <summary>
