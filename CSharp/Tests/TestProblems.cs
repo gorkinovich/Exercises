@@ -35,7 +35,7 @@ namespace Tests {
             execute<PE012>("The first triangle number to have over 500 divisors is 76576500.");
             execute<PE013>("The first ten digits of the sum of the following one-hundred 50-digit numbers is 5537376230.");
             execute<PE014>("The starting number, under 1000000, with the longest chain is 837799.");
-            // execute<PE015>("The number of routes in a 20x20 grid are 137846528820.");
+            execute<PE015>("The number of routes in a 20x20 grid are 137846528820.");
             // execute<PE016>("The sum of the digits of the number 2^1000 is 1366.");
             // execute<PE017>("Number of letters of the written numbers from 1 to 1000 is 21124.");
             // execute<PE018>("The maximum total from top to bottom of the triangle is 1074.", "Final path: [75, 64, 82, 87, 82, 75, 73, 28, 83, 32, 91, 78, 58, 73, 93]");
