@@ -81,7 +81,7 @@ namespace Euler {
         ulong FindProduct (string digits, int size) {
             var query = from index in Enumerable.Range(0, digits.Length - size)
                         let numbers = (from digit in digits.Substring(index, size)
-                                       select (ulong) (digit - '0'))
+                                       select (ulong) digit.ParseDigit())
                         select numbers.Product();
             return query.Max();
         }

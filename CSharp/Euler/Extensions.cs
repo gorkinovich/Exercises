@@ -2,6 +2,7 @@
 // Copyright (C) 2023, Gorka Suárez García
 //==============================================================================
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,6 +11,10 @@ namespace Euler {
     /// This class represents a collection extension methods.
     /// </summary>
     public static class Extensions {
+        //----------------------------------------------------------------------
+        // IEnumerable
+        //----------------------------------------------------------------------
+
         /// <summary>
         /// Computes the product of a sequence of numeric values.
         /// </summary>
@@ -46,6 +51,10 @@ namespace Euler {
             return values.Aggregate(1UL, (x, y) => x * y);
         }
 
+        //----------------------------------------------------------------------
+        // String
+        //----------------------------------------------------------------------
+
         /// <summary>
         /// Splits a string using white spaces and returning the non-empty elements.
         /// </summary>
@@ -55,6 +64,26 @@ namespace Euler {
             return value.Split(' ', '\n', '\r', '\t')
                         .Select(x => x.Trim())
                         .Where(x => !string.IsNullOrEmpty(x));
+        }
+
+        //----------------------------------------------------------------------
+        // String
+        //----------------------------------------------------------------------
+
+        /// <summary>
+        /// Converts a number digit character into an integer number.
+        /// </summary>
+        /// <param name="value">The character to convert.</param>
+        /// <returns>The integer value of the digit.</returns>
+        /// <exception cref="ArithmeticException">
+        /// The character isn't a valid digit.
+        /// </exception>
+        public static int ParseDigit (this char value) {
+            if ('0' <= value || value <= '9') {
+                return value - '0';
+            } else {
+                throw new ArithmeticException($"The character {value} isn't a valid digit.");
+            }
         }
     }
 }

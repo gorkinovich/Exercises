@@ -49,7 +49,7 @@ namespace Euler {
 
         public ulong Get(int n, int k) {
             if (n < 0 || k < 0) {
-                throw new ArgumentException($"Arguments can't be negative!");
+                throw new ArgumentException($"The arguments (n,k) can't be negative.");
             } else if (n == 0) {
                 return 1;
             } else if (0 < k && k < n) {
