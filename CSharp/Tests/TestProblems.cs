@@ -37,7 +37,7 @@ namespace Tests {
             execute<PE014>("The starting number, under 1000000, with the longest chain is 837799.");
             execute<PE015>("The number of routes in a 20x20 grid are 137846528820.");
             execute<PE016>("The sum of the digits of the number 2^1000 is 1366.");
-            // execute<PE017>("Number of letters of the written numbers from 1 to 1000 is 21124.");
+            execute<PE017>("Number of letters of the written numbers from 1 to 1000 is 21124.");
             // execute<PE018>("The maximum total from top to bottom of the triangle is 1074.", "Final path: [75, 64, 82, 87, 82, 75, 73, 28, 83, 32, 91, 78, 58, 73, 93]");
             // execute<PE019>("The number of Sundays that fell on the month's 1st during the 20th century is 171.");
             // execute<PE020>("The sum of the digits in the number 100! is 648.");
