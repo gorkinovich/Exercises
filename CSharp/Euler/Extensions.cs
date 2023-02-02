@@ -51,6 +51,32 @@ namespace Euler {
             return values.Aggregate(1UL, (x, y) => x * y);
         }
 
+        /// <summary>
+        /// Gets the maximum value in a generic sequence according to a specified key selector function.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of values.</typeparam>
+        /// <typeparam name="TKey">The type of key to compare elements by.</typeparam>
+        /// <param name="values">A sequence of values to determine the maximum value of.</param>
+        /// <param name="selector">A function to extract the key for each element.</param>
+        /// <returns>The value with the maximum key in the sequence.</returns>
+        public static TSource MaxByField<TSource, TKey> (this IEnumerable<TSource> values,
+            Func<TSource, TKey> selector) where TKey : IComparable {
+            return values.Aggregate((r, x) => (selector(r).CompareTo(selector(x)) >= 0) ? r : x);
+        }
+
+        /// <summary>
+        /// Gets the minimum value in a generic sequence according to a specified key selector function.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of values.</typeparam>
+        /// <typeparam name="TKey">The type of key to compare elements by.</typeparam>
+        /// <param name="values">A sequence of values to determine the minimum value of.</param>
+        /// <param name="selector">A function to extract the key for each element.</param>
+        /// <returns>The value with the minimum key in the sequence.</returns>
+        public static TSource MinByField<TSource, TKey> (this IEnumerable<TSource> values,
+            Func<TSource, TKey> selector) where TKey : IComparable {
+            return values.Aggregate((r, x) => (selector(r).CompareTo(selector(x)) <= 0) ? r : x);
+        }
+
         //----------------------------------------------------------------------
         // String
         //----------------------------------------------------------------------

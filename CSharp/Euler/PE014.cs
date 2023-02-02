@@ -43,7 +43,7 @@ namespace Euler {
 
             var result = Tools.Sequence(1, LIMIT)
                               .Select(x => new { Number = x, Length = GetLength(x) })
-                              .Aggregate((r, x) => (r.Length >= x.Length) ? r : x)
+                              .MaxByField(x => x.Length)
                               .Number;
 
             Console.WriteLine($"The starting number, under {LIMIT}, with the longest chain is {result}.");
