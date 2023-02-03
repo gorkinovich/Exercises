@@ -28,7 +28,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run () {
+        public void Run() {
             const int BEGIN = 1;
             const int FINAL = 1000;
 
@@ -88,7 +88,7 @@ namespace Euler {
         /// </summary>
         /// <param name="number">The number to convert.</param>
         /// <returns>The number in words.</returns>
-        public static string FromInt64 (long number) {
+        public static string FromInt64(long number) {
             return number switch {
                 < 0 or >= NUMBER_LIMIT =>
                     throw new ArgumentException("The input number is outside the valid range."),
@@ -115,7 +115,7 @@ namespace Euler {
         /// <param name="leftToWord">The left side transformation.</param>
         /// <param name="middleWords">The middle words in the transform.</param>
         /// <returns>The number in words.</returns>
-        private static string transform (long number, long divisor,
+        private static string transform(long number, long divisor,
             Func<long, string> leftToWord, params string[] middleWords) {
             var left = Math.DivRem(number, divisor, out long right);
             var leftWord = leftToWord(left);

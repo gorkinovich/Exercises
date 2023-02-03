@@ -45,7 +45,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run () {
+        public void Run() {
             const int SIZE = 4;
             const int SIDE = 20;
             const string DATA = @"
@@ -82,7 +82,7 @@ namespace Euler {
         /// <param name="table">The square table with the numbers.</param>
         /// /// <param name="size">The lenght of the product to find.</param>
         /// <returns>The maximum value inside the table.</returns>
-        int FindProduct (int[,] table, int size) {
+        int FindProduct(int[,] table, int size) {
             var side = table.GetUpperBound(0);
             var fullIndexes = Tools.Sequence(side);
             var lessIndexes = Tools.Sequence(side - size);
@@ -110,12 +110,12 @@ namespace Euler {
         /// <param name="data">The string to transform.</param>
         /// <param name="side">The side size of the table.</param>
         /// <returns>An array with the table of integers.</returns>
-        int[,] ParseData (string data, int side) {
+        int[,] ParseData(string data, int side) {
             return data.SplitWithSpaces()
                         .Select((x, i) => new {
-                            Value  = int.TryParse(x, out int number) ? number : 0,
-                            Row    = (int) (i / side),
-                            Column = (int) (i % side)
+                            Value = int.TryParse(x, out int number) ? number : 0,
+                            Row = (int)(i / side),
+                            Column = (int)(i % side)
                         })
                         .Aggregate(new int[side, side], (accum, x) => {
                             accum[x.Row, x.Column] = x.Value;

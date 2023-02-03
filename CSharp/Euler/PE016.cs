@@ -20,7 +20,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run () {
+        public void Run() {
             const int GOAL = 1000;
 
             var result = BigInteger.Pow(new BigInteger(2), GOAL)

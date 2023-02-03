@@ -52,7 +52,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run () {
+        public void Run() {
             var WORLD = new int[][] {
                 new int[] {75},
                 new int[] {95, 64},
@@ -80,7 +80,7 @@ namespace Euler {
         /// <summary>
         /// This type represents a path inside a world.
         /// </summary>
-        record WorldPath (int Sum = -1, List<int> Path = null);
+        record WorldPath(int Sum = -1, List<int> Path = null);
 
         /// <summary>
         /// Finds the maximum valued path inside a triangular world.
@@ -88,7 +88,7 @@ namespace Euler {
         /// <param name="world">The data that represents the world.</param>
         /// <returns>A world path object where 'Sum' is the value of the path, and 'Path'
         /// is the current list of elements of that path.</returns>
-        WorldPath FindPath (int[][] world) {
+        WorldPath FindPath(int[][] world) {
             // On the first row of the world, just add to the values
             // of the initial path object with the root of the world:
             var wildcard = new WorldPath();
@@ -120,7 +120,7 @@ namespace Euler {
                 previous = current;
             }
             // Select the maximum valued path from the previous results:
-            return previous.MaxByField(x => x.Sum);
+            return previous.MaxBy(x => x.Sum);
         }
     }
 }

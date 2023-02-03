@@ -19,7 +19,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run () {
+        public void Run() {
             const string DATA = @"
                 37107287533902102798797998220837590246510135740250
                 46376937677490009712648124896970078050417018260538

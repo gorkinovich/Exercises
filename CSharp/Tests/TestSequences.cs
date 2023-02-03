@@ -19,7 +19,7 @@ namespace Tests {
         };
 
         [TestMethod]
-        public void FibonacciTest () {
+        public void FibonacciTest() {
             checkSequences(Sequences.Fibonacci(true), fibonacciValues,
                 "Fibonacci starting with number zero failed!");
             checkSequences(Sequences.Fibonacci(), fibonacciValues.Skip(1),
@@ -27,7 +27,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void LazyFibonacciTest () {
+        public void LazyFibonacciTest() {
             checkSequences(Sequences.LazyFibonacci(true), fibonacciValues,
                 "Lazy fibonacci starting with number zero failed!");
             checkSequences(Sequences.LazyFibonacci(), fibonacciValues.Skip(1),
@@ -44,7 +44,7 @@ namespace Tests {
         };
 
         [TestMethod]
-        public void PrimesTest () {
+        public void PrimesTest() {
             checkSequences(Sequences.Primes(true), primesValues,
                 "Primes starting with number one failed!");
             checkSequences(Sequences.Primes(), primesValues.Skip(1),
@@ -52,7 +52,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void LazyPrimesTest () {
+        public void LazyPrimesTest() {
             checkSequences(Sequences.LazyPrimes(true), primesValues,
                 "Primes starting with number one failed!");
             checkSequences(Sequences.LazyPrimes(), primesValues.Skip(1),
@@ -69,7 +69,7 @@ namespace Tests {
         };
 
         [TestMethod]
-        public void TriangularTest () {
+        public void TriangularTest() {
             checkSequences(Sequences.Triangular(true), triangularValues,
                 "Triangular starting with number zero failed!");
             checkSequences(Sequences.Triangular(), triangularValues.Skip(1),
@@ -77,7 +77,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void LazyTriangularTest () {
+        public void LazyTriangularTest() {
             checkSequences(Sequences.LazyTriangular(true), triangularValues,
                 "Triangular starting with number zero failed!");
             checkSequences(Sequences.LazyTriangular(), triangularValues.Skip(1),
@@ -88,7 +88,7 @@ namespace Tests {
         // Shared functions
         //----------------------------------------------------------------------
 
-        private void checkSequences (IEnumerable<ulong> victim, IEnumerable<ulong> data, string message) {
+        private void checkSequences(IEnumerable<ulong> victim, IEnumerable<ulong> data, string message) {
             var numbers = victim.Take(data.Count());
             var tuples = numbers.Zip(data).All(x => x.First == x.Second);
             Assert.IsTrue(tuples, message);

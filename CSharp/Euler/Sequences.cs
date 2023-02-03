@@ -20,7 +20,7 @@ namespace Euler {
         /// </summary>
         /// <param name="victim">The number to check.</param>
         /// <returns>A enumerable to obtain the sequence's numbers.</returns>
-        public static IEnumerable<ulong> Factors (ulong victim, IEnumerable<ulong> primes = null) {
+        public static IEnumerable<ulong> Factors(ulong victim, IEnumerable<ulong> primes = null) {
             if (primes == null) {
                 primes = Primes(true);
             }
@@ -44,7 +44,7 @@ namespace Euler {
         /// <param name="includeZero">The include number zero flag.</param>
         /// <returns>A enumerable to obtain the sequence's numbers.</returns>
         /// <remarks>This is an infinite loop sequence.</remarks>
-        public static IEnumerable<ulong> Fibonacci (bool includeZero = false) {
+        public static IEnumerable<ulong> Fibonacci(bool includeZero = false) {
             if (includeZero) {
                 yield return 0;
             }
@@ -63,7 +63,7 @@ namespace Euler {
         /// <param name="includeZero">The include number one flag.</param>
         /// <returns>A enumerable to obtain the prime numbers.</returns>
         /// <remarks>This is an infinite loop sequence.</remarks>
-        public static IEnumerable<ulong> Primes (bool includeOne = false) {
+        public static IEnumerable<ulong> Primes(bool includeOne = false) {
             // Send the first primes and set the state of the loop:
             if (includeOne) {
                 yield return 1;
@@ -84,7 +84,7 @@ namespace Euler {
         /// <param name="includeZero">The include number zero flag.</param>
         /// <returns>A enumerable to obtain the triangular numbers.</returns>
         /// <remarks>This is an infinite loop sequence.</remarks>
-        public static IEnumerable<ulong> Triangular (bool includeZero = false) {
+        public static IEnumerable<ulong> Triangular(bool includeZero = false) {
             if (includeZero) {
                 yield return 0;
             }
@@ -105,7 +105,7 @@ namespace Euler {
         /// </summary>
         /// <param name="includeZero">The include number zero flag.</param>
         /// <returns>A lazy sequence to obtain the sequence's numbers.</returns>
-        public static LazySequence<ulong> LazyFibonacci (bool includeZero = false) {
+        public static LazySequence<ulong> LazyFibonacci(bool includeZero = false) {
             return new LazySequence<ulong>(
                 (memory) => memory[^1] + memory[^2],
                 includeZero ? () => new List<ulong>() { 0, 1 } :
@@ -119,7 +119,7 @@ namespace Euler {
         /// </summary>
         /// <param name="includeZero">The include number one flag.</param>
         /// <returns>A lazy sequence to obtain the prime numbers.</returns>
-        public static LazySequence<ulong> LazyPrimes (bool includeOne = false) {
+        public static LazySequence<ulong> LazyPrimes(bool includeOne = false) {
             return new LazySequence<ulong>(
                 NextPrime,
                 includeOne ? () => new List<ulong>() { 1, 2, 3 } :
@@ -132,10 +132,10 @@ namespace Euler {
         /// </summary>
         /// <param name="includeZero">The include number zero flag.</param>
         /// <returns>A lazy sequence to obtain the triangular numbers.</returns>
-        public static LazySequence<ulong> LazyTriangular (bool includeZero = false) {
+        public static LazySequence<ulong> LazyTriangular(bool includeZero = false) {
             return new LazySequence<ulong>(
-                includeZero ? (memory) => Tools.Triangular((ulong) memory.Count) :
-                              (memory) => Tools.Triangular((ulong) memory.Count + 1),
+                includeZero ? (memory) => Tools.Triangular((ulong)memory.Count) :
+                              (memory) => Tools.Triangular((ulong)memory.Count + 1),
                 includeZero ? () => new List<ulong>() { 0 } :
                               () => new List<ulong>() { 1 }
             );
@@ -150,13 +150,13 @@ namespace Euler {
         /// </summary>
         /// <param name="primes">The list of prime numbers.</param>
         /// <returns>The next prime number.</returns>
-        private static ulong NextPrime (IList<ulong> primes) {
+        private static ulong NextPrime(IList<ulong> primes) {
             const ulong offset = 2;
             var victim = primes[^1] + offset;
             while (true) {
                 // Check if the current candidate is a prime number:
                 bool isPrime = true;
-                ulong limit = 1 + (ulong) Math.Truncate(Math.Sqrt(victim));
+                ulong limit = 1 + (ulong)Math.Truncate(Math.Sqrt(victim));
                 foreach (var prime in primes.SkipWhile(x => x < 2)) {
                     if (prime > limit) {
                         break;

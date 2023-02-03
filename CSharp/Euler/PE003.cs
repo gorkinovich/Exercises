@@ -20,7 +20,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run () {
+        public void Run() {
             const ulong CANDIDATE = 600_851_475_143;
 
             var result = GetFactors(CANDIDATE).Distinct().LastOrDefault();

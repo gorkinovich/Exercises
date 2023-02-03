@@ -31,7 +31,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run () {
+        public void Run() {
             var MONTHS = 12;
             var START = new DateTime(1901, 1, 1);
             var LIMIT = new DateTime(2001, 1, 1);

@@ -22,10 +22,10 @@ namespace Euler {
         /// <param name="left">The number to be raised to a power.</param>
         /// <param name="right">The number that specifies the power</param>
         /// <returns>The number left raised to the power right.</returns>
-        public static T Pow<T> (T left, T right) {
-            double x = (double) Convert.ChangeType(left, typeof(double));
-            double y = (double) Convert.ChangeType(right, typeof(double));
-            return (T) Convert.ChangeType(Math.Pow(x, y), typeof(T));
+        public static T Pow<T>(T left, T right) {
+            double x = (double)Convert.ChangeType(left, typeof(double));
+            double y = (double)Convert.ChangeType(right, typeof(double));
+            return (T)Convert.ChangeType(Math.Pow(x, y), typeof(T));
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Euler {
         /// <param name="left">The number to be raised to a power.</param>
         /// <param name="right">The number that specifies the power</param>
         /// <returns>The number left raised to the power right.</returns>
-        public static int IntPow (int left, int right) {
+        public static int IntPow(int left, int right) {
             int result = 1;
             while (0 < right--) {
                 result *= left;
@@ -48,7 +48,7 @@ namespace Euler {
         /// <param name="left">The number to be raised to a power.</param>
         /// <param name="right">The number that specifies the power</param>
         /// <returns>The number left raised to the power right.</returns>
-        public static uint IntPow (uint left, uint right) {
+        public static uint IntPow(uint left, uint right) {
             uint result = 1;
             while (0 < right--) {
                 result *= left;
@@ -62,7 +62,7 @@ namespace Euler {
         /// <param name="left">The number to be raised to a power.</param>
         /// <param name="right">The number that specifies the power</param>
         /// <returns>The number left raised to the power right.</returns>
-        public static long IntPow (long left, long right) {
+        public static long IntPow(long left, long right) {
             long result = 1;
             while (0 < right--) {
                 result *= left;
@@ -76,7 +76,7 @@ namespace Euler {
         /// <param name="left">The number to be raised to a power.</param>
         /// <param name="right">The number that specifies the power</param>
         /// <returns>The number left raised to the power right.</returns>
-        public static ulong IntPow (ulong left, ulong right) {
+        public static ulong IntPow(ulong left, ulong right) {
             ulong result = 1;
             while (0 < right--) {
                 result *= left;
@@ -89,7 +89,7 @@ namespace Euler {
         /// </summary>
         /// <param name="index">The index of the number.</param>
         /// <returns>The triangular number.</returns>
-        public static ulong Triangular (ulong index) {
+        public static ulong Triangular(ulong index) {
             return index * (index + 1) / 2;
         }
 
@@ -104,7 +104,7 @@ namespace Euler {
         /// <param name="elements">The array with the elements.</param>
         /// <param name="size">The size of elements to combine.</param>
         /// <returns>A enumerable of arrays with the combinations.</returns>
-        public static IEnumerable<T[]> Combinations<T> (T[] elements, int size) {
+        public static IEnumerable<T[]> Combinations<T>(T[] elements, int size) {
             var result = new LinkedList<T>();
             var stack = new Stack<(int index, int step)>();
             stack.Push((0, 0));
@@ -133,9 +133,9 @@ namespace Euler {
         /// <param name="start">The start number of the sequence.</param>
         /// <param name="count">The count number of elements.</param>
         /// <returns>A enumerable with the sequence of numbers.</returns>
-        public static IEnumerable<T> Range<T> (int start, int count) {
+        public static IEnumerable<T> Range<T>(int start, int count) {
             foreach (int number in Enumerable.Range(start, count)) {
-                yield return (T) Convert.ChangeType(number, typeof(T));
+                yield return (T)Convert.ChangeType(number, typeof(T));
             }
         }
 
@@ -145,7 +145,7 @@ namespace Euler {
         /// <param name="start">The start number of the sequence.</param>
         /// <param name="limit">The limit number of the secuence.</param>
         /// <returns>A enumerable with the sequence of numbers.</returns>
-        public static IEnumerable<int> Sequence (int start, int limit) {
+        public static IEnumerable<int> Sequence(int start, int limit) {
             return Enumerable.Range(start, limit - start);
         }
 
@@ -154,7 +154,7 @@ namespace Euler {
         /// </summary>
         /// <param name="limit">The limit number of the secuence.</param>
         /// <returns>A enumerable with the sequence of numbers.</returns>
-        public static IEnumerable<int> Sequence (int limit) {
+        public static IEnumerable<int> Sequence(int limit) {
             return Enumerable.Range(0, limit);
         }
 
@@ -171,7 +171,7 @@ namespace Euler {
         /// <param name="initial">The initial string.</param>
         /// <param name="ending">The ending string.</param>
         /// <returns></returns>
-        public static string ToString<T> (IEnumerable<T> values, string separator = "",
+        public static string ToString<T>(IEnumerable<T> values, string separator = "",
             string initial = "", string ending = "") {
             return initial + string.Join(separator, values) + ending;
         }

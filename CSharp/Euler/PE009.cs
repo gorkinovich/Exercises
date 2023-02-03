@@ -25,7 +25,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run () {
+        public void Run() {
             const int CANDIDATE = 1000;
 
             var (a, b, c) = FindTriplet(CANDIDATE);
@@ -45,8 +45,8 @@ namespace Euler {
         /// </summary>
         /// <param name="candidate">The candidate number.</param>
         /// <returns>A triplet with the numbers or the default.</returns>
-        (int, int, int) FindTriplet (int candidate) {
-            var limit = (int) Math.Truncate(candidate / 3.0);
+        (int, int, int) FindTriplet(int candidate) {
+            var limit = (int)Math.Truncate(candidate / 3.0);
             var query = from c in Tools.Sequence(limit, candidate)
                         from b in Tools.Sequence(1, c)
                         let a = candidate - c - b
@@ -62,7 +62,7 @@ namespace Euler {
         /// <param name="b">The second number of the triplet.</param>
         /// <param name="c">The third number of the triplet.</param>
         /// <returns>True if the triplet is pythagorean.</returns>
-        bool IsPythagorean (int a, int b, int c) {
+        bool IsPythagorean(int a, int b, int c) {
             return (0 < a) && (a < b) && (b < c) && (a * a + b * b == c * c);
         }
     }

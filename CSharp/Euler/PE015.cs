@@ -28,7 +28,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run () {
+        public void Run() {
             const int SIZE = 20;
 
             var pascal = new PascalTriangle();

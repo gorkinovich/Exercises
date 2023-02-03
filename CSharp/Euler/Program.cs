@@ -16,7 +16,7 @@ namespace Euler {
         /// Main entry for the program to select a problem to solve.
         /// </summary>
         /// <param name="args">Command arguments.</param>
-        public static void Main (string[] args) {
+        public static void Main(string[] args) {
             problems = getProblems();
             try {
                 bool run = true;
@@ -45,7 +45,7 @@ namespace Euler {
         /// <summary>
         /// Runs all the types of problems.
         /// </summary>
-        private static void runProblems () {
+        private static void runProblems() {
             foreach (var type in problems) {
                 var problem = getInstance(type);
                 Console.WriteLine($"{SEPARATOR}\n>>> RUN: {type.Name}\n");
@@ -60,7 +60,7 @@ namespace Euler {
         /// Runs a type of problem.
         /// </summary>
         /// <param name="input">The user input.</param>
-        private static void runProblem (string input) {
+        private static void runProblem(string input) {
             // Parse the text input into an integer:
             if (!int.TryParse(input, out int index)) {
                 index = -1;
@@ -80,7 +80,7 @@ namespace Euler {
         /// </summary>
         /// <param name="name">The name of the class.</param>
         /// <returns>The instance of the problem or null.</returns>
-        private static IRunnable getInstance (string name) {
+        private static IRunnable getInstance(string name) {
             var type = problems.FirstOrDefault(x => x.Name == name);
             return getInstance(type);
         }
@@ -90,7 +90,7 @@ namespace Euler {
         /// </summary>
         /// <param name="type">The type of the class.</param>
         /// <returns>The instance of the problem or null.</returns>
-        private static IRunnable getInstance (Type type) {
+        private static IRunnable getInstance(Type type) {
             if (type != null) {
                 var constructor = type.GetConstructor(Type.EmptyTypes);
                 var instance = constructor.Invoke(null);
@@ -103,7 +103,7 @@ namespace Euler {
         /// Gets the current list of types of problems.
         /// </summary>
         /// <returns>The list of types of problems.</returns>
-        private static IEnumerable<Type> getProblems () {
+        private static IEnumerable<Type> getProblems() {
             const string space = "Euler";
             var types = Assembly.GetExecutingAssembly().GetTypes();
             return types.Where(x => x.IsClass && x.Name.StartsWith(PREFIX)

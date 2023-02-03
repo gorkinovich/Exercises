@@ -28,7 +28,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run () {
+        public void Run() {
             const int FIRST = 1, LAST = 100;
 
             var result = CalcNumber(FIRST, LAST);
@@ -44,7 +44,7 @@ namespace Euler {
         /// <param name="first">The first value of the range.</param>
         /// <param name="last">The last value of the range.</param>
         /// <returns>The difference between the sums.</returns>
-        long CalcNumber (int first, int last) {
+        long CalcNumber(int first, int last) {
             Func<long, long> square = x => x * x;
             var numbers = Tools.Range<long>(first, last);
             var sum_square = numbers.Select(square).Sum();

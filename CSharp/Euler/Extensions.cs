@@ -20,7 +20,7 @@ namespace Euler {
         /// </summary>
         /// <param name="values">The sequence of numeric values.</param>
         /// <returns>The product of the values in the sequence</returns>
-        public static int Product (this IEnumerable<int> values) {
+        public static int Product(this IEnumerable<int> values) {
             return values.Aggregate(1, (x, y) => x * y);
         }
 
@@ -29,7 +29,7 @@ namespace Euler {
         /// </summary>
         /// <param name="values">The sequence of numeric values.</param>
         /// <returns>The product of the values in the sequence</returns>
-        public static long Product (this IEnumerable<long> values) {
+        public static long Product(this IEnumerable<long> values) {
             return values.Aggregate(1L, (x, y) => x * y);
         }
 
@@ -38,7 +38,7 @@ namespace Euler {
         /// </summary>
         /// <param name="values">The sequence of numeric values.</param>
         /// <returns>The product of the values in the sequence</returns>
-        public static uint Product (this IEnumerable<uint> values) {
+        public static uint Product(this IEnumerable<uint> values) {
             return values.Aggregate(1U, (x, y) => x * y);
         }
 
@@ -47,7 +47,7 @@ namespace Euler {
         /// </summary>
         /// <param name="values">The sequence of numeric values.</param>
         /// <returns>The product of the values in the sequence</returns>
-        public static ulong Product (this IEnumerable<ulong> values) {
+        public static ulong Product(this IEnumerable<ulong> values) {
             return values.Aggregate(1UL, (x, y) => x * y);
         }
 
@@ -59,7 +59,7 @@ namespace Euler {
         /// <param name="values">A sequence of values to determine the maximum value of.</param>
         /// <param name="selector">A function to extract the key for each element.</param>
         /// <returns>The value with the maximum key in the sequence.</returns>
-        public static TSource MaxByField<TSource, TKey> (this IEnumerable<TSource> values,
+        public static TSource MaxByField<TSource, TKey>(this IEnumerable<TSource> values,
             Func<TSource, TKey> selector) where TKey : IComparable {
             return values.Aggregate((r, x) => (selector(r).CompareTo(selector(x)) >= 0) ? r : x);
         }
@@ -72,7 +72,7 @@ namespace Euler {
         /// <param name="values">A sequence of values to determine the minimum value of.</param>
         /// <param name="selector">A function to extract the key for each element.</param>
         /// <returns>The value with the minimum key in the sequence.</returns>
-        public static TSource MinByField<TSource, TKey> (this IEnumerable<TSource> values,
+        public static TSource MinByField<TSource, TKey>(this IEnumerable<TSource> values,
             Func<TSource, TKey> selector) where TKey : IComparable {
             return values.Aggregate((r, x) => (selector(r).CompareTo(selector(x)) <= 0) ? r : x);
         }
@@ -86,7 +86,7 @@ namespace Euler {
         /// </summary>
         /// <param name="value">The value to tranform.</param>
         /// <returns>A sequence with the non-empty elements.</returns>
-        public static IEnumerable<string> SplitWithSpaces (this string value) {
+        public static IEnumerable<string> SplitWithSpaces(this string value) {
             return value.Split(' ', '\n', '\r', '\t')
                         .Select(x => x.Trim())
                         .Where(x => !string.IsNullOrEmpty(x));
@@ -104,7 +104,7 @@ namespace Euler {
         /// <exception cref="ArithmeticException">
         /// The character isn't a valid digit.
         /// </exception>
-        public static int ParseDigit (this char value) {
+        public static int ParseDigit(this char value) {
             if ('0' <= value || value <= '9') {
                 return value - '0';
             } else {
