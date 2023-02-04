@@ -110,6 +110,19 @@ namespace Euler {
         /// <param name="start">The start number of the sequence.</param>
         /// <param name="count">The count number of elements.</param>
         /// <returns>A enumerable with the sequence of numbers.</returns>
+        public static IEnumerable<BigInteger> BigRange (int start, int count) {
+            foreach (int number in Enumerable.Range(start, count)) {
+                yield return new BigInteger(number);
+            }
+        }
+
+        /// <summary>
+        /// Gets a sequence of numbers using the C# range function.
+        /// </summary>
+        /// <typeparam name="T">The return type of the sequence.</typeparam>
+        /// <param name="start">The start number of the sequence.</param>
+        /// <param name="count">The count number of elements.</param>
+        /// <returns>A enumerable with the sequence of numbers.</returns>
         public static IEnumerable<T> Range<T> (int start, int count) {
             foreach (int number in Enumerable.Range(start, count)) {
                 yield return (T) Convert.ChangeType(number, typeof(T));

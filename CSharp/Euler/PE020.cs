@@ -14,7 +14,6 @@
 
 using System;
 using System.Linq;
-using System.Numerics;
 
 namespace Euler {
     /// <summary>
@@ -27,11 +26,10 @@ namespace Euler {
         public void Run () {
             const int GOAL = 100;
 
-            var result = Enumerable.Range(1, GOAL)
-                                   .Select(x => new BigInteger(x))
-                                   .Product()
-                                   .GetDigits()
-                                   .Sum();
+            var result = Tools.BigRange(1, GOAL)
+                              .Product()
+                              .GetDigits()
+                              .Sum();
 
             Console.WriteLine($"The sum of the digits in the number {GOAL}! is {result}.");
         }
