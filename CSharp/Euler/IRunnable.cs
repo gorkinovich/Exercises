@@ -10,6 +10,6 @@ namespace Euler {
         /// <summary>
         /// Runs the problem to show the result on the console terminal.
         /// </summary>
-        void Run();
+        void Run ();
     }
 }

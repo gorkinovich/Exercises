@@ -23,7 +23,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run() {
+        public void Run () {
             const int LIMIT = 4_000_000;
             ulong result = 0;
 

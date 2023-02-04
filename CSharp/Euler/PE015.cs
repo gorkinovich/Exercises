@@ -28,7 +28,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run() {
+        public void Run () {
             const int SIZE = 20;
 
             var pascal = new PascalTriangle();
@@ -47,7 +47,7 @@ namespace Euler {
         /// </summary>
         private Dictionary<(int, int), ulong> numbers = new Dictionary<(int, int), ulong>();
 
-        public ulong Get(int n, int k) {
+        public ulong Get (int n, int k) {
             if (n < 0 || k < 0) {
                 throw new ArgumentException($"The arguments (n,k) can't be negative.");
             } else if (n == 0) {

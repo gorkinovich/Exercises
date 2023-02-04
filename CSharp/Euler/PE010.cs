@@ -19,7 +19,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run() {
+        public void Run () {
             const ulong LIMIT = 2_000_000UL;
 
             var result = Sequences.Primes()

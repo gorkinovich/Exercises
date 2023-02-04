@@ -69,7 +69,7 @@ namespace Euler {
         /// <param name="getNextValue">The function that makes the next value.</param>
         /// <param name="makeNewList">The function that makes the inner list value.</param>
         /// <param name="defaultValue">The default value when requesting out of bounds indexes.</param>
-        public LazySequence(Func<IList<T>, T> getNextValue,
+        public LazySequence (Func<IList<T>, T> getNextValue,
             Func<IList<T>> makeNewList = null, T defaultValue = default) {
             this.getNextValue = getNextValue;
             this.makeNewList = makeNewList ?? defaultMakeNewList;
@@ -82,7 +82,7 @@ namespace Euler {
         /// </summary>
         /// <param name="index">The zero-based index of the element to get.</param>
         /// <returns>The element at the specified index.</returns>
-        public T Get(int index) {
+        public T Get (int index) {
             if (index < 0) {
                 return defaultValue;
             }
@@ -95,7 +95,7 @@ namespace Euler {
         /// <summary>
         /// Resets the items from the list.
         /// </summary>
-        public void Reset() {
+        public void Reset () {
             values = makeNewList();
         }
 
@@ -104,7 +104,7 @@ namespace Euler {
         /// </summary>
         /// <param name="item">The object to locate in the list.</param>
         /// <returns>True if item is found in the list; otherwise, false.</returns>
-        public bool Contains(T item) {
+        public bool Contains (T item) {
             return values.Contains(item);
         }
 
@@ -113,7 +113,7 @@ namespace Euler {
         /// </summary>
         /// <param name="item">The object to locate in the list.</param>
         /// <returns>The index of item if found in the list; otherwise, -1.</returns>
-        public int IndexOf(T item) {
+        public int IndexOf (T item) {
             return values.IndexOf(item);
         }
 
@@ -125,7 +125,7 @@ namespace Euler {
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>An enumerator that can be used to iterate through the collection.</returns>
-        public IEnumerator<T> GetEnumerator() {
+        public IEnumerator<T> GetEnumerator () {
             return new Enumerator(this);
         }
 
@@ -133,7 +133,7 @@ namespace Euler {
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>An enumerator that can be used to iterate through the collection.</returns>
-        IEnumerator IEnumerable.GetEnumerator() {
+        IEnumerator IEnumerable.GetEnumerator () {
             return new Enumerator(this);
         }
 
@@ -159,7 +159,7 @@ namespace Euler {
             /// Makes a new enumerator object for a lazy sequence.
             /// </summary>
             /// <param name="victim">The lazy sequence to enumerate.</param>
-            public Enumerator(LazySequence<T> victim) {
+            public Enumerator (LazySequence<T> victim) {
                 values = victim;
                 index = -1;
             }
@@ -178,7 +178,7 @@ namespace Euler {
             /// Performs application-defined tasks associated with freeing, releasing,
             /// or resetting unmanaged resources.
             /// </summary>
-            public void Dispose() {
+            public void Dispose () {
                 values = null;
             }
 
@@ -187,7 +187,7 @@ namespace Euler {
             /// </summary>
             /// <returns>true if the enumerator was successfully advanced to the next element;
             /// false if the enumerator has passed the end of the collection.</returns>
-            public bool MoveNext() {
+            public bool MoveNext () {
                 index++;
                 return true;
             }
@@ -196,7 +196,7 @@ namespace Euler {
             /// Sets the enumerator to its initial position, which is before the first
             /// element in the collection.
             /// </summary>
-            public void Reset() {
+            public void Reset () {
                 index = -1;
             }
         }

@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace Euler {
     /// <summary>
@@ -18,37 +19,12 @@ namespace Euler {
         /// <summary>
         /// Computes the product of a sequence of numeric values.
         /// </summary>
+        /// <typeparam name="T">The type of the elements of values.</typeparam>
         /// <param name="values">The sequence of numeric values.</param>
         /// <returns>The product of the values in the sequence</returns>
-        public static int Product(this IEnumerable<int> values) {
-            return values.Aggregate(1, (x, y) => x * y);
-        }
-
-        /// <summary>
-        /// Computes the product of a sequence of numeric values.
-        /// </summary>
-        /// <param name="values">The sequence of numeric values.</param>
-        /// <returns>The product of the values in the sequence</returns>
-        public static long Product(this IEnumerable<long> values) {
-            return values.Aggregate(1L, (x, y) => x * y);
-        }
-
-        /// <summary>
-        /// Computes the product of a sequence of numeric values.
-        /// </summary>
-        /// <param name="values">The sequence of numeric values.</param>
-        /// <returns>The product of the values in the sequence</returns>
-        public static uint Product(this IEnumerable<uint> values) {
-            return values.Aggregate(1U, (x, y) => x * y);
-        }
-
-        /// <summary>
-        /// Computes the product of a sequence of numeric values.
-        /// </summary>
-        /// <param name="values">The sequence of numeric values.</param>
-        /// <returns>The product of the values in the sequence</returns>
-        public static ulong Product(this IEnumerable<ulong> values) {
-            return values.Aggregate(1UL, (x, y) => x * y);
+        public static T Product<T> (this IEnumerable<T> values)
+            where T : INumber<T> {
+            return values.Aggregate((x, y) => x * y);
         }
 
         /// <summary>
@@ -59,7 +35,7 @@ namespace Euler {
         /// <param name="values">A sequence of values to determine the maximum value of.</param>
         /// <param name="selector">A function to extract the key for each element.</param>
         /// <returns>The value with the maximum key in the sequence.</returns>
-        public static TSource MaxByField<TSource, TKey>(this IEnumerable<TSource> values,
+        public static TSource MaxByField<TSource, TKey> (this IEnumerable<TSource> values,
             Func<TSource, TKey> selector) where TKey : IComparable {
             return values.Aggregate((r, x) => (selector(r).CompareTo(selector(x)) >= 0) ? r : x);
         }
@@ -72,9 +48,23 @@ namespace Euler {
         /// <param name="values">A sequence of values to determine the minimum value of.</param>
         /// <param name="selector">A function to extract the key for each element.</param>
         /// <returns>The value with the minimum key in the sequence.</returns>
-        public static TSource MinByField<TSource, TKey>(this IEnumerable<TSource> values,
+        public static TSource MinByField<TSource, TKey> (this IEnumerable<TSource> values,
             Func<TSource, TKey> selector) where TKey : IComparable {
             return values.Aggregate((r, x) => (selector(r).CompareTo(selector(x)) <= 0) ? r : x);
+        }
+
+        //----------------------------------------------------------------------
+        // INumber
+        //----------------------------------------------------------------------
+
+        /// <summary>
+        /// Gets a sequence with the digits of a number.
+        /// </summary>
+        /// <typeparam name="T">The type of the input value.</typeparam>
+        /// <param name="value">The number to transform.</param>
+        /// <returns>The sequence with the digits.</returns>
+        public static IEnumerable<int> GetDigits<T> (this INumber<T> value) where T : INumber<T> {
+            return value.ToString().Select(x => x.ParseDigit());
         }
 
         //----------------------------------------------------------------------
@@ -86,7 +76,7 @@ namespace Euler {
         /// </summary>
         /// <param name="value">The value to tranform.</param>
         /// <returns>A sequence with the non-empty elements.</returns>
-        public static IEnumerable<string> SplitWithSpaces(this string value) {
+        public static IEnumerable<string> SplitWithSpaces (this string value) {
             return value.Split(' ', '\n', '\r', '\t')
                         .Select(x => x.Trim())
                         .Where(x => !string.IsNullOrEmpty(x));
@@ -104,7 +94,7 @@ namespace Euler {
         /// <exception cref="ArithmeticException">
         /// The character isn't a valid digit.
         /// </exception>
-        public static int ParseDigit(this char value) {
+        public static int ParseDigit (this char value) {
             if ('0' <= value || value <= '9') {
                 return value - '0';
             } else {

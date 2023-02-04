@@ -38,7 +38,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run() {
+        public void Run () {
             const ulong GOAL = 500;
 
             var result = FindNumber(GOAL);
@@ -51,7 +51,7 @@ namespace Euler {
         /// </summary>
         /// <param name="goal">The goal number to surpass.</param>
         /// <returns>The first number to surpass the goal.</returns>
-        ulong FindNumber(ulong goal) {
+        ulong FindNumber (ulong goal) {
             var primes = Sequences.LazyPrimes(true);
             return Sequences.Triangular()
                             .SkipWhile(number => GetDivisorsLength(number, primes) <= goal)
@@ -69,11 +69,11 @@ namespace Euler {
         /// <param name="number">The number to check.</param>
         /// <param name="primes">The sequence of prime numbers.</param>
         /// <returns>The number of divisors.</returns>
-        ulong GetDivisorsLength(ulong number, IEnumerable<ulong> primes) {
+        ulong GetDivisorsLength (ulong number, IEnumerable<ulong> primes) {
             return Sequences.Factors(number, primes)
                             .Skip(1)
                             .GroupBy(x => x)
-                            .Select(x => (ulong)x.Count())
+                            .Select(x => (ulong) x.Count())
                             .Aggregate(1UL, (result, size) => result + result * size);
         }
     }

@@ -16,7 +16,7 @@ namespace Tests {
         //----------------------------------------------------------------------
 
         [TestMethod]
-        public void Vol001_Test() {
+        public void Vol001_Test () {
             execute<PE001>("The sum of all the multiples of 3 or 5 below 1000 is 233168.");
             execute<PE002>("The sum of the even-valued terms below 4000000 is 4613732.");
             execute<PE003>("The largest prime factor of 600851475143 is 6857.");
@@ -30,7 +30,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void Vol002_Test() {
+        public void Vol002_Test () {
             execute<PE011>("The greatest product of four adjacent numbers is 70600674.");
             execute<PE012>("The first triangle number to have over 500 divisors is 76576500.");
             execute<PE013>("The first ten digits of the sum of the following one-hundred 50-digit numbers is 5537376230.");
@@ -40,11 +40,11 @@ namespace Tests {
             execute<PE017>("Number of letters of the written numbers from 1 to 1000 is 21124.");
             execute<PE018>("The maximum total from top to bottom of the triangle is 1074.", "Final path: [75, 64, 82, 87, 82, 75, 73, 28, 83, 32, 91, 78, 58, 73, 93]");
             execute<PE019>("The number of Sundays that fell on the month's 1st during the 20th century is 171.");
-            // execute<PE020>("The sum of the digits in the number 100! is 648.");
+            execute<PE020>("The sum of the digits in the number 100! is 648.");
         }
 
         [TestMethod]
-        public void Vol003_Test() {
+        public void Vol003_Test () {
             // execute<PE021>("The sum of all the amicable numbers under 10000 is 31626.", "Amicable numbers: [220, 284, 1184, 1210, 2620, 2924, 5020, 5564, 6232, 6368]");
             // execute<PE022>("The total of all the name scores in the file is 871198282.");
             // execute<PE023>("The sum of all the naturals which cannot be written as the sum of two abundant numbers is 4179871.");
@@ -58,7 +58,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void Vol004_Test() {
+        public void Vol004_Test () {
             // execute<PE031>("There are 73651 different ways £2 can be made using any number of coins.");
             // execute<PE032>("The sum of all pandigital products is 56370.");
             // execute<PE033>("The value of the denominator of the product is 800.");
@@ -75,7 +75,7 @@ namespace Tests {
         // Shared functions
         //----------------------------------------------------------------------
 
-        private void execute<T>(params string[] messages) where T : IRunnable, new() {
+        private void execute<T> (params string[] messages) where T : IRunnable, new() {
             using StringWriter writer = new StringWriter();
             Console.SetOut(writer);
 

@@ -21,7 +21,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run() {
+        public void Run () {
             const int CANDIDATE = 10_001;
 
             var result = Sequences.Primes().Skip(CANDIDATE - 1).First();

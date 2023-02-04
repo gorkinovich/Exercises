@@ -42,7 +42,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run() {
+        public void Run () {
             const int SIZE = 13;
             string CANDIDATE = string.Concat(new string[] {
                 "73167176531330624919225119674426574742355349194934",
@@ -78,10 +78,10 @@ namespace Euler {
         /// <param name="digits">The candidate numbers.</param>
         /// <param name="size">The size of the product.</param>
         /// <returns>The greatest product inside the sequence.</returns>
-        ulong FindProduct(string digits, int size) {
+        ulong FindProduct (string digits, int size) {
             var query = from index in Enumerable.Range(0, digits.Length - size)
                         let numbers = (from digit in digits.Substring(index, size)
-                                       select (ulong)digit.ParseDigit())
+                                       select (ulong) digit.ParseDigit())
                         select numbers.Product();
             return query.Max();
         }

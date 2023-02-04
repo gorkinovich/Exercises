@@ -20,7 +20,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run() {
+        public void Run () {
             const int LIMIT = 1000;
             var result = Tools.Sequence(1, LIMIT)
                               .Where(x => (x % 3) == 0 || (x % 5) == 0)

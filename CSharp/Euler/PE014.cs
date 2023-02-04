@@ -38,7 +38,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run() {
+        public void Run () {
             const int LIMIT = 1_000_000;
 
             var result = Tools.Sequence(1, LIMIT)
@@ -59,7 +59,7 @@ namespace Euler {
         /// </summary>
         /// <param name="number">The number to check.</param>
         /// <returns>The length of the sequence.</returns>
-        int GetLength(long number) {
+        int GetLength (long number) {
             if (!cache.ContainsKey(number)) {
                 int length = 0;
                 // Get all the numbers not included in the cache:
@@ -86,7 +86,7 @@ namespace Euler {
         /// </summary>
         /// <param name="number">The initial number of the sequence.</param>
         /// <returns>A enumerable to obtain the numbers of the sequence.</returns>
-        IEnumerable<long> Sequence(long number) {
+        IEnumerable<long> Sequence (long number) {
             while (number > 0) {
                 yield return number;
                 if (number <= 1) {

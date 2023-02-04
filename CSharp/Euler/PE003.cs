@@ -20,7 +20,7 @@ namespace Euler {
         /// <summary>
         /// Main entry for the problem solver.
         /// </summary>
-        public void Run() {
+        public void Run () {
             const ulong CANDIDATE = 600_851_475_143;
 
             var result = GetFactors(CANDIDATE).Distinct().LastOrDefault();
@@ -33,7 +33,7 @@ namespace Euler {
         /// </summary>
         /// <param name="number">A enumerable to obtain the factors.</param>
         /// <returns></returns>
-        IEnumerable<ulong> GetFactors(ulong number) {
+        IEnumerable<ulong> GetFactors (ulong number) {
             ulong divisor = 2;
             while (number >= divisor) {
                 if (number % divisor == 0) {
