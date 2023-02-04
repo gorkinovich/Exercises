@@ -28,9 +28,7 @@ namespace Euler {
             } else if (value == 0) {
                 return 1;
             } else {
-                return Enumerable.Range(1, value)
-                                 .Select(x => new BigInteger(x))
-                                 .Product();
+                return BigRange(1, value).Product();
             }
         }
 

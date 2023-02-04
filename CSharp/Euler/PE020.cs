@@ -26,8 +26,7 @@ namespace Euler {
         public void Run () {
             const int GOAL = 100;
 
-            var result = Tools.BigRange(1, GOAL)
-                              .Product()
+            var result = Tools.Factorial(GOAL)
                               .GetDigits()
                               .Sum();
 
