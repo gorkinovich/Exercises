@@ -11,7 +11,7 @@
 %%%======================================================================
 -module(pe005).
 -author("Gorka Suárez García").
--export([main/0]).
+-export([main/0, result/0]).
 
 -define(FIRST, 1).
 -define(LAST, 20).
@@ -22,9 +22,17 @@
 %% @end
 %%-----------------------------------------------------------------------
 main() ->
-    {_, Result} = find_number(?FIRST, ?LAST),
     io:format("The smallest positive number that is a multiple of all "
-              "numbers from 1 to 20 is ~p.~n", [Result]).
+              "numbers from 1 to 20 is ~p.~n", [result()]).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Main result for the problem solver.
+%% @end
+%%-----------------------------------------------------------------------
+result() ->
+    {_, Result} = find_number(?FIRST, ?LAST),
+    Result.
 
 %%-----------------------------------------------------------------------
 %% @private

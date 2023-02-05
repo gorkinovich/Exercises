@@ -10,7 +10,7 @@
 %%%======================================================================
 -module(pe001).
 -author("Gorka Suárez García").
--export([main/0]).
+-export([main/0, result/0]).
 
 -define(CANDIDATE, 1000).
 
@@ -20,11 +20,18 @@
 %% @end
 %%-----------------------------------------------------------------------
 main() ->
-    Result = lists:sum([
+    io:format("The sum of all the multiples of 3 or 5 below 1000 is ~p.~n", [result()]).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Main result for the problem solver.
+%% @end
+%%-----------------------------------------------------------------------
+result() ->
+    lists:sum([
         Number || Number <- lists:seq(1, ?CANDIDATE - 1),
         is_multiple(Number, 3) orelse is_multiple(Number, 5)
-    ]),
-    io:format("The sum of all the multiples of 3 or 5 below 1000 is ~p.~n", [Result]).
+    ]).
 
 %%-----------------------------------------------------------------------
 %% @private

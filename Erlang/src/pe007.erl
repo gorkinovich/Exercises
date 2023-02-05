@@ -10,7 +10,7 @@
 %%%======================================================================
 -module(pe007).
 -author("Gorka Suárez García").
--export([main/0]).
+-export([main/0, result/0]).
 
 -define(CANDIDATE, 10001).
 
@@ -20,6 +20,13 @@
 %% @end
 %%-----------------------------------------------------------------------
 main() ->
+    io:format("The 10,001st prime number is ~p.~n", [result()]).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Main result for the problem solver.
+%% @end
+%%-----------------------------------------------------------------------
+result() ->
     primes:start_link(),
-    Result = primes:get(?CANDIDATE - 1),
-    io:format("The 10,001st prime number is ~p.~n", [Result]).
+    primes:get(?CANDIDATE - 1).

@@ -9,7 +9,7 @@
 %%%======================================================================
 -module(pe003).
 -author("Gorka Suárez García").
--export([main/0]).
+-export([main/0, result/0]).
 
 -define(CANDIDATE, 600851475143).
 
@@ -19,9 +19,16 @@
 %% @end
 %%-----------------------------------------------------------------------
 main() ->
+    io:format("The largest prime factor of ~p is ~p.~n", [?CANDIDATE, result()]).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Main result for the problem solver.
+%% @end
+%%-----------------------------------------------------------------------
+result() ->
     Factors = get_prime_factors(?CANDIDATE),
-    Result = hd(lists:reverse(Factors)),
-    io:format("The largest prime factor of ~p is ~p.~n", [?CANDIDATE, Result]).
+    hd(lists:reverse(Factors)).
 
 %%-----------------------------------------------------------------------
 %% @private

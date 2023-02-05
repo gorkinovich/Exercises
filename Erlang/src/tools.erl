@@ -115,7 +115,7 @@ get_digits(Victim) when is_list(Victim) ->
     [C - $0 || C <- Victim, $0 =< C, C =< $9];
 get_digits(Victim) when is_integer(Victim) ->
     get_digits(integer_to_list(Victim));
-get_digits(Victim) ->
+get_digits(_) ->
     throw({get_digits, "Type not supported."}).
 
 %%-----------------------------------------------------------------------

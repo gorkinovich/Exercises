@@ -13,7 +13,7 @@
 %%%======================================================================
 -module(pe002).
 -author("Gorka Suárez García").
--export([main/0]).
+-export([main/0, result/0]).
 
 -define(LIMIT, 4000000).
 
@@ -23,10 +23,17 @@
 %% @end
 %%-----------------------------------------------------------------------
 main() ->
+    io:format("The sum of the even-valued terms below four million is ~p.~n", [result()]).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Main result for the problem solver.
+%% @end
+%%-----------------------------------------------------------------------
+result() ->
     fibonacci:start_link(),
     Iterator = fibonacci:iterator(),
-    Result = sum_fibonacci_numbers(Iterator, ?LIMIT, 0),
-    io:format("The sum of the even-valued terms below four million is ~p.~n", [Result]).
+    sum_fibonacci_numbers(Iterator, ?LIMIT, 0).
 
 %%-----------------------------------------------------------------------
 %% @private

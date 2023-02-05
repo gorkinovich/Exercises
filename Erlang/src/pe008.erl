@@ -32,7 +32,7 @@
 %%%======================================================================
 -module(pe008).
 -author("Gorka Suárez García").
--export([main/0]).
+-export([main/0, result/0]).
 
 -define(SIZE, 13).
 -define(CANDIDATE,
@@ -63,8 +63,15 @@
 %% @end
 %%-----------------------------------------------------------------------
 main() ->
-    Result = find_product(tools:get_digits(?CANDIDATE), ?SIZE),
-    io:format("The greatest product of ~p consecutive digits is ~p.~n", [?SIZE, Result]).
+    io:format("The greatest product of ~p consecutive digits is ~p.~n", [?SIZE, result()]).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Main result for the problem solver.
+%% @end
+%%-----------------------------------------------------------------------
+result() ->
+    find_product(tools:get_digits(?CANDIDATE), ?SIZE).
 
 %%-----------------------------------------------------------------------
 %% @private

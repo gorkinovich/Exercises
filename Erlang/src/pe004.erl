@@ -12,7 +12,7 @@
 %%%======================================================================
 -module(pe004).
 -author("Gorka Suárez García").
--export([main/0]).
+-export([main/0, result/0]).
 
 -define(START, 100).
 -define(LIMIT, 999).
@@ -23,9 +23,17 @@
 %% @end
 %%-----------------------------------------------------------------------
 main() ->
-    {R, N, M} = find_palindrome(?START, ?LIMIT),
+    {R, N, M} = result(),
     io:format("The largest palindrome made from the product of two"
               " 3-digit numbers is ~p * ~p = ~p.~n", [N, M, R]).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Main result for the problem solver.
+%% @end
+%%-----------------------------------------------------------------------
+result() ->
+    find_palindrome(?START, ?LIMIT).
 
 %%-----------------------------------------------------------------------
 %% @private

@@ -18,7 +18,7 @@
 %%%======================================================================
 -module(pe006).
 -author("Gorka Suárez García").
--export([main/0]).
+-export([main/0, result/0]).
 
 -define(FIRST, 1).
 -define(LAST, 100).
@@ -29,10 +29,17 @@
 %% @end
 %%-----------------------------------------------------------------------
 main() ->
-    Result = calc_number(?FIRST, ?LAST),
     io:format("The difference between the sum of the squares and the "
               "square of the sum of the first ~p numbers is ~p.~n",
-              [?LAST, Result]).
+              [?LAST, result()]).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Main result for the problem solver.
+%% @end
+%%-----------------------------------------------------------------------
+result() ->
+    calc_number(?FIRST, ?LAST).
 
 %%-----------------------------------------------------------------------
 %% @private
