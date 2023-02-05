@@ -5,11 +5,16 @@
 %%% This module contains utility functions.
 %%% @end
 %%%======================================================================
--module(utils).
+-module(tools).
 -author("Gorka Suárez García").
 -export([
-    factorial/1, pow/2, product/1, find/2, cartesian/2,
-    cartesian/3, combinations/2, combinations/3
+    % Math functions:
+    factorial/1, pow/2, product/1,
+
+    % Lists functions:
+    find/2, get_digits/1,
+    cartesian/2, cartesian/3,
+    combinations/2, combinations/3
 ]).
 
 %%%======================================================================
@@ -78,7 +83,7 @@ product([], Current) -> Current;
 product([X|XS], Current) -> product(XS, X * Current).
 
 %%%======================================================================
-%%% Loop functions
+%%% Lists functions
 %%%======================================================================
 
 %%-----------------------------------------------------------------------
@@ -98,6 +103,20 @@ find([Item | Items], Function) ->
         {ok, Result} -> {ok, Result};
         _ -> find(Items, Function)
     end.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Gets the digits numbers from a string.
+%% @param Value The value to check.
+%% @returns A list with the digits.
+%% @end
+%%-----------------------------------------------------------------------
+get_digits(Victim) when is_list(Victim) ->
+    [C - $0 || C <- Victim, $0 =< C, C =< $9];
+get_digits(Victim) when is_integer(Victim) ->
+    get_digits(integer_to_list(Victim));
+get_digits(Victim) ->
+    throw({get_digits, "Type not supported."}).
 
 %%-----------------------------------------------------------------------
 %% @doc

@@ -46,6 +46,6 @@ main() ->
 %%-----------------------------------------------------------------------
 calc_number(First, Last) ->
     Numbers = lists:seq(First, Last),
-    SumSquare = lists:sum([utils:pow(Number, 2) || Number <- Numbers]),
-    SquareSum = utils:pow(lists:sum(Numbers), 2),
+    SumSquare = lists:sum([tools:pow(Number, 2) || Number <- Numbers]),
+    SquareSum = tools:pow(lists:sum(Numbers), 2),
     SquareSum - SumSquare.

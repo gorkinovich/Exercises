@@ -37,13 +37,13 @@ main() ->
 %%-----------------------------------------------------------------------
 find_number(First, Last) ->
     Numbers = lists:seq(First, Last),
-    utils:find(
+    tools:find(
         lists:seq(1, length(Numbers)),
         fun(Size) ->
-            utils:find(
-                utils:combinations(Numbers, Size),
+            tools:find(
+                tools:combinations(Numbers, Size),
                 fun(Combination) ->
-                    X = utils:product(Combination),
+                    X = tools:product(Combination),
                     case lists:all(fun(Y) -> (X rem Y) == 0 end, Numbers) of
                         true -> {ok, X};
                         _ -> continue
