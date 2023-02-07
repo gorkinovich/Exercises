@@ -8,6 +8,9 @@
 -module(tools).
 -author("Gorka Suárez García").
 -export([
+    % Loop functions:
+    forward/3,
+
     % Math functions:
     factorial/1, pow/2, product/1,
 
@@ -27,6 +30,29 @@
     size = 0,
     current = []
 }).
+
+%%%======================================================================
+%%% Loop functions
+%%%======================================================================
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Executes a loop with a range of numbers.
+%% @param Index The start value of the range.
+%% @param Limit The limit value of the range.
+%% @param Function The function to execute each iteration.
+%% @returns 'nothing' after complete all the iterations;
+%% otherwise 'break' o a tuple {'return', Value}.
+%% @end
+%%-----------------------------------------------------------------------
+forward(Index, Limit, Function) when Index < Limit ->
+    case Function(Index) of
+        break -> break;
+        {return, Value} -> {return, Value};
+        _ -> forward(Index + 1, Limit, Function)
+    end;
+forward(_, _, _) ->
+    nothing.
 
 %%%======================================================================
 %%% Math functions
