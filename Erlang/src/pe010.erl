@@ -27,10 +27,4 @@ main() ->
 %% @end
 %%-----------------------------------------------------------------------
 result() ->
-    tools:reduce_while(
-        primes, 0, ?LIMIT,
-        fun (R, X) ->
-            %io:format("~p + ~p~n", [R, X]),
-            R + X
-        end
-    ).
+    tools:reduce_while(primes, 0, ?LIMIT, fun (R, X) -> R + X end).

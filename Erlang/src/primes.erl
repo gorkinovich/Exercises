@@ -140,17 +140,6 @@ next_prime(Number, Primes) ->
             next_prime(Number + ?OFFSET, Primes)
     end.
 
-is_divisible(Number, Primes) ->
-    is_divisible(Number, Primes, 0, floor(math:sqrt(Number))).
-
-is_divisible(Number, Primes, Index, Limit) ->
-    Prime = vector:get(Primes, Index),
-    case {Prime =< Limit, (Number rem Prime) =:= 0} of
-        {false, _} -> false;
-        {_, true} -> true;
-        _ -> is_divisible(Number, Primes, Index + 1, Limit)
-    end.
-
 %%-----------------------------------------------------------------------
 %% @private
 %% @doc
@@ -169,6 +158,32 @@ next_primes(Amount, Primes, Last) ->
                                  _ -> next_prime(Last + ?OFFSET, Primes)
                              end,
     next_primes(Amount - 1, NextPrimes, NextLast).
+
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Checks if a number is divisible by a set of primes.
+%% @param Number The numbers to check.
+%% @param Primes The previous prime numbers.
+%% @returns 'true' if the number is divisible; otherwise 'false'.
+%% @end
+%%-----------------------------------------------------------------------
+is_divisible(Number, Primes) ->
+    is_divisible(Number, Primes, 0, floor(math:sqrt(Number))).
+
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Internal function for 'fun is_divisible/2'.
+%% @end
+%%-----------------------------------------------------------------------
+is_divisible(Number, Primes, Index, Limit) ->
+    Prime = vector:get(Primes, Index),
+    case {Prime =< Limit, (Number rem Prime) =:= 0} of
+        {false, _} -> false;
+        {_, true} -> true;
+        _ -> is_divisible(Number, Primes, Index + 1, Limit)
+    end.
 
 %%%======================================================================
 %%% singleton callbacks
