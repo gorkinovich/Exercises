@@ -22,7 +22,7 @@
 
 -define(SERVER, ?MODULE).
 -define(OFFSET, 2).
--record(state, { primes = [] }).
+-record(state, { primes = vector:new() }).
 
 %%%======================================================================
 %%% Public functions
@@ -97,10 +97,10 @@ reset() ->
 %% @end
 %%-----------------------------------------------------------------------
 get_number(Primes, Index) when Index >= 0 ->
-    Length = length(Primes),
+    Length = vector:count(Primes),
     case Length > Index of
         true ->
-            Prime = lists:nth(Index + 1, Primes),
+            Prime = vector:get(Primes, Index),
             {Prime, Primes};
         _ ->
             next_primes((1 + Index) - Length, Primes, 0)
@@ -116,12 +116,12 @@ get_number(Primes, _) ->
 %% @returns A tuple with the next prime and the new list of primes.
 %% @end
 %%-----------------------------------------------------------------------
-next_prime([]) ->
-    {2, [2]};
-next_prime([2]) ->
-    {3, [2, 3]};
 next_prime(Primes) ->
-    next_prime(lists:last(Primes) + ?OFFSET, Primes).
+    case vector:count(Primes) of
+        0 -> {2, vector:new([2])};
+        1 -> {3, vector:new([2, 3])};
+        _ -> next_prime(vector:last(Primes) + ?OFFSET, Primes)
+    end.
 
 %%-----------------------------------------------------------------------
 %% @private
@@ -133,11 +133,22 @@ next_prime(Primes) ->
 %% @end
 %%-----------------------------------------------------------------------
 next_prime(Number, Primes) ->
-    case lists:any(fun(Prime) -> (Number rem Prime) =:= 0 end, Primes) of
+    case is_divisible(Number, Primes) of
         false ->
-            {Number, Primes ++ [Number]};
+            {Number, vector:append(Primes, Number)};
         _ ->
             next_prime(Number + ?OFFSET, Primes)
+    end.
+
+is_divisible(Number, Primes) ->
+    is_divisible(Number, Primes, 0, floor(math:sqrt(Number))).
+
+is_divisible(Number, Primes, Index, Limit) ->
+    Prime = vector:get(Primes, Index),
+    case {Prime =< Limit, (Number rem Prime) =:= 0} of
+        {false, _} -> false;
+        {_, true} -> true;
+        _ -> is_divisible(Number, Primes, Index + 1, Limit)
     end.
 
 %%-----------------------------------------------------------------------
@@ -169,18 +180,18 @@ next_primes(Amount, Primes, Last) ->
 %% Generic server event handle call messages.
 %% @end
 %%-----------------------------------------------------------------------
-handle_call(get_number, _From, State = #state{primes = Primes}) ->
-    {Number, NextPrimes} = next_prime(Primes),
+handle_call(get_number, _From, State) ->
+    {Number, NextPrimes} = next_prime(State#state.primes),
     {reply, Number, State#state{primes = NextPrimes}};
-handle_call({get_number, Index}, _From, State = #state{primes = Primes}) ->
-    {Number, NextPrimes} = get_number(Primes, Index),
+handle_call({get_number, Index}, _From, State) ->
+    {Number, NextPrimes} = get_number(State#state.primes, Index),
     {reply, Number, State#state{primes = NextPrimes}};
-handle_call({get_next, Index}, _From, State = #state{primes = Primes}) ->
+handle_call({get_next, Index}, _From, State) ->
     case Index >= 0 of
         false ->
             {reply, {undefined, 0}, State};
         _ ->
-            {Number, NextPrimes} = get_number(Primes, Index),
+            {Number, NextPrimes} = get_number(State#state.primes, Index),
             {reply, {Number, Index + 1}, State#state{primes = NextPrimes}}
     end;
 handle_call(_Request, _From, State) ->

@@ -8,14 +8,19 @@
 -module(tools).
 -author("Gorka Suárez García").
 -export([
+    % Iterator functions:
+    take_while/2, reduce_while/4,
+
+    % List functions:
+    all_while/3, any_while/3, find/2, get_digits/1,
+
     % Loop functions:
     forward/3,
 
     % Math functions:
     factorial/1, pow/2, product/1,
 
-    % Lists functions:
-    find/2, get_digits/1,
+    % Mixture functions
     cartesian/2, cartesian/3,
     combinations/2, combinations/3
 ]).
@@ -30,6 +35,166 @@
     size = 0,
     current = []
 }).
+
+%%%======================================================================
+%%% Iterator functions
+%%%======================================================================
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Takes elements form an iterator while a predicate selector applies.
+%% @param Module The module or iterator of the sequence.
+%% @param Selector The predicate selector to check.
+%% @returns The taken values of the sequence.
+%% @end
+%%-----------------------------------------------------------------------
+take_while(Module, Selector) ->
+    take_while(Module, Selector, []).
+
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Internal function for 'fun take_while/2'.
+%% @end
+%%-----------------------------------------------------------------------
+take_while({Module, _} = Iterator, Selector, Result) ->
+    {Current, NextIterator} = Module:next(Iterator),
+    case check_predicate(Current, Selector) of
+        true -> take_while(NextIterator, Selector, [Current | Result]);
+        _ -> lists:reverse(Result)
+    end;
+take_while(Module, Selector, Result) ->
+    Module:start_link(),
+    Iterator = Module:iterator(),
+    take_while(Iterator, Selector, Result).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Reduces the elements form an iterator while a predicate selector
+%% applies, using a function to aggregate the elements with the result.
+%% @param Module The module or iterator of the sequence.
+%% @param Initial The initial value of the reduce.
+%% @param Selector The predicate selector to check.
+%% @param Reduce The aggregate function to apply.
+%% @returns The taken values of the sequence.
+%% @end
+%%-----------------------------------------------------------------------
+reduce_while({Module, _} = Iterator, Initial, Selector, Reduce) ->
+    {Current, NextIterator} = Module:next(Iterator),
+    case check_predicate(Current, Selector) of
+        true -> reduce_while(NextIterator, Reduce(Initial, Current), Selector, Reduce);
+        _ -> Initial
+    end;
+reduce_while(Module, Initial, Selector, Reduce) ->
+    Module:start_link(),
+    Iterator = Module:iterator(),
+    reduce_while(Iterator, Initial, Selector, Reduce).
+
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Checks if a predicate function is true or false.
+%% @param Current The value to check.
+%% @param Predicate The predicate function or limit number.
+%% @returns 'true' or 'false'.
+%% @end
+%%-----------------------------------------------------------------------
+check_predicate(Current, Predicate) when is_function(Predicate) ->
+    Predicate(Current);
+check_predicate(Current, Limit) when is_number(Limit) ->
+    Current < Limit;
+check_predicate(Current, {'<', Limit}) when is_number(Limit) ->
+    Current < Limit;
+check_predicate(Current, {'<=', Limit}) when is_number(Limit) ->
+    Current =< Limit;
+check_predicate(Current, {'>', Limit}) when is_number(Limit) ->
+    Current > Limit;
+check_predicate(Current, {'>=', Limit}) when is_number(Limit) ->
+    Current >= Limit;
+check_predicate(_, _) ->
+    false.
+
+%%%======================================================================
+%%% List functions
+%%%======================================================================
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Checks if a predicate is true for all the values inside a list
+%% while a predicate selector applies.
+%% @param List The list to check.
+%% @param Predicate The predicate function to check.
+%% @param Selector The predicate selector to check.
+%% @returns 'true' or 'false'.
+%% @end
+%%-----------------------------------------------------------------------
+all_while([], _, _) ->
+    true;
+all_while([X | XS], Selector, Predicate) ->
+    case check_predicate(X, Selector) of
+        true ->
+            case Predicate(X) of
+                false -> false;
+                true -> all_while(XS, Selector, Predicate)
+            end;
+        _ ->
+            true
+    end.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Checks if a predicate is true for any value inside a list
+%% while a predicate selector applies.
+%% @param List The list to check.
+%% @param Predicate The predicate function to check.
+%% @param Selector The predicate selector to check.
+%% @returns 'true' or 'false'.
+%% @end
+%%-----------------------------------------------------------------------
+any_while([], _, _) ->
+    false;
+any_while([X | XS], Selector, Predicate) ->
+    case check_predicate(X, Selector) of
+        true ->
+            case Predicate(X) of
+                true -> true;
+                false -> any_while(XS, Selector, Predicate)
+            end;
+        _ ->
+            false
+    end.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Finds a result inside a list after applying a function.This function
+%% is design to be lazy in its execution, it will stop its execution if
+%% the result is found.
+%% @param List The list with the elements to check.
+%% @param Function The function to apply.
+%% @returns {'ok', Result} if the result is found, otherwise 'nothing'.
+%% @end
+%%-----------------------------------------------------------------------
+find([], _) ->
+    nothing;
+find([Item | Items], Function) ->
+    case Function(Item) of
+        {ok, Result} -> {ok, Result};
+        _ -> find(Items, Function)
+    end.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Gets the digits numbers from a string.
+%% @param Value The value to check.
+%% @returns A list with the digits.
+%% @end
+%%-----------------------------------------------------------------------
+get_digits(Victim) when is_list(Victim) ->
+    [C - $0 || C <- Victim, $0 =< C, C =< $9];
+get_digits(Victim) when is_integer(Victim) ->
+    get_digits(integer_to_list(Victim));
+get_digits(_) ->
+    throw({get_digits, "Type not supported."}).
 
 %%%======================================================================
 %%% Loop functions
@@ -109,40 +274,8 @@ product([], Current) -> Current;
 product([X|XS], Current) -> product(XS, X * Current).
 
 %%%======================================================================
-%%% Lists functions
+%%% Mixture functions
 %%%======================================================================
-
-%%-----------------------------------------------------------------------
-%% @doc
-%% Finds a result inside a list after applying a function.This function
-%% is design to be lazy in its execution, it will stop its execution if
-%% the result is found.
-%% @param List The list with the elements to check.
-%% @param Function The function to apply.
-%% @returns {'ok', Result} if the result is found, otherwise 'nothing'.
-%% @end
-%%-----------------------------------------------------------------------
-find([], _) ->
-    nothing;
-find([Item | Items], Function) ->
-    case Function(Item) of
-        {ok, Result} -> {ok, Result};
-        _ -> find(Items, Function)
-    end.
-
-%%-----------------------------------------------------------------------
-%% @doc
-%% Gets the digits numbers from a string.
-%% @param Value The value to check.
-%% @returns A list with the digits.
-%% @end
-%%-----------------------------------------------------------------------
-get_digits(Victim) when is_list(Victim) ->
-    [C - $0 || C <- Victim, $0 =< C, C =< $9];
-get_digits(Victim) when is_integer(Victim) ->
-    get_digits(integer_to_list(Victim));
-get_digits(_) ->
-    throw({get_digits, "Type not supported."}).
 
 %%-----------------------------------------------------------------------
 %% @doc
@@ -249,10 +382,6 @@ combinations_loop([State | Stack], Result) ->
             },
             combinations_loop([StepState, NextState | Stack], Result)
     end.
-
-%%%======================================================================
-%%% Auxiliary functions
-%%%======================================================================
 
 %%-----------------------------------------------------------------------
 %% @private

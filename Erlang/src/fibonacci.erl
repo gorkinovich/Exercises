@@ -21,7 +21,7 @@
 %%%======================================================================
 
 -define(SERVER, ?MODULE).
--record(state, { table = #{0 => 0, 1 => 1} }).
+-record(state, { table = vector:new([0, 1]) }).
 
 %%%======================================================================
 %%% Public functions
@@ -87,11 +87,11 @@ reset() ->
 %% @end
 %%-----------------------------------------------------------------------
 get_number(Table, Index) when Index >= 0 ->
-    case maps:get(Index, Table, none) of
+    case vector:get(Table, Index, none) of
         none ->
             {N1, T1} = get_number(Table, Index - 1),
             {N2, T2} = get_number(T1, Index - 2),
-            NextTable = T2#{ Index => N1 + N2 },
+            NextTable = vector:set(T2, Index, N1 + N2),
             {N1 + N2, NextTable};
         Number ->
             {Number, Table}
@@ -111,13 +111,13 @@ get_number(Table, _) ->
 %%-----------------------------------------------------------------------
 handle_call({get_number, Index}, _From, State) when Index =< 0 ->
     {reply, 0, State};
-handle_call({get_number, Index}, _From, State = #state{table = Table}) ->
-    {Number, NextTable} = get_number(Table, Index),
+handle_call({get_number, Index}, _From, State) ->
+    {Number, NextTable} = get_number(State#state.table, Index),
     {reply, Number, State#state{table = NextTable}};
 handle_call({get_next, Index}, _From, State) when Index =< 0 ->
     {reply, {0, 1}, State};
-handle_call({get_next, Index}, _From, State = #state{table = Table}) ->
-    {Number, NextTable} = get_number(Table, Index),
+handle_call({get_next, Index}, _From, State) ->
+    {Number, NextTable} = get_number(State#state.table, Index),
     {reply, {Number, Index + 1}, State#state{table = NextTable}};
 handle_call(_Request, _From, State) ->
     {reply, ok, State}.

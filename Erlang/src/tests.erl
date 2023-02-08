@@ -24,5 +24,6 @@ main_test_() ->
         ?TEST("Problem 006", ?_assertMatch(25164150, pe006:result())),
         ?TEST("Problem 007", ?_assertMatch(104743, pe007:result())),
         ?TEST("Problem 008", ?_assertMatch(23514624000, pe008:result())),
-        ?TEST("Problem 009", ?_assertMatch({200, 375, 425}, pe009:result()))
+        ?TEST("Problem 009", ?_assertMatch({200, 375, 425}, pe009:result())),
+        ?TEST("Problem 010", ?_assertMatch(142913828922, pe010:result()))
     ].
