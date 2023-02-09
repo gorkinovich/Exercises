@@ -117,7 +117,7 @@ def find_product(table, side, size):
     Finds the greatest product of some adjacent numbers in any direction.
     :param table: The square table with the numbers.
     :param side: The length of the side of the table.
-    :param size: The lenght of the product to find.
+    :param size: The length of the product to find.
     :return: The maximum value inside the table.
     """
     full_side = range(side)
