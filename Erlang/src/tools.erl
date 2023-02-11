@@ -8,8 +8,11 @@
 -module(tools).
 -author("Gorka Suárez García").
 -export([
+    % General functions:
+    identity/1,
+
     % Iterator functions:
-    take_while/2, reduce_while/4,
+    find_first/2, reduce_while/4, take_while/2, take_while/3,
 
     % List functions:
     all_while/3, any_while/3, find/2, get_digits/1,
@@ -37,36 +40,40 @@
 }).
 
 %%%======================================================================
+%%% General functions
+%%%======================================================================
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% The identity function.
+%% @param Value The value to return.
+%% @returns The given value.
+%% @end
+%%-----------------------------------------------------------------------
+identity(Value) -> Value.
+
+%%%======================================================================
 %%% Iterator functions
 %%%======================================================================
 
 %%-----------------------------------------------------------------------
 %% @doc
-%% Takes elements form an iterator while a predicate selector applies.
+%% Finds the first element that makes true a predicate selector.
 %% @param Module The module or iterator of the sequence.
-%% @param Selector The predicate selector to check.
-%% @returns The taken values of the sequence.
+%% @param Predicate The predicate selector to check.
+%% @returns The founded value of the sequence.
 %% @end
 %%-----------------------------------------------------------------------
-take_while(Module, Selector) ->
-    take_while(Module, Selector, []).
-
-%%-----------------------------------------------------------------------
-%% @private
-%% @doc
-%% Internal function for 'fun take_while/2'.
-%% @end
-%%-----------------------------------------------------------------------
-take_while({Module, _} = Iterator, Selector, Result) ->
+find_first({Module, _} = Iterator, Predicate) ->
     {Current, NextIterator} = Module:next(Iterator),
-    case check_predicate(Current, Selector) of
-        true -> take_while(NextIterator, Selector, [Current | Result]);
-        _ -> lists:reverse(Result)
+    case check_predicate(Current, Predicate) of
+        false -> find_first(NextIterator, Predicate);
+        _ -> Current
     end;
-take_while(Module, Selector, Result) ->
+find_first(Module, Predicate) ->
     Module:start_link(),
     Iterator = Module:iterator(),
-    take_while(Iterator, Selector, Result).
+    find_first(Iterator, Predicate).
 
 %%-----------------------------------------------------------------------
 %% @doc
@@ -91,6 +98,55 @@ reduce_while(Module, Initial, Selector, Reduce) ->
     reduce_while(Iterator, Initial, Selector, Reduce).
 
 %%-----------------------------------------------------------------------
+%% @doc
+%% Takes elements form an iterator while a predicate selector applies.
+%% @param Module The module or iterator of the sequence.
+%% @param Selector The predicate selector to check.
+%% @returns The taken values of the sequence.
+%% @end
+%%-----------------------------------------------------------------------
+take_while(Module, Selector) ->
+    take_while(Module, normal, Selector, []).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Takes elements form an iterator while a predicate selector applies.
+%% @param Module The module or iterator of the sequence.
+%% @param State The state of the iteration.
+%% @param OnStep The on step event of the iteration.
+%% @param Predicate The predicate selector to check.
+%% @returns The taken values of the sequence.
+%% @end
+%%-----------------------------------------------------------------------
+take_while(Module, State, OnStep) ->
+    take_while(Module, {state, State}, OnStep, []).
+
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Internal function for 'fun take_while/2'.
+%% @end
+%%-----------------------------------------------------------------------
+take_while({Module, _} = Iterator, {state, State}, OnStep, Result) ->
+    {Current, NextIterator} = Module:next(Iterator),
+    case OnStep(State, Current) of
+        {true, NextState, FinalValue} ->
+            take_while(NextIterator, {state, NextState}, OnStep, [FinalValue | Result]);
+        _ ->
+            lists:reverse(Result)
+    end;
+take_while({Module, _} = Iterator, normal, Selector, Result) ->
+    {Current, NextIterator} = Module:next(Iterator),
+    case check_predicate(Current, Selector) of
+        true -> take_while(NextIterator, normal, Selector, [Current | Result]);
+        _ -> lists:reverse(Result)
+    end;
+take_while(Module, Mode, Function, Result) ->
+    Module:start_link(),
+    Iterator = Module:iterator(),
+    take_while(Iterator, Mode, Function, Result).
+
+%%-----------------------------------------------------------------------
 %% @private
 %% @doc
 %% Checks if a predicate function is true or false.
@@ -111,6 +167,8 @@ check_predicate(Current, {'>', Limit}) when is_number(Limit) ->
     Current > Limit;
 check_predicate(Current, {'>=', Limit}) when is_number(Limit) ->
     Current >= Limit;
+check_predicate(Current, {Transform, Selector}) when is_function(Transform) ->
+    check_predicate(Transform(Current), Selector);
 check_predicate(_, _) ->
     false.
 
