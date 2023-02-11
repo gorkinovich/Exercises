@@ -9,7 +9,7 @@
 -author("Gorka Suárez García").
 -include_lib("eunit/include/eunit.hrl").
 
--define(TEST(Desc, Func), {setup, fun setup/0, fun cleanup/1, {Desc, Func}}).
+-define(TEST(Desc, Func), {setup, fun setup/0, fun cleanup/1, {Desc, {timeout, 60, Func}}}).
 
 setup() -> ok.
 cleanup(_) -> ok.
