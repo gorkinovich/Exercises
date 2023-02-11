@@ -111,6 +111,7 @@ result() ->
     find_product(Table, ?SIDE, ?SIZE).
 
 %%-----------------------------------------------------------------------
+%% @private
 %% @doc
 %% Finds the greatest product of some adjacent numbers in any direction.
 %% @param Table The square table with the numbers.
@@ -134,6 +135,7 @@ find_product(Table, Side, Size) ->
     lists:max([find_product_step(Table, Rows, Cols, Offsets) || {Rows, Cols, Offsets} <- Params]).
 
 %%-----------------------------------------------------------------------
+%% @private
 %% @doc
 %% Finds the greatest product of some adjacent numbers in a direction.
 %% @param Table The square table with the numbers.
