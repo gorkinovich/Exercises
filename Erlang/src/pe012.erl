@@ -99,7 +99,6 @@ get_factors(Number) when Number > 1 ->
 
 %%-----------------------------------------------------------------------
 %% @private
-%% @private
 %% @doc
 %% Internal function for 'fun get_factors/1'.
 %% @end

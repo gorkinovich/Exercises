@@ -33,7 +33,7 @@ main() ->
 result() ->
     tools:reduce_while(
         fibonacci, 0, ?LIMIT,
-        fun (A, Current) when (Current rem 2) == 0 -> A + Current;
+        fun (A, Current) when (Current rem 2) =:= 0 -> A + Current;
             (A, _) -> A
         end
     ).

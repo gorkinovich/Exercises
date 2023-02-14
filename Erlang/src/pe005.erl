@@ -52,7 +52,7 @@ find_number(First, Last) ->
                 tools:combinations(Numbers, Size),
                 fun(Combination) ->
                     X = tools:product(Combination),
-                    case lists:all(fun(Y) -> (X rem Y) == 0 end, Numbers) of
+                    case lists:all(fun(Y) -> (X rem Y) =:= 0 end, Numbers) of
                         true -> {ok, X};
                         _ -> continue
                     end
