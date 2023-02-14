@@ -20,6 +20,7 @@
 :author: Gorka Suárez García
 :copyright: (c) 2022, Gorka Suárez García
 """
+from shared import check_argv
 
 ######################################################################
 # Constants
@@ -53,11 +54,15 @@ def main():
     """
     Main entry for the problem solver.
     """
-    result = find_numbers(GOAL)
+    numbers = find_numbers(GOAL)
+    result = sum(numbers)
+
+    if check_argv("show"):
+        print(f"{numbers = }")
 
     # Show the final result of the problem:
     message = "The sum of all the numbers that can be written as the "
-    message += f"sum of fifth powers of their digits are {result}."
+    message += f"sum of fifth powers of their digits is {result}."
     print(message)
 
 
