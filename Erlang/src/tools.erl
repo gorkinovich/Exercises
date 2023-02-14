@@ -19,7 +19,7 @@
     get_integer/1, get_integers/1, select/2, select_with_string/2,
 
     % Loop functions:
-    forward/3,
+    forward/3, forward/4,
 
     % Math functions:
     factorial/1, pow/2, product/1,
@@ -392,6 +392,26 @@ forward(Index, Limit, Function) when Index < Limit ->
     end;
 forward(_, _, _) ->
     nothing.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Executes a loop with a range of numbers.
+%% @param Index The start value of the range.
+%% @param Limit The limit value of the range.
+%% @param State The state value of the loop.
+%% @param Function The function to execute each iteration.
+%% @returns The final state after complete all the iterations;
+%% otherwise 'break' o a tuple {'return', Value}.
+%% @end
+%%-----------------------------------------------------------------------
+forward(Index, Limit, State, Function) when Index < Limit ->
+    case Function(Index, State) of
+        break -> break;
+        {return, Value} -> {return, Value};
+        NextState -> forward(Index + 1, Limit, NextState, Function)
+    end;
+forward(_, _, State, _) ->
+    State.
 
 %%%======================================================================
 %%% Math functions
