@@ -14,7 +14,7 @@
 setup() -> ok.
 cleanup(_) -> ok.
 
-main_test_() ->
+fixtures() ->
     [
         ?TEST("Problem 001", ?_assertMatch(233168, pe001:result())),
         ?TEST("Problem 002", ?_assertMatch(4613732, pe002:result())),
@@ -30,3 +30,12 @@ main_test_() ->
         ?TEST("Problem 012", ?_assertMatch(76576500, pe012:result())),
         ?TEST("Problem 013", ?_assertMatch("5537376230", pe013:result()))
     ].
+
+main_test_() ->
+    Tests = fixtures(),
+    case init:get_plain_arguments() of
+        [Argument|_] ->
+            tools:select_with_string(Tests, Argument);
+        _ ->
+            Tests
+    end.

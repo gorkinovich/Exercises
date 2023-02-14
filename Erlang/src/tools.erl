@@ -15,7 +15,8 @@
     find_first/2, reduce_while/4, take_while/2, take_while/3,
 
     % List functions:
-    all_while/3, any_while/3, find/2, get_digits/1,
+    all_while/3, any_while/3, contains/2, find/2, get_digits/1,
+    get_integer/1, get_integers/1, select/2, select_with_string/2,
 
     % Loop functions:
     forward/3,
@@ -224,6 +225,17 @@ any_while([X | XS], Selector, Predicate) ->
 
 %%-----------------------------------------------------------------------
 %% @doc
+%% Checks if a list contains a value.
+%% @param List The list to check.
+%% @param Value The value to find.
+%% @returns 'true' or 'false'.
+%% @end
+%%-----------------------------------------------------------------------
+contains(List, Value) ->
+    lists:any(fun(Item) -> Item =:= Value end, List).
+
+%%-----------------------------------------------------------------------
+%% @doc
 %% Finds a result inside a list after applying a function.This function
 %% is design to be lazy in its execution, it will stop its execution if
 %% the result is found.
@@ -253,6 +265,110 @@ get_digits(Victim) when is_integer(Victim) ->
     get_digits(integer_to_list(Victim));
 get_digits(_) ->
     throw({get_digits, "Type not supported."}).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Converts a substring into a integer number.
+%% @param Value The string to convert.
+%% @returns A tuple with the integer numbers and the rest of the string.
+%% @end
+%%-----------------------------------------------------------------------
+get_integer(Value) ->
+    get_integer(Value, "", []).
+
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Internal function for 'fun get_integer/1'.
+%% @end
+%%-----------------------------------------------------------------------
+get_integer("", Rest, Digits) ->
+    case lists:reverse(Digits) of
+        [] ->
+            {none, Rest};
+        Number ->
+            {list_to_integer(Number), Rest}
+    end;
+get_integer([Character | String], Rest, Digits) ->
+    case {$0 =< Character andalso Character =< $9, Digits} of
+        {true, _} ->
+            get_integer(String, Rest, [Character | Digits]);
+        {false, []} ->
+            get_integer(String, Rest, Digits);
+        {false, _} ->
+            get_integer("", String, Digits)
+    end.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Converts a string into a list of integer numbers.
+%% @param Value The string to convert.
+%% @returns The list with the integer numbers.
+%% @end
+%%-----------------------------------------------------------------------
+get_integers(Value) ->
+    get_integers(Value, []).
+
+%%-----------------------------------------------------------------------
+%% @private
+%% @doc
+%% Internal function for 'fun get_integers/1'.
+%% @end
+%%-----------------------------------------------------------------------
+get_integers("", Result) ->
+    lists:reverse(Result);
+get_integers(Value, Result) ->
+    case get_integer(Value) of
+        {none, NextValue} ->
+            get_integers(NextValue, Result);
+        {Number, NextValue} ->
+            get_integers(NextValue, [Number | Result])
+    end.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Selects elements from a list with a list of selectors.
+%% @param List The list to check.
+%% @param Indexes The list with the indexes.
+%% @returns The list with the selected elements.
+%% @end
+%%-----------------------------------------------------------------------
+select([], _) ->
+    [];
+select(List, Indexes) ->
+    lists:flatten(lists:map(
+        fun ({Begin, End}) when is_integer(Begin), is_integer(End) ->
+                lists:sublist(List, Begin, (End - Begin) + 1);
+            (Index) when is_integer(Index) ->
+                lists:nth(Index, List);
+            (_) ->
+                []
+        end,
+        Indexes
+    )).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Selects elements from a list with a list of selectors.
+%% @param List The list to check.
+%% @param String The string with the indexes.
+%% @returns The list with the selected elements.
+%% @end
+%%-----------------------------------------------------------------------
+select_with_string([], _) ->
+    [];
+select_with_string(List, String) ->
+    Indexes = lists:map(
+        fun (Substring) ->
+            case get_integers(Substring) of
+                [Begin, End] -> {Begin, End};
+                [Index|_] -> Index;
+                _ -> error
+            end
+        end,
+        string:split(String, ",", all)
+    ),
+    select(List, Indexes).
 
 %%%======================================================================
 %%% Loop functions
