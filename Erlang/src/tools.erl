@@ -9,7 +9,7 @@
 -author("Gorka Suárez García").
 -export([
     % General functions:
-    identity/1, is_numeric/1, is_alphabetic/1,
+    identity/1, if_else/3, is_alphabetic/1, is_numeric/1, join/2,
 
     % Iterator functions:
     find_first/2, reduce_while/4, take_while/2, take_while/3,
@@ -55,13 +55,16 @@ identity(Value) -> Value.
 
 %%-----------------------------------------------------------------------
 %% @doc
-%% Checks if a character is a numeric value.
-%% @param Value The value to check.
-%% @returns 'true' if the character is a numeric value.
+%% An if-else function to select one value or another.
+%% @param Condition The condition to check.
+%% @param TrueValue The value to return when true.
+%% @param FalseValue The value to return when false.
+%% @returns The true value when the condition is 'true';
+%% otherwise the false value.
 %% @end
 %%-----------------------------------------------------------------------
-is_numeric(Value) ->
-    $0 =< Value andalso Value =< $9.
+if_else(true, A, _) -> A;
+if_else(_, _, B) -> B.
 
 %%-----------------------------------------------------------------------
 %% @doc
@@ -73,6 +76,31 @@ is_numeric(Value) ->
 is_alphabetic(Value) ->
     ($A =< Value andalso Value =< $Z) orelse
         ($a =< Value andalso Value =< $z).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Checks if a character is a numeric value.
+%% @param Value The value to check.
+%% @returns 'true' if the character is a numeric value.
+%% @end
+%%-----------------------------------------------------------------------
+is_numeric(Value) ->
+    $0 =< Value andalso Value =< $9.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Joins a list of strings.
+%% @param Strings The strings to join.
+%% @param Separator The separator string to use.
+%% @returns A new string with all the strings joined.
+%% @end
+%%-----------------------------------------------------------------------
+join([], _) ->
+    [];
+join([String], _) ->
+    String;
+join([String|Strings], Separator) ->
+    String ++ Separator ++ join(Strings, Separator).
 
 %%%======================================================================
 %%% Iterator functions

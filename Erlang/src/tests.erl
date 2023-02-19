@@ -31,8 +31,8 @@ fixtures() ->
         ?TEST("Problem 013", ?_assertMatch("5537376230", pe013:result())),
         ?TEST("Problem 014", ?_assertMatch(837799, pe014:result())),
         ?TEST("Problem 015", ?_assertMatch(137846528820, pe015:result())),
-        ?TEST("Problem 016", ?_assertMatch(1366, pe016:result()))
-        % ?TEST("Problem 017", ?_assertMatch(21124, pe017:result()))
+        ?TEST("Problem 016", ?_assertMatch(1366, pe016:result())),
+        ?TEST("Problem 017", ?_assertMatch(21124, pe017:result()))
         % ?TEST("Problem 018", ?_assertMatch({1074, [75, 64, 82, 87, 82, 75, 73, 28, 83, 32, 91, 78, 58, 73, 93]}, pe018:result()))
         % ?TEST("Problem 019", ?_assertMatch(171, pe019:result()))
         % ?TEST("Problem 020", ?_assertMatch(648, pe020:result()))
