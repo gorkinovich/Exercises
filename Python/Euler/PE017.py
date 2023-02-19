@@ -19,6 +19,7 @@
 :copyright: (c) 2022, Gorka Suárez García
 """
 import enum
+from shared import check_argv
 
 ######################################################################
 # Constants
@@ -69,6 +70,7 @@ class Transform:
         :param number: The number to convert.
         :param divisor: The divisor limit.
         :param left_to_word: The left side converter.
+        :param middle_words: The middle words.
         :return: The number in words.
         """
         left, right = divmod(number, divisor)
@@ -124,6 +126,9 @@ def main():
     numbers = [Transform.num_to_word(number)
                for number in range(BEGIN, FINAL + 1)]
     result = sum(1 for c in ''.join(numbers) if c.isalpha())
+
+    if check_argv("show"):
+        print(f"{numbers = }")
 
     # Show the final result of the problem:
     print(f"Number of letters of the written numbers from {BEGIN} to {FINAL} is {result}.")
