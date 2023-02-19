@@ -9,7 +9,7 @@
 -author("Gorka Suárez García").
 -export([
     % General functions:
-    identity/1,
+    identity/1, is_numeric/1, is_alphabetic/1,
 
     % Iterator functions:
     find_first/2, reduce_while/4, take_while/2, take_while/3,
@@ -52,6 +52,27 @@
 %% @end
 %%-----------------------------------------------------------------------
 identity(Value) -> Value.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Checks if a character is a numeric value.
+%% @param Value The value to check.
+%% @returns 'true' if the character is a numeric value.
+%% @end
+%%-----------------------------------------------------------------------
+is_numeric(Value) ->
+    $0 =< Value andalso Value =< $9.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Checks if a character is an alphabetic value.
+%% @param Value The value to check.
+%% @returns 'true' if the character is an alphabetic value.
+%% @end
+%%-----------------------------------------------------------------------
+is_alphabetic(Value) ->
+    ($A =< Value andalso Value =< $Z) orelse
+        ($a =< Value andalso Value =< $z).
 
 %%%======================================================================
 %%% Iterator functions
