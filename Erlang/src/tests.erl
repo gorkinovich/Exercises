@@ -50,9 +50,13 @@ fixtures() ->
 
 main_test_() ->
     Tests = fixtures(),
+    case get_first_arguments() of
+        [] -> Tests;
+        Argument -> tools:select_with_string(Tests, Argument)
+    end.
+
+get_first_arguments() ->
     case init:get_plain_arguments() of
-        [Argument|_] ->
-            tools:select_with_string(Tests, Argument);
-        _ ->
-            Tests
+        [Argument|_] -> Argument;
+        _ -> ""
     end.
