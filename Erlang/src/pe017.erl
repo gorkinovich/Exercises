@@ -18,6 +18,7 @@
 -module(pe017).
 -author("Gorka Suárez García").
 -export([main/0, result/0]).
+-include("tools.hrl").
 
 -define(BEGIN, 1).
 -define(FINAL, 1000).
@@ -106,7 +107,7 @@ num_to_word(Number, Divisor, LeftToWord, MiddleWords) ->
     Left = Number div Divisor,
     Right = Number rem Divisor,
     LeftWord = LeftToWord(Left),
-    RightWord = tools:if_else(Right =:= 0, "", num_to_word(Right)),
+    RightWord = tools:if_else(Right =:= 0, "", ?ACTION(num_to_word(Right))),
     case {RightWord, MiddleWords} of
         {[], []} -> LeftWord;
         {[], _} -> LeftWord ++ " " ++ hd(MiddleWords);

@@ -16,7 +16,8 @@
 
     % List functions:
     all_while/3, any_while/3, contains/2, find/2, get_digits/1,
-    get_integer/1, get_integers/1, select/2, select_with_string/2,
+    get_integer/1, get_integers/1, max/2, min/2, select/2,
+    select_with_string/2,
 
     % Loop functions:
     forward/3, forward/4,
@@ -63,7 +64,9 @@ identity(Value) -> Value.
 %% otherwise the false value.
 %% @end
 %%-----------------------------------------------------------------------
+if_else(true, A, _) when is_function(A, 0) -> A();
 if_else(true, A, _) -> A;
+if_else(_, _, B) when is_function(B, 0) -> B();
 if_else(_, _, B) -> B.
 
 %%-----------------------------------------------------------------------
@@ -373,6 +376,50 @@ get_integers(Value, Result) ->
         {Number, NextValue} ->
             get_integers(NextValue, [Number | Result])
     end.
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Gets the maximum value inside a list.
+%% @param Values The values to check.
+%% @param Selector The key selector of the elements.
+%% @returns The maximum value of the list.
+%% @end
+%%-----------------------------------------------------------------------
+max([Value|Values], Selector) ->
+    lists:foldl(
+        fun(A, B) ->
+            case Selector(A) > Selector(B) of
+                true -> A;
+                false -> B
+            end
+        end,
+        Value,
+        Values
+    );
+max(_, _) ->
+    throw({max, "Value not supported."}).
+
+%%-----------------------------------------------------------------------
+%% @doc
+%% Gets the minimum value inside a list.
+%% @param Values The values to check.
+%% @param Selector The key selector of the elements.
+%% @returns The minimum value of the list.
+%% @end
+%%-----------------------------------------------------------------------
+min([Value|Values], Selector) ->
+    lists:foldl(
+        fun(A, B) ->
+            case Selector(A) < Selector(B) of
+                true -> A;
+                false -> B
+            end
+        end,
+        Value,
+        Values
+    );
+min(_, _) ->
+    throw({min, "Value not supported."}).
 
 %%-----------------------------------------------------------------------
 %% @doc
