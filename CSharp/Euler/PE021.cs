@@ -35,7 +35,7 @@ namespace Euler {
             var result = numbers.Sum();
 
             Console.WriteLine($"The sum of all the amicable numbers under {LIMIT} is {result}.");
-            Console.WriteLine($"Amicable numbers: {Tools.ToString(numbers, ", ", "[", "]")}");
+            Console.WriteLine($"Amicable numbers: {Tools.ToStringList(numbers)}");
         }
 
         /// <summary>

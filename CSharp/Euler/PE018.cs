@@ -74,7 +74,7 @@ namespace Euler {
             var result = FindPath(WORLD);
 
             Console.WriteLine($"The maximum total from top to bottom of the triangle is {result.Sum}.");
-            Console.WriteLine($"Final path: {Tools.ToString(result.Path, ", ", "[", "]")}");
+            Console.WriteLine($"Final path: {Tools.ToStringList(result.Path)}");
         }
 
         /// <summary>

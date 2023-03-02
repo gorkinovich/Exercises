@@ -181,10 +181,33 @@ namespace Euler {
         /// <param name="separator">The separator string.</param>
         /// <param name="initial">The initial string.</param>
         /// <param name="ending">The ending string.</param>
-        /// <returns></returns>
+        /// <returns>A string that consists of the elements delimited by the
+        /// separator string.</returns>
         public static string ToString<T> (IEnumerable<T> values, string separator = "",
             string initial = "", string ending = "") {
             return initial + string.Join(separator, values) + ending;
+        }
+
+        /// <summary>
+        /// Gets a string from a collection of values represented as a list.
+        /// </summary>
+        /// <typeparam name="T">The type of the values.</typeparam>
+        /// <param name="values">The collection with the values.</param>
+        /// <returns>A string that consists of the elements delimited by the
+        /// separator string.</returns>
+        public static string ToStringList<T> (IEnumerable<T> values) {
+            return ToString(values, ", ", "[", "]");
+        }
+
+        /// <summary>
+        /// Gets a string from a collection of values represented as a tuple.
+        /// </summary>
+        /// <typeparam name="T">The type of the values.</typeparam>
+        /// <param name="values">The collection with the values.</param>
+        /// <returns>A string that consists of the elements delimited by the
+        /// separator string.</returns>
+        public static string ToStringTuple<T> (IEnumerable<T> values) {
+            return ToString(values, ", ", "{", "}");
         }
     }
 }
