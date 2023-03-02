@@ -53,6 +53,24 @@ namespace Euler {
             return values.Aggregate((r, x) => (selector(r).CompareTo(selector(x)) <= 0) ? r : x);
         }
 
+        /// <summary>
+        /// Computes the sum of a sequence of unsigned integer values.
+        /// </summary>
+        /// <param name="values">A sequence of values to calculate the sum of.</param>
+        /// <returns>The sum of the values in the sequence.</returns>
+        public static uint Sum (this IEnumerable<uint> values) {
+            return values.Aggregate(0U, (r, x) => r + x);
+        }
+
+        /// <summary>
+        /// Computes the sum of a sequence of unsigned long integer values.
+        /// </summary>
+        /// <param name="values">A sequence of values to calculate the sum of.</param>
+        /// <returns>The sum of the values in the sequence.</returns>
+        public static ulong Sum (this IEnumerable<ulong> values) {
+            return values.Aggregate(0UL, (r, x) => r + x);
+        }
+
         //----------------------------------------------------------------------
         // INumber
         //----------------------------------------------------------------------

@@ -45,7 +45,7 @@ namespace Tests {
 
         [TestMethod]
         public void Vol003_Test () {
-            // execute<PE021>("The sum of all the amicable numbers under 10000 is 31626.", "Amicable numbers: [220, 284, 1184, 1210, 2620, 2924, 5020, 5564, 6232, 6368]");
+            execute<PE021>("The sum of all the amicable numbers under 10000 is 31626.", "Amicable numbers: [220, 284, 1184, 1210, 2620, 2924, 5020, 5564, 6232, 6368]");
             // execute<PE022>("The total of all the name scores in the file is 871198282.");
             // execute<PE023>("The sum of all the naturals which cannot be written as the sum of two abundant numbers is 4179871.");
             // execute<PE024>("The millionth lexicographic permutation is 2783915460.");

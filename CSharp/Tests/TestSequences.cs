@@ -73,7 +73,7 @@ namespace Tests {
             checkSequences(Sequences.Triangular(true), triangularValues,
                 "Triangular starting with number zero failed!");
             checkSequences(Sequences.Triangular(), triangularValues.Skip(1),
-                "Triangular starting with number zero failed!");
+                "Triangular starting with number one failed!");
         }
 
         [TestMethod]
@@ -81,7 +81,21 @@ namespace Tests {
             checkSequences(Sequences.LazyTriangular(true), triangularValues,
                 "Triangular starting with number zero failed!");
             checkSequences(Sequences.LazyTriangular(), triangularValues.Skip(1),
-                "Triangular starting with number zero failed!");
+                "Triangular starting with number one failed!");
+        }
+
+        //----------------------------------------------------------------------
+        // Fibonacci numbers
+        //----------------------------------------------------------------------
+
+        [TestMethod]
+        public void DivisorsTest () {
+            checkSequences(Sequences.Divisors(220),
+                new ulong[] { 1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110, 220 },
+                "Divisors for 220 failed!");
+            checkSequences(Sequences.Divisors(284),
+                new ulong[] { 1, 2, 4, 71, 142, 284 },
+                "Divisors for 284 failed!");
         }
 
         //----------------------------------------------------------------------

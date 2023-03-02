@@ -130,6 +130,29 @@ namespace Euler {
         /// <summary>
         /// Gets a sequence of numbers like the range function in Python.
         /// </summary>
+        /// <typeparam name="T">The return type of the sequence.</typeparam>
+        /// <param name="start">The start number of the sequence.</param>
+        /// <param name="limit">The limit number of the secuence.</param>
+        /// <returns>A enumerable with the sequence of numbers.</returns>
+        public static IEnumerable<T> Sequence<T> (int start, int limit) {
+            foreach (int number in Enumerable.Range(start, limit - start)) {
+                yield return (T) Convert.ChangeType(number, typeof(T));
+            }
+        }
+
+        /// <summary>
+        /// Gets a sequence of numbers like the range function in Python.
+        /// </summary>
+        /// <typeparam name="T">The return type of the sequence.</typeparam>
+        /// <param name="limit">The limit number of the secuence.</param>
+        /// <returns>A enumerable with the sequence of numbers.</returns>
+        public static IEnumerable<T> Sequence<T> (int limit) {
+            return Sequence<T>(0, limit);
+        }
+
+        /// <summary>
+        /// Gets a sequence of numbers like the range function in Python.
+        /// </summary>
         /// <param name="start">The start number of the sequence.</param>
         /// <param name="limit">The limit number of the secuence.</param>
         /// <returns>A enumerable with the sequence of numbers.</returns>

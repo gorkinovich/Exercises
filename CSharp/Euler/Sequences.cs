@@ -16,6 +16,23 @@ namespace Euler {
         //----------------------------------------------------------------------
 
         /// <summary>
+        /// Makes a enumerable that returns the divisors of a number.
+        /// </summary>
+        /// <param name="victim">The number to check.</param>
+        /// <returns>A enumerable to obtain the sequence's numbers.</returns>
+        public static IEnumerable<ulong> Divisors (ulong victim) {
+            yield return 1;
+            if (victim > 1) {
+                for (ulong divisor = 2; divisor < victim; divisor++) {
+                    if (victim % divisor == 0) {
+                        yield return divisor;
+                    }
+                }
+                yield return victim;
+            }
+        }
+
+        /// <summary>
         /// Makes a enumerable that returns the factors of a number.
         /// </summary>
         /// <param name="victim">The number to check.</param>
