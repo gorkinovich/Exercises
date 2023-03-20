@@ -102,6 +102,38 @@ namespace Euler {
         }
 
         /// <summary>
+        /// Gets the permutations of an array of elements.
+        /// </summary>
+        /// <typeparam name="T">The type of the elements.</typeparam>
+        /// <param name="elements">The array with the elements.</param>
+        /// <returns>A enumerable of arrays with the permutations.</returns>
+        public static IEnumerable<T[]> Permutations<T> (T[] elements) {
+            var result = new LinkedList<T>();
+            var stack = new Stack<int>();
+            stack.Push(0);
+            while (stack.Count > 0) {
+                var current = stack.Pop();
+                if (stack.Count >= elements.Length) {
+                    yield return result.ToArray();
+                    result.RemoveLast();
+                } else {
+                    while (current < elements.Length && result.Contains(elements[current])) {
+                        current++;
+                    }
+                    if (current >= elements.Length) {
+                        if (result.Count > 0) {
+                            result.RemoveLast();
+                        }
+                    } else {
+                        result.AddLast(elements[current]);
+                        stack.Push(current + 1);
+                        stack.Push(0);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets a sequence of numbers using the C# range function.
         /// </summary>
         /// <typeparam name="T">The return type of the sequence.</typeparam>
