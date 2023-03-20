@@ -79,11 +79,6 @@ def get_numbers_by_type(limit, number_type):
     """
     return [victim for victim in range(1, limit)
             if NumberType.check(victim) == number_type]
-    # result = set()
-    # for victim in range(1, limit):
-    #     if NumberType.check(victim) == number_type:
-    #         result.add(victim)
-    # return sorted(result)
 
 
 def generate_abundant_sums(limit):
@@ -93,7 +88,7 @@ def generate_abundant_sums(limit):
     :return: A set with all the sums of two abundant numbers.
     """
     result = set()
-    numbers = get_numbers_by_type(LIMIT, NumberType.ABUNDANT)
+    numbers = get_numbers_by_type(limit, NumberType.ABUNDANT)
     for i in range(len(numbers)):
         left = numbers[i]
         for j in range(i, len(numbers)):
