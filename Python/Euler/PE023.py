@@ -77,11 +77,13 @@ def get_numbers_by_type(limit, number_type):
     :param number_type: The type of number to get.
     :return: A sorted list with the numbers filtered.
     """
-    result = set()
-    for victim in range(1, limit):
-        if NumberType.check(victim) == number_type:
-            result.add(victim)
-    return sorted(result)
+    return [victim for victim in range(1, limit)
+            if NumberType.check(victim) == number_type]
+    # result = set()
+    # for victim in range(1, limit):
+    #     if NumberType.check(victim) == number_type:
+    #         result.add(victim)
+    # return sorted(result)
 
 
 def generate_abundant_sums(limit):
