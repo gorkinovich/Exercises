@@ -53,7 +53,7 @@ namespace Euler {
         /// <returns>The number left raised to the power right.</returns>
         public static T IntPow<T> (T left, T right) where T : INumber<T> {
             T result = (T) Convert.ChangeType(1, typeof(T));
-            while (0.CompareTo(right--) < 0) {
+            while (default(T).CompareTo(right--) < 0) {
                 result *= left;
             }
             return result;
