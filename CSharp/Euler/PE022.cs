@@ -24,7 +24,7 @@ using System.Net.Http;
 
 namespace Euler {
     /// <summary>
-    /// This class represents the problem 20.
+    /// This class represents the problem 22.
     /// </summary>
     public class PE022 : IRunnable {
         /// <summary>

@@ -22,7 +22,7 @@ using System.Linq;
 
 namespace Euler {
     /// <summary>
-    /// This class represents the problem 20.
+    /// This class represents the problem 21.
     /// </summary>
     public class PE021 : IRunnable {
         /// <summary>

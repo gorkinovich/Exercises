@@ -35,7 +35,7 @@ using System.Numerics;
 
 namespace Euler {
     /// <summary>
-    /// This class represents the problem 24.
+    /// This class represents the problem 25.
     /// </summary>
     public class PE025 : IRunnable {
         /// <summary>
