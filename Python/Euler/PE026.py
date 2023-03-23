@@ -90,6 +90,13 @@ def extract_decimal_parts(table, initial_key, cycle_key):
 
 
 def get_division_parts(left, right):
+    """
+    Gets the parts of a division.
+    :param left: The left operand in the division.
+    :param right: The right operand in the division.
+    :return: A triplet with the integer part, the
+    decimal part, and the ending cycle part.
+    """
     table = {}
     generator = division_generator(left, right)
     integer_part, remainder, _, _ = next(generator)
