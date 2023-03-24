@@ -93,6 +93,14 @@ namespace Euler {
         }
 
         /// <summary>
+        /// Gets the next element in the sequencee.
+        /// </summary>
+        /// <returns>The next element.</returns>
+        public T Next () {
+            return Get(Count);
+        }
+
+        /// <summary>
         /// Resets the items from the list.
         /// </summary>
         public void Reset () {

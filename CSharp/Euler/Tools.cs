@@ -33,6 +33,31 @@ namespace Euler {
         }
 
         /// <summary>
+        /// Checks if a number is a prime number or not.
+        /// </summary>
+        /// <param name="candidate">The number to check.</param>
+        /// <param name="includeOne">The flag to include number one.</param>
+        /// <returns>True if the number is prime.</returns>
+        public static bool IsPrime (ulong candidate, bool includeOne = false) {
+            if (candidate == 1) {
+                return includeOne;
+            } else if (candidate > 1) {
+                if ((candidate % 2) == 0) {
+                    return false;
+                }
+                ulong limit = 1 + (ulong) Math.Truncate(Math.Sqrt(candidate));
+                for (ulong number = 3; number < limit; number += 2) {
+                    if ((candidate % number) == 0) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Returns a specified number raised to the specified power.
         /// </summary>
         /// <typeparam name="T">The type of the operands.</typeparam>
