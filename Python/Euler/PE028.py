@@ -42,7 +42,7 @@ def sum_diagonal_numbers(size):
     :param size: The side size of the square.
     :return: The final sum of the diagonal numbers.
     """
-    if ((size - 1) % 2) != 0:
+    if (size % 2) == 0:
         raise ValueError
     # Set the initial data of the algorithm:
     result = 1
