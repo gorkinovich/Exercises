@@ -54,7 +54,7 @@ namespace Tests {
             execute<PE027>("The product of the coefficients, 1 and 41, is 41.", "Primes chain (40) = [41, 43, 47, 53, 61, 71, 83, 97, 113, 131, 151, 173, 197, 223, 251, 281, 313, 347, 383, 421, 461, 503, 547, 593, 641, 691, 743, 797, 853, 911, 971, 1033, 1097, 1163, 1231, 1301, 1373, 1447, 1523, 1601]");
             execute<PE028>("The sum of the numbers on the diagonals in a 1001^2 spiral is 669171001.");
             execute<PE029>("The distinct terms in the sequence generated are 9183.");
-            // execute<PE030>("The sum of all the numbers that can be written as the sum of fifth powers of their digits is 240559.");
+            execute<PE030>("The sum of all the numbers that can be written as the sum of fifth powers of their digits is 240559.");
         }
 
         [TestMethod]
